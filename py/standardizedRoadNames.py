@@ -612,22 +612,25 @@ with arcpy.da.UpdateCursor(fc, streetFields) as cursor:
                 if roadNameVal in commonSuffixes:
                     idx = commonSuffixes.index(roadNameVal.upper())
                     newSuffix= standardSuffixes[idx] 
-                    if newSuffix == roadNameVals[-1]:
-                        roadNameVals.remove(roadNameVals[-1])
+                    roadNameVals.remove(roadNameVals[-1])
 
-                elif roadNameVal in commonPrefixes:
+                if roadNameVal in commonPrefixes:
                     idx1 = commonPrefixes.index(roadNameVal)
                     newPrefix= standardPrefixes[idx1]
-                    if newPrefix == roadNameVals[0]:
-                        roadNameVals.remove(roadNameVals[0])
-                else:
+                    roadNameVals.remove(roadNameVals[0])
+                if 'newPrefix' not in locals():
                     newPrefix = str(row[0])
+                if 'newSuffix' not in locals():
                     newSuffix = str(row[2])
                     
     
             newName = ' '.join(roadNameVals)
             newRow= [newPrefix,newName,newSuffix]
-            
+            del newSuffix    
+            del newPrefix
+            del newName
+            print "old row = "+str(row)
+            print "new row = "+str(newRow)
     
         else:
             prefix = row[0]
@@ -646,11 +649,11 @@ with arcpy.da.UpdateCursor(fc, streetFields) as cursor:
             
             newName = row[1].upper()            
             newRow= [newPrefix,newName,newSuffix]
+                
+            #print names
             
-        #print names
-        
-        print "old row = "+str(row)
-        print "new row = "+str(newRow)
+            print "old row = "+str(row)
+            print "new row = "+str(newRow)
     
         del row
         cursor.updateRow(newRow)
