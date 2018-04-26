@@ -11,12 +11,8 @@ import pandas
 import arcpy
 import numpy
 
-xlsx = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\OSD RPI Site (For Components) FOUO.xlsx"
-fc = "C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\installation_archives\\ANG_Peoria  - Copy\\Non_Network_CIP\\ANG_Peoria_CIP.gdb\\Cadastre\\Site_A"
-gdb = "C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\installation_archives\\ANG_Peoria  - Copy\\Non_Network_CIP\\ANG_Peoria_CIP.gdb"
-
-arcpy.env.workspace
-
+xlsx = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\dat\OSD RPI Site (For Components) FOUO.xlsx"
+gdb = "C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\dat\GeoBASE_3101_CIP_FINAL_20180327.gdb"
 
 def get_field_names(table):
     """
@@ -127,26 +123,32 @@ def feature_class_to_pandas_data_frame(feature_class, field_list):
         
         
 fcFields = []
-arcpy.env.workspace =gdb
-from pandas import DataFrame
 
+fds = "Cadastre"
+fClass = "Site_A"
+fcPath = os.path.join(gdb,fds,fClass)
+
+
+arcpy.env.workspace =gdb
 
 for fds in arcpy.ListDatasets():
-    for fc in arcpy.ListFeatureClasses(wild_card = "Site_A",feature_dataset=fds):
+    for fc in arcpy.ListFeatureClasses(wild_card = fClass,feature_dataset=fds):
         for fld in arcpy.ListFields(fc):
             fcFields.append(fld.name)
 
-iDat = pandas.DataFrame( [row for row in arcpy.da.SearchCursor(fc, fcFields) ] )
+iDat = pandas.DataFrame( [row for row in arcpy.da.SearchCursor(fcPath, fcFields) ] )
 
 dDat = pandas.read_excel(xlsx)
 
 
 disDat = dDat.loc[dDat['RPAD Submitter'] == 'AF']
 
-g = disDat.columns.to_series().groupby(disDat.dtypes).groups
-g
+# =============================================================================
+# g = disDat.columns.to_series().groupby(disDat.dtypes).groups
+# g
+# =============================================================================
 
-list(disDat)
+
 dRPSUID = disDat.RPSUID.unique()
 dRPSUID = list(dRPSUID)
 
@@ -175,16 +177,21 @@ for val in iRPSUID:
         isIn.append(val)
 
 
-newDf = disDat
+#newDf = disDat
+#pandas.options.mode.chained_assignment = None  # default='warn'
+#disDat = disDat.assign(missingRPSUID=None)
 
-pandas.options.mode.chained_assignment = None  # default='warn'
-disDat = disDat.assign(missingRPSUID=None)
-
-
-newDf[['RPSUID']] = newDf[['RPSUID']].astype(str)
 
 ## 
-len(disDat)
+list(disDat)
+newNames = []
+for n in list(disDat):
+    newName = (n,n.replace(' ', '_'))[-1]
+    newNames.append(newName)
+outNames = (list(disDat),list(disDat).replace(' ', '_'))[-1]
+
+disDat.columns = newNames
+
 # disDat_M = disDat[disDat['RPSUID'].isin(missing)]
 missingIndices = disDat['RPSUID'].isin(missing)
 missingIndices = disDat[missingIndices]
@@ -199,9 +206,9 @@ inIndices = disDat['RPSUID'].isin(isIn)
 inIndices = disDat[inIndices]
 inIndices
 
-disDat.missingRPSUID.loc[missingIndices.index] = "Missing in Geodatabase"
-disDat.missingRPSUID.loc[extraIndices.index] = "Non-SDS"
-disDat.missingRPSUID.loc[inIndices.index] = "Not Missing"
+disDat.Site_Reconciliation_Mismatch_Reason.loc[missingIndices.index] = "Missing in Geodatabase"
+disDat.Component_Comments.loc[extraIndices.index] = "Non-SDS"
+disDat.Component_Comments.loc[inIndices.index] = "Not Missing"
 
 outName = (xlsx,xlsx.replace(' ', '_'))[-1]
 writer = pandas.ExcelWriter(outName)
