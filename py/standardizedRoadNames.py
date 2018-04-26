@@ -13,9 +13,9 @@ env.overwriteOutput = True
 
 # usps suffix data from https://github.com/allanbreyes/udacity-data-science/tree/master/p2/data
      
-fc = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\installation_archives\ANG_Peoria  - Copy\Non_Network_CIP\ANG_Peoria_CIP.gdb\Transportation\RoadCenterline_L"   
+fc = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\archive\ANG_Peoria  - Copy\Non_Network_CIP\ANG_Peoria_CIP.gdb\Transportation\RoadCenterline_L"   
 
-gdb = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\installation_archives\ANG_Peoria  - Copy\Non_Network_CIP\ANG_Peoria_CIP.gdb"
+gdb = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\archive\ANG_Peoria  - Copy\Non_Network_CIP\ANG_Peoria_CIP.gdb"
 
 arcpy.env.workspace=gdb
 # column names: 
@@ -553,7 +553,6 @@ suffixes = [['ALLEY', 'ALLEE', 'ALY'],
     
 
 
-streetFields = ["ROADPREFIX","ROADNAME","ROADSUFFIX"]
 
 
 
@@ -568,95 +567,91 @@ tbdValues = ["tbd","TBD","To be determined","Tbd",99999,"99999"]
 indetVals = nullValues+otherValues+tbdValues                         
 
 
-
-cursor = arcpy.da.UpdateCursor(fc, streetFields)
 commonSuffixes = [el[1] for el in suffixes]
 standardSuffixes = [el[2] for el in suffixes]
 
 prefixes = [["NORTH","N"],
             ["north","N"],
             ["North","N"],
-            ["N", "N"],
+            ["North ","N"],
+            ["N","N"],
             ["SOUTH", "S"],
             ["south","S"],
             ["South","S"],
+            ["South ","S"],
             ["S","S"],
             ["WEST","W"],
             ["west","W"],
             ["West","W"],
+            ["West ","W"],
             ["W","W"],
             ["EAST","E"],
             ["east","E"],
             ["East","E"],
+            ["East ","E"],
             ["E","E"]]
 
 commonPrefixes = [el[0] for el in prefixes]
 #commonPrefixes =[item for sublist in commonPrefixes for item in sublist]
 standardPrefixes = [el[-1] for el in prefixes]
 
-for row in cursor:
-    roadName = row[1]
-    roadNameVals = roadName.split(" ")
+streetFields = ["ROADPREFIX","ROADNAME","ROADSUFFIX"]
+
+with arcpy.da.UpdateCursor(fc, streetFields) as cursor:
+    for row in cursor:
+        roadName = row[1]
+        roadNameVals = roadName.split(" ")
+        for n, i in enumerate(roadNameVals):
+            new = str(i)
+            roadNameVals[n] = new
+        
+        if roadNameVals > 1:
+            for roadNameVal in roadNameVals:
+                roadNameVal = str(roadNameVal)
     
+                if roadNameVal in commonSuffixes:
+                    idx = commonSuffixes.index(roadNameVal.upper())
+                    newSuffix= standardSuffixes[idx] 
+                    if newSuffix == roadNameVals[-1]:
+                        roadNameVals.remove(roadNameVals[-1])
+
+                elif roadNameVal in commonPrefixes:
+                    idx1 = commonPrefixes.index(roadNameVal)
+                    newPrefix= standardPrefixes[idx1]
+                    if newPrefix == roadNameVals[0]:
+                        roadNameVals.remove(roadNameVals[0])
+                else:
+                    newPrefix = str(row[0])
+                    newSuffix = str(row[2])
+                    
     
-    if roadNameVals > 1:
-        for roadNameVal in roadNameVals:
-            if roadNameVal in commonPrefixes:
-                idx1 = commonPrefixes.index(roadNameVal)
-                newPrefix= standardPrefixes[idx1]
+            newName = ' '.join(roadNameVals)
+            newRow= [newPrefix,newName,newSuffix]
+            
+    
+        else:
+            prefix = row[0]
+            if prefix in commonPrefixes:
+                idx = commonPrefixes.index(prefix)
+                newPrefix= standardPrefixes[idx] 
             else:
-                newPrefix = row[0]
+                newPrefix = prefix.upper()
                 
-            if roadNameVal in commonSuffixes:
-                idx = commonSuffixes.index(roadNameVal.upper())
+            suffix = row[2]
+            if suffix.upper() in commonSuffixes:
+                idx = commonSuffixes.index(suffix.upper())
                 newSuffix= standardSuffixes[idx] 
             else:
-                newSuffix = row[2]
-     
-        if not roadNameVals:
-            pass
-        else:
-            if newPrefix == roadNameVals[0]:
-               roadNameVals.remove(roadNameVals[0])
-            else:
-                pass 
-            if newSuffix == roadNameVals[-1]:
-                roadNameVals.remove(roadNameVals[-1])
-            else:
-                pass 
-            newName = ' '.join(roadNameVals)
-
-    newRow= [newPrefix,newName,newSuffix]
-    
-    print "old row = "+str(row)
-    print "new row = "+str(newRow)
-    
-    
-
-    else:
-        prefix = row[0]
-        if prefix in commonPrefixes:
-            idx = commonPrefixes.index(prefix)
-            newPrefix= standardPrefixes[idx] 
-        else:
-            newPrefix = prefix.upper()
+                newSuffix = suffix.upper()
             
-        suffix = row[2]
-        if suffix.upper() in commonSuffixes:
-            idx = commonSuffixes.index(suffix.upper())
-            newSuffix= standardSuffixes[idx] 
-        else:
-            newSuffix = suffix.upper()
+            newName = row[1].upper()            
+            newRow= [newPrefix,newName,newSuffix]
+            
+        #print names
         
-        newName = row[1].upper()            
-        newRow= [newPrefix,newName,newSuffix]
-        
-    #print names
+        print "old row = "+str(row)
+        print "new row = "+str(newRow)
     
-    print "old row = "+str(row)
-    print "new row = "+str(newRow)
-
-
-    cursor.updateRow(newRow)
-    del row
+        del row
+        cursor.updateRow(newRow)
                     
