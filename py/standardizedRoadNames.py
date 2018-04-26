@@ -13,11 +13,22 @@ env.overwriteOutput = True
 
 # usps suffix data from https://github.com/allanbreyes/udacity-data-science/tree/master/p2/data
      
-fc = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\archive\ANG_Peoria  - Copy\Non_Network_CIP\ANG_Peoria_CIP.gdb\Transportation\RoadCenterline_L"   
+fc =  arcpy.GetParameterAsText(0)
 
-gdb = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\archive\ANG_Peoria  - Copy\Non_Network_CIP\ANG_Peoria_CIP.gdb"
+def get_geodatabase_path(input_table):
+  '''Return the Geodatabase path from the input table or feature class.
+  :param input_table: path to the input table or feature class 
+  '''
+  workspace = os.path.dirname(input_table)
+  if [any(ext) for ext in ('.gdb', '.mdb', '.sde') if ext in os.path.splitext(workspace)]:
+    return workspace
+  else:
+    return os.path.dirname(workspace)
 
-arcpy.env.workspace=gdb
+gdbPath = get_geodatabase_path(fc[0])
+
+
+arcpy.env.workspace=gdbPath
 # column names: 
 # PrimaryStreetSuffixName
 # CommonlyUsed
