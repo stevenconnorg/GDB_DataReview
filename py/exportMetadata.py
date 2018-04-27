@@ -11,10 +11,12 @@ gdb = arcpy.GetParameterAsText(0)
 translator = arcpy.GetParameterAsText(1)
 outDir = arcpy.GetParameterAsText(2)
 
-gdb = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\archive\ANG_Peoria  - Copy\Non_Network_CIP\ANG_Peoria_CIP.gdb"
-translator = r"C:\Program Files (x86)\ArcGIS\Desktop10.6\Metadata\Translator\ARCGIS2FGDC.xml"
-outDir = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\archive\ANG_Peoria  - Copy\Non_Network_CIP\METADATA"
-
+# =============================================================================
+# gdb = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\archive\ANG_Peoria  - Copy\Non_Network_CIP\ANG_Peoria_CIP.gdb"
+# translator = r"C:\Program Files (x86)\ArcGIS\Desktop10.6\Metadata\Translator\ARCGIS2FGDC.xml"
+# outDir = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\archive\ANG_Peoria  - Copy\Non_Network_CIP\METADATA"
+# 
+# =============================================================================
 arcpy.env.workspace = gdb
 
 FDSs = arcpy.ListDatasets()
