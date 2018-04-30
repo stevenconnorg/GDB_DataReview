@@ -32,21 +32,17 @@ The Find Duplicate Features tool allows users to search an entire geodatabase's 
 This tool may be used to update the destination values in a target feature layer field with the values in another table's fields using a common key (join fields). This script is faster and more versatile than using a manual join/relate with ArcMap's Field Calculator.
 
 ### Standardize 'Building_A' Addresses
-
-....
+The purpose of this tool is to standardize the buildingAddress field within the AF SDSFIE Building_A feature class. This tool works by first searching the buildingAddress field within the Building_A feature class, then replaces any street prefixes (e.g.: North, north, East, West) are reformatted to "N", "S", "E", and "W," while all suffixes (e.g.: AVE, Avenue, Street) are reformatted to [standard USPS suffixes](https://github.com/allanbreyes/udacity-data-science/tree/master/p2/data).
 
 
 ### Parse 'roadCenterline_L' Names with Prefix and Suffix
 The purpose of this tool is to standardize the road prefix, road name, and road suffix values within the AF SDSFIE RoadCenterline_L feature class. This tool works by first searching the ROADNAME field within the RoadCenterline_L feature class, then removes any prefixes or suffixes within the field and moves them to the appropriate field. For all prefixes and suffixes found, the prefixes are reformatted to "N", "S", "E", and "W." For all suffixes found, the suffixes are reformatted to standard USPS suffixes.
 
 ### Batch Export Metadata to Directory
-
-....
-
+For each Feature Dataset and Feature Class (within Feature Datasets) in the input geodatabase, this tool exports each item's metadata to an .xml file to an output directory. This tool allows you to specify a metadata translator, by defaulting using one of ArcGIS standard translators "ARCGIS2FGDC.xml" (typically located at "C:\Program Files (x86)\ArcGIS\Desktop10.6\Metadata\Translator\", but you may specify any translator. If the source metadata is a Feature Dataset, the output .xml file is named after the Feature Dataset. Alternatively, the out .xml metadata for Feature Classes are exported with the Feature Dataset name prepended before the Feature Class name.
 
 ### Batch Import Metadata to Geodatabase Features
-
-....
+Similar to the 'Batch Export Metadata to Directory tool,' this tool imports a directory of .xml metadata files into AF SDSFIE Feature Classes. Using the .xml naming conventions explicated in the 'Batch Export Metadata to Directory,' this tool automatically matches the .xml file to the respective Feature Dataset or Feature Class.
 
 
 ### Search for Indeterminant Data
