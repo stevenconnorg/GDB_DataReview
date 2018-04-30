@@ -44,7 +44,7 @@ The tool has 8 parameters:
 
 Navigate to the location of the script tool, then right-click the 'Join Fields and Calculate' script tool to open (Fig. 1).
 
-![Open the Python script tool](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorial-images\\joinCalc-open_tool.jpg)
+![Open the Python script tool](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorials\\tutorial-images\\joinCalc-open_tool.jpg)
 
 \pagebreak
 
@@ -59,9 +59,9 @@ We noticed that the 'buildingNumber' field has some leading zeros that we want t
 You may also get more information for the tool and each tool parameter by clicking the 'Tool Help' button at the bottom of the tool dialog box.  
 Alternatively, you may also run this tool in 'batch' for multiple features in a geodatabase or geodatabases (Fig. 3).
 
-![Tool Parameters](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorial-images\\joinCalc-tool_params.jpg)
+![Tool Parameters](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorials\\tutorial-images\\joinCalc-tool_params.jpg)
 
-![Tool Parameters](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorial-images\\joinCalc-batch.jpg)
+![Tool Parameters](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorials\\tutorial-images\\joinCalc-batch.jpg)
 
 
 
@@ -75,7 +75,7 @@ Open the destinate Feature Class and view the update destination field values.
 
 Before                     |  After
 :-------------------------:|:-------------------------:
-![realPropertyUniqueIDs in Building_A Feature - Before ](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorial-images\\joinCalc-before.jpg)  |  ![realPropertyUniqueIDs in Building_A Feature - After](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorial-images\\joinCalc-results.jpg)
+![realPropertyUniqueIDs in Building_A Feature - Before ](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorials\\tutorial-images\\joinCalc-before.jpg)  |  ![realPropertyUniqueIDs in Building_A Feature - After](C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\tutorials\\tutorial-images\\joinCalc-results.jpg)
 
 
 \pagebreak

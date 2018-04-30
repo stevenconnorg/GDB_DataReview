@@ -13,23 +13,44 @@ The Find Duplicate Geometry tool allows users to search an entire geodatabase's 
 
 ### Clip GDB Features to Geometry
 
+....
+
+
 ### Calculate Feature RPSUIDs from Overlapping Polygons
+
+....
+
 
 ### Check and/or Repair Geometries
 
+....
+
+
 ### Find Duplicate Features
+
+....
+
 
 ### Join Fields and Calculate
 This tool may be used to update the destination values in a target feature layer field with the values in another table's fields using a common key (join fields). This script is faster and more versatile than using a manual join/relate with ArcMap's Field Calculator.
 
 ### Standardize 'Building_A' Addresses
 
+....
+
+
 ### Parse 'roadCenterline_L' Names with Prefix and Suffix
 The purpose of this tool is to standardize the road prefix, road name, and road suffix values within the AF SDSFIE RoadCenterline_L feature class. This tool works by first searching the ROADNAME field within the RoadCenterline_L feature class, then removes any prefixes or suffixes within the field and moves them to the appropriate field. For all prefixes and suffixes found, the prefixes are reformatted to "N", "S", "E", and "W." For all suffixes found, the suffixes are reformatted to standard USPS suffixes.
 
 ### Batch Export Metadata to Directory
 
+....
+
+
 ### Batch Import Metadata to Geodatabase Features
+
+....
+
 
 ### Search for Indeterminant Data
 Search a 'source' geodatabase for indeterminate data from feature dataset/feature class combinations in a target geodatabase. First, searches for missing feature datasets in target geodatabase not in source geodatabase. Then, searches for feature classes in 'x' feature dataset. Then, for each feature class in the source geodatabase, this tool searches for 'indeterminate' values in each field. Indeterminate values, here, means any null, to be determined (TBD), or 'other' values.
@@ -53,34 +74,37 @@ This tool creates 4 output tables, each prepended with the name of the Model_Geo
 
 This script tool requires a few non-standard Python modules to run successfully, including the modules: numpy, pandas. To install these modules for use in ArcGIS, install the modules using the commands "pip install pandas" and "pip install numpy." To do this, 
 
-press the windows key on your keyboard
+	(1) press the windows key on your keyboard
 
-type "cmd" to open the command prompt window
+	(2) type "cmd" to open the command prompt window
 
-set your working directory as your ArcGIS Python scripts directory. This is typically located at C:\Python27\ArcGIS[versionNumber]\Scripts
+	(3) set your working directory as your ArcGIS Python scripts directory. This is typically located at C:\Python27\ArcGIS[versionNumber]\Scripts
 
-(do this by typing 'cd C:\Python27\ArcGIS[versionNumber]\Scripts' and clicking enter). Replace [versionNumber] with you ArcGIS version number (e.g.: if you are running ArcMap10.6, input: "C:\Python27\ArcGIS10.6\Scripts"
+	(3.1) (do this by typing 'cd C:\Python27\ArcGIS[versionNumber]\Scripts' and clicking enter). Replace [versionNumber] with you ArcGIS version number (e.g.: if you are running ArcMap10.6, input: "C:\Python27\ArcGIS10.6\Scripts"
 
-type 'pip install numpy' and press enter, then type 'pip install pandas' and press enter. If all goes well, you will have these modules successfully installed for use in ArcGIS' Python distribution 
+	(4) type 'pip install numpy' and press enter, then type 'pip install pandas' and press enter. If all goes well, you will have these modules successfully installed for use in ArcGIS' Python distribution 
 
 The inputs required for this tool to work are the 4 output tables created with the "Search for Indeterminate Data" script tool (please ensure these are all from the same comparison geodatabase):
 
-[comparison GDB]_MissingFDS"
+	"[comparison GDB]_MissingFDS"
 
-[comparison GDB]_MissingFCs"
+	"[comparison GDB]_MissingFCs"
 
-[comparison GDB]_MissingFields"
+	"[comparison GDB]_MissingFields"
 
-[comparison GDB]_MissingData" 
+	"[comparison GDB]_MissingData" 
 
 
 This tool takes these 4 input tables and creates an outbook Excel Workbook (last parameter), which includes the following sheets:
 
-Summary_by_FC - gives the counts and percentages of 'Other', 'Null', and 'TBD' cells by Feature Class, as well as the total counts and percentages of indeterminate (Other + Null + TBD) and determinate cells (not Other, Null, or TBD), 
+Summary_by_FC gives: 
+	the counts and percentages of 'Other', 'Null', and 'TBD' cells by Feature Class, as well as the total counts and percentages of indeterminate (Other + Null + TBD) and determinate cells (not Other, Null, or TBD), 
 
-Summary_by_Field - gives the same statistics as the Summary_by_FC sheet, but broken down further by Feature Class Fields,
+Summary_by_Field gives: 
+	the same statistics as the Summary_by_FC sheet, but broken down further by Feature Class Fields,
 
-Empty Feature Classes - gives the standard Feature Classes in the comparison geodatabase not included in the input geodatabase(i.e.: Feature Classes included in comparison geodatabases)
+Empty Feature Classes gives: 
+	the standard Feature Classes in the comparison geodatabase not included in the input geodatabase(i.e.: Feature Classes included in comparison geodatabases)
 
 Indeterminate_Overview, gives :
 
@@ -96,10 +120,7 @@ Indeterminate_Overview, gives :
 
 	the total number of empty fields from empty feature classes
 
-the total number of empty fields from non-empty feature classes. 
-
-
-
+	the total number of empty fields from non-empty feature classes. 
 
 ## Indeterminant Data Reporting
 
