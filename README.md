@@ -13,13 +13,10 @@ The Find Duplicate Geometry tool allows users to search an entire geodatabase's 
 
 ### Clip GDB Features to Geometry
 
-....
-
+This tool loops through all Feature Classes within Feature Datasets in a source geodatabase, then clips each feature within each Feature Class to the 'Clip Feature' parameter. All clipped Feature Classes are added to a new, output geodatabase that follows the same Feature Dataset/Feature Class geodatabase structure and has the same coordiante reference system as the source geodatabase.
 
 ### Calculate Feature RPSUIDs from Overlapping Polygons
-
-....
-
+This tool utilizes spatial joins to update field values in the target Feature Classes field to equal the source Feature Class fields in a source geodatabase. Using 'wildcard' fitlers, this tool allows users to update particular target Feature Datasets, Feature Classes, and Fields. For the purposes of this tool within the scope of the CIP Data Review task, target Fields are, by default, any fields that begin with "realPropertySiteUnique," in order to udpate RPSUID fields called either "realPropertySiteUniqueIdentifier" or "realPropertySiteUniqueID"; however, this tool could be extended to any number of source/target Feature Class/Field values. 
 
 ### Check and/or Repair Geometries
 
