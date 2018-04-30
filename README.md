@@ -24,8 +24,8 @@ This tool utilizes spatial joins to update field values in the target Feature Cl
 
 
 ### Find Duplicate Features
+The Find Duplicate Features tool allows users to search an entire geodatabase's Feature Classes within Feature Datasets for features with duplicate features. For this tool, duplicate features include any Feature Class' fields not including the geometry, Shape_Area, or Shape_Length fields. This tool loops through each Feature Dataset's Feature Class features and searches for duplicate features across all other fields. All features with duplicate features are written to the output .csv file, as specified, and describes the Feature Dataset and Feature Class with duplicate features, the OBJECTIDs of the duplicate features, and a summary narrative, which gives the count of unique duplicate features. Further, this tool creates layer files for each Feature Class' duplicate features, allowing users to edit their geodatabase directory from a temporary, filtered layer of only duplicate features to be evaluated further.
 
-....
 
 
 ### Join Fields and Calculate
