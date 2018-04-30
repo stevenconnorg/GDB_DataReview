@@ -8,8 +8,10 @@ Created on Thu Apr 26 11:15:52 2018
 import arcpy, os
 #Get path to the geodatabase
 workpath = arcpy.GetParameterAsText(0)
-outputGDB = arcpy.GetParameterAsText(1)
-outputDir = arcpy.Describe(outputGDB).path
+xyTolerance = arcpy.GetParameterAsText(1)
+zTolerance = arcpy.GetParameterAsText(2)
+outputCSV = arcpy.GetParameterAsText(3)
+outputLayers =  arcpy.GetParameterAsText(4)
 
 # Workspace
 arcpy.env.workspace = workpath
@@ -34,7 +36,7 @@ for dataset in arcpy.ListDatasets():
 
         # Find duplicate geometry
         dupeTable = "in_memory\\tmp"
-        arcpy.FindIdentical_management(fc, "in_memory\\tmp", ["Shape"],output_record_option="ONLY_DUPLICATES")
+        arcpy.FindIdentical_management(fc, "in_memory\\tmp", ["Shape"],xy_tolerance= xyTolerance, z_tolerance = zTolerance, output_record_option="ONLY_DUPLICATES")
         
         # Get table count and pass the dataset if no duplicates exist
         tblCount = arcpy.GetCount_management(dupeTable)
@@ -70,7 +72,7 @@ for dataset in arcpy.ListDatasets():
             arcpy.MakeFeatureLayer_management(fc, outLyrName, expression)
             
             
-            arcpy.SaveToLayerFile_management(outLyrName, os.path.join(outputDir,outLyrName),"ABSOLUTE","10.3")
+            arcpy.SaveToLayerFile_management(outLyrName, os.path.join(outputLayers,outLyrName),"ABSOLUTE","10.3")
             arcpy.Delete_management(dupeTable)
             del outLyrName
             del dupeTable
@@ -80,10 +82,13 @@ import csv
 if not outTbl:
     arcpy.AddMessage("No duplicate geometries found!")
 else:
-    with open(outputDir+"/Duplicate_Geometry_Summary.csv", "wb") as f:
+    with open(outputCSV, "wb") as f:
         writer = csv.writer(f)
         writer.writerows(outTbl)
 # Save duplicate geometry results to layer file
+
+
+
 
 
 

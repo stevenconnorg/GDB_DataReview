@@ -3,21 +3,17 @@
 # Version:     V_2.0
 # Purpose:     Produce report for installation geodatabase detailing data attribution
 #
-# Author:      Marie Cline Delgado & Steven Connor Gonzalez
+# Author:      Steven Connor Gonzalez
 #
 # Created:     2018/01/26
-# Last Update: 2018/03/22
-# Description: Evaluate installation geodatabases for minimum attribution required
-#              by AFCEC GIS viewer for best display of data.
+# Last Update: 2018/04/30
 #-------------------------------------------------------------------------------
 
 # Import modules
-import arcpy, os, collections, numpy, pandas, time
-from pandas import DataFrame
+import arcpy, os, collections, time
 from datetime import datetime
 from operator import itemgetter
 from datetime import date
-import sys 
 
 # Start time
 timenow = datetime.now()
@@ -106,29 +102,7 @@ def createMissingFDstbl(installGDB,missingFDTblName="MissingFDS"):
     arcpy.AddField_management(errorTable, "INSTALLATION", "TEXT", field_length = 100)         
     arcpy.AddMessage (missingFDTblName + " Table Created in " + os.path.splitext(os.path.basename(installGDB) + "gdb")[0])
 
-# to get dataframe of feature datasets, feature classes, and fields of geodatabase
-def getFeaturesdf(GDB):
-    '''
-    # to get unique FDS, FC, and FIELDS across a geodatabase
-    Parameters
-    ----------
-    GDB = path to GDB
-    
-    Returns
-    -------
-    pandas dataframe of with two columns: Feature Dataset, Feature Class for each fc in gdb.
-    '''
 
-    d = pandas.DataFrame([])
-    arcpy.env.workspace = GDB
-    for theFDS in arcpy.ListDatasets():
-        for theFC in arcpy.ListFeatureClasses(feature_dataset=theFDS):
-            minFields = (fld.name.upper() for fld in arcpy.ListFields(os.path.join(GDB,theFDS,theFC)) if str(fld.name) not in ['Shape', 'OBJECTID', 'Shape_Length', 'Shape_Area'])
-            minFields = list(minFields)
-            for FLD in minFields:
-                d = d.append(pandas.DataFrame({'FDS': str(theFDS), 'FC': str(theFC), 'FLD': str(FLD.name)}, index=[0]), ignore_index=True)
-    return(d)
-	
 # to get field name of a ArcGIS table
 def get_field_names(table):
     """
@@ -158,64 +132,7 @@ def get_field_names(table):
     # return the field list
     return field_list
 
-# to convert arcgis table to pandas dataframe
-def table_to_pandas_dataframe(table, field_names=None):
-    """
-    Load data into a Pandas Data Frame from esri geodatabase table for subsequent analysis.
-    
-    Parameters
-    ----------
-    table = Table readable by ArcGIS.
-    field_names: List of fields.
-    Returns
-    -------
-    Pandas DataFrame object.
-    
-    """
-    # if field names are not specified
-    if not field_names:
 
-        # get a list of field names
-        field_names = get_field_names(table)
-
-    # create a pandas data frame
-    dataframe = DataFrame(columns=field_names)
-
-    # use a search cursor to iterate rows
-    with arcpy.da.SearchCursor(table, field_names) as search_cursor:
-
-        # iterate the rows
-        for row in search_cursor:
-
-            # combine the field names and row items together, and append them
-            dataframe = dataframe.append(
-                dict(zip(field_names, row)), 
-                ignore_index=True
-            )
-
-    # return the pandas data frame
-    return dataframe
-
-
-# to get a pandas dataframe into a arcgis table
-def pandas_to_table(pddf,tablename):
-    '''
-    Parameters
-    ----------
-    pddf = pandas dataframe
-    tablename = output table name to 'installGDB'
-    
-    Returns
-    -------
-    a geodatabase table from pandas dataframe inside 'installGDB' geodatabase object (string to .gdb path)
-    '''
-    x = numpy.array(numpy.rec.fromrecords(pddf))
-    names = pddf.dtypes.index.tolist()
-    x.dtype.names = tuple(names)
-    gdbTbl = os.path.join(installGDB,tablename)
-    if arcpy.Exists(gdbTbl):
-        arcpy.Delete_management(gdbTbl)
-    arcpy.da.NumPyArrayToTable(x, gdbTbl)
 
 # main function to compare missing data from source geodatabase compared with target geodatabase schema
 def compareGDBs(installGDB,compGDB):
@@ -360,31 +277,7 @@ def compareGDBs(installGDB,compGDB):
     missFDSTable = os.path.join(installGDB,missingFDTblName)
     fdrows = arcpy.InsertCursor(missFDSTable)
     
-    
-# =============================================================================
-#     installFeaturesdf = getFeaturesdf(GDB=installGDB)
-#     
-#     if installFeaturesdf.equals(compFeaturesdf):
-#         nonSDSdf = pandas.DataFrame()
-#         pandas_to_table(nonSDSdf,tablename=compName+"_NON_SDS_FC") 
-#         arcpy.AddMessage ("No non-SDS feature datasets or feature classes found")
-#     else:
-#         arcpy.AddMessage ("Getting Feature Dataset/Feature Class combos in "+installationName + ".gdb that are not in " + compName+".gdb")
-#         installFClist = list(installFeaturesdf[['FDS','FC']].apply(lambda x: '/'.join(x), axis=1))
-#         compFClist = list(compFeaturesdf[['FDS','FC']].apply(lambda x: '/'.join(x), axis=1))
-#              
-#         nonSDSFCslist = list(set(installFClist) -set(compFClist))
-#     
-#     
-#         nonSDSdf = pandas.DataFrame()
-#         nonSDSdf["FDS"]=[i.split('/', 1)[0] for i in nonSDSFCslist]
-#         nonSDSdf["FC"]=[i.split('/', 1)[1] for i in nonSDSFCslist]
-#         arcpy.AddMessage ("Feature Classes in "+installationName+" not included in target geodatabase "+ compName+".")
-#         if arcpy.Exists(os.path.join(installGDB,compName+"_NON_SDS_FC")): 
-#             arcpy.Delete_management(os.path.join(installGDB,compName+"_NON_SDS_FC"))
-#         pandas_to_table(nonSDSdf,tablename=compName+"_NON_SDS_FC")     
-#     
-# =============================================================================
+
     ## THEN WORK ON MISSING DATA
     arcpy.env.workspace = compGDB
     theFDSs = list(arcpy.ListDatasets())
