@@ -4,41 +4,12 @@ Created on Mon Apr 23 12:59:28 2018
 
 @author: stevenconnorg
 """
-# for use in an ArcMap Toolbox	
-	
-# alternative tool to using join with field calculator to update records	
-# updates a target feature class using a join with a source table	
-# requires two join fields	
-# and a target field and update field	
-	
-# params #	
-# 1 Transfer from : source table	
-# 2 Using Join Field : source join field	
-# 3 Source Field: source field	
-# 4 Destination Feature: target feature layer to update	
-# 5 Destination Join Field: target feature layer join field	
-# 6 Destination Field: target field to update	
-# 7 Where Clause: how to filter source table features? (default: IS NOT NULL)	
-# 8 Remove Leading Zeros: remove leading zeros from target ID field?	
-# 9 source join key field 2
-# 10 update join key field 2
 
 import arcpy, os
 from arcpy import env
 env.overwriteOutput = True
 
-#gdb = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\installation_archives\ANG_Peoria  - Copy\Non_Network_CIP\ANG_Peoria_CIP.gdb"
-#
-## source feature
-#siteA = os.path.join(gdb,"Cadastre","Site_A")
-## source RPSUID field
-#sourceRPSUID = "realPropertySiteUniqueID"
-#
-#targetFieldWildcard = "realPropertySiteUnique*"
-#
-#overlap_type="WITHIN"
-
-
+# input geodatabase
 gdb =arcpy.GetParameterAsText(0)
 
 # source feature
