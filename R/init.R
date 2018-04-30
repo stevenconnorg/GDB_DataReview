@@ -41,28 +41,26 @@ requiredPackages = c('packrat'
                      ,'digest'
                      ,'backports'
                      ,'devtools'
-                     ,'rmarkdown'
-                     ,'knitr'
 )
 
 Install_And_Load(requiredPackages)
 
-# devtools::install_github('rstudio/rmarkdown')
-# install_version("rmarkdown", version = 1.9)
-# library(rmarkdown)
-# 
-# devtools::install_github('yihui/knitr',force=TRUE)
-# library(knitr)
-# 
-# devtools::install_github("haozhu233/kableExtra")
-# library(kableExtra)
-# 
-# install_version("yaml", version = "2.1.14", repos = "http://cran.us.r-project.org")
-# library(yaml)
-# 
-# devtools::install_github('yihui/tinytex')
-# library(tinytex)
-# tinytex::install_tinytex()
+devtools::install_github('rstudio/rmarkdown')
+install_version("rmarkdown", version = 1.9)
+library(rmarkdown)
+
+devtools::install_github('yihui/knitr',force=TRUE)
+library(knitr)
+
+devtools::install_github("haozhu233/kableExtra")
+library(kableExtra)
+
+install_version("yaml", version = "2.1.14", repos = "http://cran.us.r-project.org")
+library(yaml)
+
+devtools::install_github('yihui/tinytex')
+library(tinytex)
+tinytex::install_tinytex()
 
 
 
