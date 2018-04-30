@@ -98,12 +98,15 @@ The inputs required for this tool to work are the 4 output tables created with t
 This tool takes these 4 input tables and creates an outbook Excel Workbook (last parameter), which includes the following sheets:
 
 Summary_by_FC gives: 
+
 	the counts and percentages of 'Other', 'Null', and 'TBD' cells by Feature Class, as well as the total counts and percentages of indeterminate (Other + Null + TBD) and determinate cells (not Other, Null, or TBD), 
 
 Summary_by_Field gives: 
+
 	the same statistics as the Summary_by_FC sheet, but broken down further by Feature Class Fields,
 
 Empty Feature Classes gives: 
+
 	the standard Feature Classes in the comparison geodatabase not included in the input geodatabase(i.e.: Feature Classes included in comparison geodatabases)
 
 Indeterminate_Overview, gives :
