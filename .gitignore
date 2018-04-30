@@ -1,0 +1,10 @@
+gdb*/*
+*.zip
+Reports/*
+gdbs-target/*
+packrat/lib*/
+packrat/bundles*/
+.Rproj.user
+dat/*
+archive/*
+out/*
