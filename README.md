@@ -57,16 +57,16 @@ Search a 'source' geodatabase for indeterminate data from feature dataset/featur
 
 This tool creates 4 output tables, each prepended with the name of the Model_Geodatabase (e.g.: If you 'model' geodatabase is the SDSFIE CIP geodatabase, the tables will be called (CIP_MissingFDS, CIP_Missing_FCs, CIP_MissingFields, and CIP_MissingData). These tables include: 
 
-	[modelGeodatabaseName]_MissingFDS
+	**[modelGeodatabaseName]_MissingFDS**
 
 
-	[modelGeodatabaseName]_MissingFCs
+	**[modelGeodatabaseName]_MissingFCs**
 
 
-	[modelGeodatabaseName]_MissingFields
+	**[modelGeodatabaseName]_MissingFields**
 
 
-	[modelGeodatabaseName]_MissingData 
+	**[modelGeodatabaseName]_MissingData**
 
 
 
@@ -74,15 +74,15 @@ This tool creates 4 output tables, each prepended with the name of the Model_Geo
 
 This script tool requires a few non-standard Python modules to run successfully, including the modules: numpy, pandas. To install these modules for use in ArcGIS, install the modules using the commands "pip install pandas" and "pip install numpy." To do this, 
 
-	(1) press the windows key on your keyboard
+	(1) Press the windows key on your keyboard
 
-	(2) type "cmd" to open the command prompt window
+	(2) Type "cmd" to open the command prompt window
 
-	(3) set your working directory as your ArcGIS Python scripts directory. This is typically located at C:\Python27\ArcGIS[versionNumber]\Scripts
+	(3) Set your working directory as your ArcGIS Python scripts directory. This is typically located at C:\Python27\ArcGIS[versionNumber]\Scripts
 
-	(3.1) (do this by typing 'cd C:\Python27\ArcGIS[versionNumber]\Scripts' and clicking enter). Replace [versionNumber] with you ArcGIS version number (e.g.: if you are running ArcMap10.6, input: "C:\Python27\ArcGIS10.6\Scripts"
+	(3.1) Do this by typing 'cd C:\Python27\ArcGIS[versionNumber]\Scripts' and clicking enter. Replace [versionNumber] with you ArcGIS version number (e.g.: if you are running ArcMap10.6, input: "C:\Python27\ArcGIS10.6\Scripts"
 
-	(4) type 'pip install numpy' and press enter, then type 'pip install pandas' and press enter. If all goes well, you will have these modules successfully installed for use in ArcGIS' Python distribution 
+	(4) Type 'pip install numpy' and press enter, then type 'pip install pandas' and press enter. If all goes well, you will have these modules successfully installed for use in ArcGIS' Python distribution 
 
 The inputs required for this tool to work are the 4 output tables created with the "Search for Indeterminate Data" script tool (please ensure these are all from the same comparison geodatabase):
 
@@ -97,15 +97,15 @@ The inputs required for this tool to work are the 4 output tables created with t
 
 This tool takes these 4 input tables and creates an outbook Excel Workbook (last parameter), which includes the following sheets:
 
-Summary_by_FC gives: 
+The **Summary_by_FC** table gives: 
 
 	the counts and percentages of 'Other', 'Null', and 'TBD' cells by Feature Class, as well as the total counts and percentages of indeterminate (Other + Null + TBD) and determinate cells (not Other, Null, or TBD), 
 
-Summary_by_Field gives: 
+The **Summary_by_Field** table gives: 
 
 	the same statistics as the Summary_by_FC sheet, but broken down further by Feature Class Fields,
 
-Empty Feature Classes gives: 
+The **Empty Feature Classes** table gives: 
 
 	the standard Feature Classes in the comparison geodatabase not included in the input geodatabase(i.e.: Feature Classes included in comparison geodatabases)
 
