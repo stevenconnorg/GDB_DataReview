@@ -13,7 +13,6 @@
 
 # Import modules
 import arcpy, os, collections, numpy, pandas, time
-import shutil
 from pandas import DataFrame
 from datetime import datetime
 from operator import itemgetter
@@ -31,7 +30,7 @@ print(timenow)
 #mainDir = os.path.dirname(os.path.realpath(__file__)))
 
 # change this to the location of python script
-mainDir = "C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\AF_Installation_Feedback"
+mainDir = "C:\\Users\\stevenconnorg\\Documents\\knight-federal-solutions\\CIP_DataReview\\dat"
 os.chdir(mainDir)
 
 # within the main directory, create a directory called "gdbs" that houses all the geodatabase you want to compare.
@@ -666,7 +665,7 @@ def compareGDBs(installGDB,compGDB):
     print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))
             
 
-    ## CONVERT TABLES TO PANDAS DATAFRAMES
+  ## CONVERT TABLES TO PANDAS DATAFRAMES
     pdNullTbl= table_to_pandas_dataframe(nullTable, field_names=None)
     pdFLDTbl= table_to_pandas_dataframe(missFLDTable, field_names=None)
     pdFCTbl= table_to_pandas_dataframe(missFCTable, field_names=None)
@@ -680,45 +679,35 @@ def compareGDBs(installGDB,compGDB):
     pdFDSTbl = pdFDSTbl.replace('', numpy.NaN)
 
     # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE INDETERMINANT
-    print ("Getting count of indeterminant cells per feature class for "+ installationName + " gdb compared with " + compName+ ".gdb")
+    arcpy.AddMessage ("Getting count of indeterminant cells per feature class")
     indtCntByFC = pdNullTbl.groupby(['FDS','FC','INSTALLATION'])['TOTAL_INDT_COUNT'].agg('sum').fillna(0).reset_index()
-
-    pandas_to_table(pddf=indtCntByFC,tablename=compName+"_IndtCellCountbyFC")
-    
+    indtCntByFC=pandas.DataFrame(indtCntByFC)
     # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE INDETERMINANT
-    print ("Getting count of indeterminant cells per feature class for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of indeterminant cells per feature class")
     detCntByFC = pdNullTbl.groupby(['FDS','FC','INSTALLATION'])['TOTAL_DET_COUNT'].agg('sum').fillna(0).reset_index()
-
-    pandas_to_table(pddf=detCntByFC,tablename=compName+"_DetCellCountbyFC")
-    
+    detCntByFC=pandas.DataFrame(detCntByFC)
 
     # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE NULL
     ## THEN EXPORT THEM TO THE GEODATABASE
-    print ("Getting count of 'null' cells per feature class for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of 'null' cells per feature class")
     nullCntByFC = pdNullTbl.groupby(['FDS','FC','INSTALLATION'])['NULL_FC_COUNT'].agg('sum').fillna(0).reset_index()
-
-    pandas_to_table(pddf=nullCntByFC,tablename=compName+"_NullCellCountbyFC")
-    
+    nullCntByFC=pandas.DataFrame(nullCntByFC)
     # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE TBD
     ## THEN EXPORT THEM TO THE GEODATABASE
-    print ("Getting count of 'tbd' cells per feature class for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of 'tbd' cells per feature class")
     tbdCntByFC = pdNullTbl.groupby(['FDS','FC','INSTALLATION'])['TBD_FC_COUNT'].agg('sum').fillna(0).reset_index()
     tbdCntByFC=pandas.DataFrame(tbdCntByFC)
 
-    pandas_to_table(pddf=tbdCntByFC,tablename=compName+"_TBDCellCountbyFC")
-
-
     # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE OTHER
     ## THEN EXPORT THEM TO THE GEODATABASE
-    print ("Getting count of 'other' cells per feature class for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of 'other' cells per feature class")
     otherCntByFC = pdNullTbl.groupby(['FDS','FC','INSTALLATION'])['OTHER_FC_COUNT'].agg('sum').fillna(0).reset_index()
     otherCntByFC=pandas.DataFrame(otherCntByFC)
-    pandas_to_table(pddf=otherCntByFC,tablename=compName+"_OtherCellCountbyFC")
-    
+
     
     # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE INDETERMINANT
     totalCntByFC = pdNullTbl.groupby(['FDS','FC','INSTALLATION'])['POP_VALS_COUNT'].agg('sum').fillna(0).reset_index()
-
+    totalCntByFC=pandas.DataFrame(totalCntByFC)
 
     j1 = otherCntByFC.join ( tbdCntByFC.set_index( [ 'FDS','FC','INSTALLATION'], verify_integrity=True ),
                on=[ 'FDS','FC','INSTALLATION'], how='left' )
@@ -739,65 +728,93 @@ def compareGDBs(installGDB,compGDB):
     summary["INSTALLATION"]=j5.INSTALLATION
     summary["FDS"]=j5.FDS  
     summary["FC"]=j5.FC  
-    summary["OTHER_PCT"] = j5.OTHER_FC_COUNT/(j5.POP_VALS_COUNT)
-    summary["TBD_PCT"] = j5.TBD_FC_COUNT/(j5.POP_VALS_COUNT)
-    summary["NULL_PCT"] = j5.NULL_FC_COUNT/(j5.POP_VALS_COUNT)
-    summary["DETERMINED_PCT"] = j5.TOTAL_DET_COUNT/(j5.POP_VALS_COUNT)
-    summary["UNDETERMINED_PCT"] = j5.TOTAL_INDT_COUNT/(j5.POP_VALS_COUNT)
-    summary.sort_values(by=['UNDETERMINED_PCT'])
-    pandas_to_table(pddf=j5,tablename=compName+"_Summary_Cell_Count_by_FC")
+    summary["OTHER_PCT"] = (j5.OTHER_FC_COUNT/(j5.POP_VALS_COUNT))*100
+    summary["TBD_PCT"] = (j5.TBD_FC_COUNT/(j5.POP_VALS_COUNT))*100
+    summary["NULL_PCT"] = (j5.NULL_FC_COUNT/(j5.POP_VALS_COUNT))*100
+    summary["OTHER_CNT"] = j5.OTHER_FC_COUNT
+    summary["TBD_CNT"] = j5.TBD_FC_COUNT
+    summary["NULL_CNT"] = j5.NULL_FC_COUNT
+    summary["DETERMINED_PCT"] = (j5.TOTAL_DET_COUNT/(j5.POP_VALS_COUNT))*100
+    summary["UNDETERMINED_PCT"] = (j5.TOTAL_INDT_COUNT/(j5.POP_VALS_COUNT))*100
+    summary["DETERMINED_CNT"] = j5.TOTAL_DET_COUNT
+    summary["UNDETERMINED_CNT"] = j5.TOTAL_INDT_COUNT
+    pandas_to_table(summary,compName+"_Summary_Cell_Pct_by_FC")
+
+    #summary.to_csv(os.path.join(outputFolder,compName+"_Summary_Cell_Pct_by_FC.csv"))
     
-    
-    pandas_to_table(pddf=summary,tablename=compName+"_Summary_Cell_Pct_by_FC")
-    
+    writer = pandas.ExcelWriter(outputFile+".xlsx")
+    #summary.to_excel(writer,sheet_name=compName+"_Summary_by_FC")
+
     ''' do the above but grouping by field also '''
         # FOR EACH FIELD, GET COUNT OF CELLS THAT ARE NULL
     ## THEN EXPORT THEM TO THE GEODATABASE
-    print ("Getting count of 'null' cells per feature class field for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of 'null' cells per feature class field")
     nullCntByFLD = pdNullTbl.groupby(['FDS','FC','INSTALLATION','FIELD'])['NULL_FC_COUNT'].agg('sum').fillna(0).reset_index()
 
     nullCntByFLD=pandas.DataFrame(nullCntByFLD)
-    nullCntByFLD=nullCntByFLD.query('NULL_FC_COUNT > 0')
-    pandas_to_table(pddf=nullCntByFLD,tablename=compName+"_NullCellCountbyFLD")
-   
-    
+    #nullCntByFLD=nullCntByFLD.query('NULL_FC_COUNT > 0')
+
     # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE TBD
     ## THEN EXPORT THEM TO THE GEODATABASE
-    print ("Getting count of 'tbd' cells per feature class field for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of 'tbd' cells per feature class field")
     tbdCntByFLD = pdNullTbl.groupby(['FDS','FC','INSTALLATION','FIELD'])['TBD_FC_COUNT'].agg('sum').fillna(0).reset_index()
     tbdCntByFLD=pandas.DataFrame(tbdCntByFLD)
-    tbdCntByFLD=tbdCntByFLD.query('TBD_FC_COUNT > 0')
-    pandas_to_table(pddf=tbdCntByFLD,tablename=compName+"_TBDCellCountbyFLD")
-    
+    #tbdCntByFLD=tbdCntByFLD.query('TBD_FC_COUNT > 0')
+
+	
     # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE OTHER
     ## THEN EXPORT THEM TO THE GEODATABASE
-    print ("Getting count of 'other' cells per feature class field for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of 'other' cells per feature class field")
 
     otherCntByFLD = pdNullTbl.groupby(['FDS','FC','INSTALLATION','FIELD'])['OTHER_FC_COUNT'].agg('sum').fillna(0).reset_index()
     otherCntByFLD=pandas.DataFrame(otherCntByFLD)
-    otherCntByFLD=otherCntByFLD.query('OTHER_FC_COUNT > 0')
-    pandas_to_table(pddf=otherCntByFLD,tablename=compName+"_OtherCellCountbyFLD")
+    #otherCntByFLD=otherCntByFLD.query('OTHER_FC_COUNT > 0')
 
-    # FOR EACH FEATURE CLASS GET TOTAL COUNTS OF DETERMINANT and INTEDETERMINANT (NULL + OTHER + TBD) VALUES, THEN PROPORTION OF DETERMINANT VALUES 
-    # TK sic
-    print ("Getting total count of 'indeterminant' cells per feature class field for "+installationName + ".gdb compared with " + compName+".gdb")
-
-    indtCntByFLD = pdNullTbl.groupby(['FDS','FC','INSTALLATION'])['TOTAL_INDT_COUNT'].agg('sum').fillna(0).reset_index()
-
+        # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE INDETERMINANT
+    arcpy.AddMessage ("Getting count of indeterminant cells per feature class")
+    indtCntByFLD = pdNullTbl.groupby(['FDS','FC','INSTALLATION','FIELD'])['TOTAL_INDT_COUNT'].agg('sum').fillna(0).reset_index()
     indtCntByFLD=pandas.DataFrame(indtCntByFLD)
-    print ("Getting total count of 'determined' cells per feature class field for "+installationName + ".gdb compared with " + compName+".gdb")
-
-    detCntByFLD = pdNullTbl.groupby(['FDS','FC','INSTALLATION'])['TOTAL_DET_COUNT'].agg('sum').fillna(0).reset_index()
+    
+    # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE INDETERMINANT
+    arcpy.AddMessage ("Getting count of indeterminant cells per feature class")
+    detCntByFLD = pdNullTbl.groupby(['FDS','FC','INSTALLATION','FIELD'])['TOTAL_DET_COUNT'].agg('sum').fillna(0).reset_index()
     detCntByFLD=pandas.DataFrame(detCntByFLD)
     
-    indtDetCounts = detCntByFLD.join ( indtCntByFLD.set_index( [ 'FDS','FC','INSTALLATION'], verify_integrity=True ),
-                   on=[ 'FDS','FC','INSTALLATION'], how='left' )
+    # FOR EACH FEATURE CLASS, GET COUNT OF CELLS THAT ARE INDETERMINANT
+    totalCntByFLD = pdNullTbl.groupby(['FDS','FC','INSTALLATION','FIELD'])['POP_VALS_COUNT'].agg('sum').fillna(0).reset_index()
+    totalCntByFLD=pandas.DataFrame(totalCntByFLD)
+    
+    t1 = nullCntByFLD.join ( tbdCntByFLD.set_index( [ 'FDS','FC','INSTALLATION','FIELD'], verify_integrity=True),on=[ 'FDS','FC','INSTALLATION','FIELD'], how='left' )
+    t2 = t1.join ( otherCntByFLD.set_index( [ 'FDS','FC','INSTALLATION','FIELD'], verify_integrity=True ),on=[ 'FDS','FC','INSTALLATION','FIELD'], how='left' )
+    t3 = t2.join ( detCntByFLD.set_index( [ 'FDS','FC','INSTALLATION','FIELD'], verify_integrity=True ),on=[ 'FDS','FC','INSTALLATION','FIELD'], how='left' )
+    t4 = t3.join ( indtCntByFLD.set_index( [ 'FDS','FC','INSTALLATION','FIELD'], verify_integrity=True ),on=[ 'FDS','FC','INSTALLATION','FIELD'], how='left' )
+    t5 = t4.join ( totalCntByFLD.set_index( [ 'FDS','FC','INSTALLATION','FIELD'], verify_integrity=True ),on=[ 'FDS','FC','INSTALLATION','FIELD'], how='left' )
+    
 
-    indtDetCounts['PERCENT_DETERMINED_VALUES'] = indtDetCounts.TOTAL_DET_COUNT/(indtDetCounts.TOTAL_INDT_COUNT+indtDetCounts.TOTAL_DET_COUNT)
-    print ("Getting total count of percent of determined cells per feature class field for "+installationName + ".gdb compared with " + compName+".gdb")
+    countsByField = pandas.DataFrame()
+    countsByField["INSTALLATION"]=t5.INSTALLATION
+    countsByField["FDS"]=t5.FDS  
+    countsByField["FC"]=t5.FC  
+    countsByField["FIELD"]=t5.FIELD  
+    countsByField["OTHER_PCT"] = (t5.OTHER_FC_COUNT/(t5.POP_VALS_COUNT))*100
+    countsByField["TBD_PCT"] = (t5.TBD_FC_COUNT/(t5.POP_VALS_COUNT))*100
+    countsByField["NULL_PCT"] = (t5.NULL_FC_COUNT/(t5.POP_VALS_COUNT))*100
+    countsByField["OTHER_CNT"] = t5.OTHER_FC_COUNT
+    countsByField["TBD_CNT"] = t5.TBD_FC_COUNT
+    countsByField["NULL_CNT"] = t5.NULL_FC_COUNT
+    countsByField["DETERMINED_PCT"] = (t5.TOTAL_DET_COUNT/(t5.POP_VALS_COUNT))*100
+    countsByField["UNDETERMINED_PCT"] = (t5.TOTAL_INDT_COUNT/(t5.POP_VALS_COUNT))*100
+    countsByField["DETERMINED_CNT"] = t5.TOTAL_DET_COUNT
+    countsByField["UNDETERMINED_CNT"] = t5.TOTAL_INDT_COUNT
+	
+    countsByField=countsByField.query('UNDETERMINED_CNT > 0')
+	
+	
+    pandas_to_table(pddf=countsByField,tablename=compName+"_Indeterminate_Counts_by_Field")
+    #countsByField.to_csv(os.path.join(outputFolder,compName+"_Indeterminate_Counts_by_Field.csv"))
+    #countsByField.to_excel(writer,sheet_name=compName+"_Summary_by_Field")
 
-    pandas_to_table(pddf=indtDetCounts,tablename=compName+"_Determinant_Values_by_FC")
-
+	
     ### FOR EACH FEATURE CLASS INCLUDED, HOW MANY ARE EMPTY? 
     emptyFCbyFDS=pdNullTbl.query("EMPTY_FC == 'T'").groupby(['FDS','FC','INSTALLATION']).size().reset_index()
     emptyFCbyFDS=pandas.DataFrame(emptyFCbyFDS)
@@ -805,31 +822,33 @@ def compareGDBs(installGDB,compGDB):
 
 
     ### FOR EACH FEATURE CLASS INCLUDED, HOW MANY ARE EMPTY?
-    print ("Getting total count empty feature classes "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting total count empty feature classes")
     emptyFCcnt = len(pdNullTbl.query("EMPTY_FC == 'T'").groupby(['FDS','FC','EMPTY_FC']).size().reset_index() )
-    print ("Getting total count non-empty feature calsses for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting total count non-empty feature classes")
     nonemptyFCcnt = len(pdNullTbl.query("EMPTY_FC == 'F'").groupby(['FDS','FC','EMPTY_FC']).size().reset_index() )
     
-    print ("Getting count of empty feature classes by feature dataset for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of empty feature classes by feature dataset")
     if emptyFCbyFDS.empty:
         emptyFLDsumFDS = "NA - no empty FCs"
     else:
         emptyFLDsumFDS = emptyFCbyFDS.groupby(['INSTALLATION']).agg('sum').fillna(0).reset_index()
         emptyFLDsumFDS = emptyFLDsumFDS.iloc[0]['TOTAL_EMPTY_FIELDS']
-    print ("Getting count of empty fields from non-empty feature classes for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of empty fields from non-empty feature classes ")
     emptyFLDsum = pdNullTbl.query("POP_VALS_COUNT ==0 & EMPTY_FC == 'F'").groupby(['FDS','FC','INSTALLATION']).ngroups
 
     pandas_to_table(pddf=emptyFCbyFDS,tablename=compName+"_EmptyFeatureClasses")
+    #emptyFCbyFDS.to_csv(os.path.join(outputFolder,compName+"_EmptyFeatureClasses.csv"))
+    #emptyFCbyFDS.to_excel(writer,sheet_name=compName+"__EmptyFeatureClasses")
 
     ### GET NUMBER OF MISSING FEATURE DATASETS
-    print ("Getting count of missing feature datasets for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of missing feature datasets ")
 
     missingFDScnt = pdFDSTbl.groupby(['FDS_MISSING','INSTALLATION']).ngroups
     
     ### GET NUMBER OF MISSING FEATURE CLASSES per FEATURE DATASET
-    print ("Getting count of missing feature classes per feature dataset for "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Getting count of missing feature classes per feature dataset ")
     missingFCcnt = pdFCTbl.groupby(['FDS','FC_MISSING','INSTALLATION']).ngroups
-    print ("Binding overview table "+installationName + ".gdb compared with " + compName+".gdb")
+    arcpy.AddMessage ("Binding overview table")
 
     # BIND DATA INTO A PANDAS DATAFRAME
     d = {
@@ -844,9 +863,14 @@ def compareGDBs(installGDB,compGDB):
     
     d= pandas.DataFrame(d)
     pandas_to_table(pddf=d,tablename=compName+"_Overview")
+    #d.to_csv(os.path.join(outputFolder,compName+"_Indeterminate_Overview.csv"))
+    #d.to_excel(writer,sheet_name=compName+"_Indeterminate_Overview")
+
+    writer.save()
+
     
     # after all the data processing is completed, move to 'complete' directory
-    shutil.move(installGDB, os.path.join(mainDir,"gdbs-complete",installationName+".gdb"))
+    #shutil.move(installGDB, os.path.join(mainDir,"gdbs-complete",installationName+".gdb"))
     # alternatively with os.rename
     #os.rename(installGDB, os.path.join(mainDir,"gdbs-complete",installationName+".gdb"))
     
