@@ -57,18 +57,10 @@ Search a 'source' geodatabase for indeterminate data from feature dataset/featur
 
 This tool creates 4 output tables, each prepended with the name of the Model_Geodatabase (e.g.: If you 'model' geodatabase is the SDSFIE CIP geodatabase, the tables will be called (CIP_MissingFDS, CIP_Missing_FCs, CIP_MissingFields, and CIP_MissingData). These tables include: 
 
-	**[modelGeodatabaseName]_MissingFDS**
-
-
-	**[modelGeodatabaseName]_MissingFCs**
-
-
-	**[modelGeodatabaseName]_MissingFields**
-
-
-	**[modelGeodatabaseName]_MissingData**
-
-
+	[modelGeodatabaseName]_MissingFDS
+	[modelGeodatabaseName]_MissingFCs
+	[modelGeodatabaseName]_MissingFields
+	[modelGeodatabaseName]_MissingData
 
 ### Summarise Indeterminant Data Tables
 
