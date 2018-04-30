@@ -67,23 +67,16 @@ This tool creates 4 output tables, each prepended with the name of the Model_Geo
 This script tool requires a few non-standard Python modules to run successfully, including the modules: numpy, pandas. To install these modules for use in ArcGIS, install the modules using the commands "pip install pandas" and "pip install numpy." To do this, 
 
 	(1) Press the windows key on your keyboard
-
 	(2) Type "cmd" to open the command prompt window
-
 	(3) Set your working directory as your ArcGIS Python scripts directory. This is typically located at C:\Python27\ArcGIS[versionNumber]\Scripts
-
 	(3.1) Do this by typing 'cd C:\Python27\ArcGIS[versionNumber]\Scripts' and clicking enter. Replace [versionNumber] with you ArcGIS version number (e.g.: if you are running ArcMap10.6, input: "C:\Python27\ArcGIS10.6\Scripts"
-
 	(4) Type 'pip install numpy' and press enter, then type 'pip install pandas' and press enter. If all goes well, you will have these modules successfully installed for use in ArcGIS' Python distribution 
 
 The inputs required for this tool to work are the 4 output tables created with the "Search for Indeterminate Data" script tool (please ensure these are all from the same comparison geodatabase):
 
 	"[comparison GDB]_MissingFDS"
-
 	"[comparison GDB]_MissingFCs"
-
 	"[comparison GDB]_MissingFields"
-
 	"[comparison GDB]_MissingData" 
 
 
@@ -101,21 +94,15 @@ The **Empty Feature Classes** table gives:
 
 	the standard Feature Classes in the comparison geodatabase not included in the input geodatabase(i.e.: Feature Classes included in comparison geodatabases)
 
-Indeterminate_Overview, gives :
+The **Indeterminate_Overview** table , gives :
 
-	total count of feature classes that are empty
-
-	total number of standard feature classes that are empty
-
-	the source geodatabase installation name
-
-	the total number of missing feature classes
-
-	the total number of missing feature datasets
-
-	the total number of empty fields from empty feature classes
-
-	the total number of empty fields from non-empty feature classes. 
+	(a) The total count of feature classes that are empty
+	(b) The total number of standard feature classes that are empty
+	(c) The source geodatabase installation name
+	(d) The total number of missing feature classes
+	(e) The total number of missing feature datasets
+	(f) The total number of empty fields from empty feature classes
+	(g) The total number of empty fields from non-empty feature classes. 
 
 ## Indeterminant Data Reporting
 
