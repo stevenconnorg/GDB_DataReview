@@ -8,8 +8,10 @@ Created on Thu Apr 26 11:15:52 2018
 import arcpy, os
 #Get path to the geodatabase
 workpath = arcpy.GetParameterAsText(0)
-outputGDB = arcpy.GetParameterAsText(1)
-outputDir = arcpy.Describe(outputGDB).path
+outputCSV = arcpy.GetParameterAsText(1)
+outputLayers arcpy.GetParameterAsText(2)
+
+
 
 # Workspace
 arcpy.env.workspace = workpath
