@@ -32,7 +32,7 @@ The Find Duplicate Features tool allows users to search an entire geodatabase's 
 This tool may be used to update the destination values in a target feature layer field with the values in another table's fields using a common key (join fields). This script is faster and more versatile than using a manual join/relate with ArcMap's Field Calculator.
 
 ### Standardize 'Building_A' Addresses
-The purpose of this tool is to standardize the buildingAddress field within the AF SDSFIE Building_A feature class. This tool works by first searching the buildingAddress field within the Building_A feature class, then replaces any street prefixes (e.g.: North, north, East, West) are reformatted to "N", "S", "E", and "W," while all suffixes (e.g.: AVE, Avenue, Street) are reformatted to [standard USPS suffixes](https://github.com/allanbreyes/udacity-data-science/tree/master/p2/data).
+The purpose of this tool is to standardize the buildingAddress field within the AF SDSFIE Building_A feature class. This tool works by first searching the buildingAddress field within the Building_A feature class, then replaces any street prefixes (e.g.: North, north, East, West) are reformatted to "N", "S", "E", and "W," while all suffixes (e.g.: AVE, Avenue, Street) are reformatted to [standard USPS suffixes](https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv).
 
 
 ### Parse 'roadCenterline_L' Names with Prefix and Suffix
