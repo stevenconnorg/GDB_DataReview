@@ -23,7 +23,6 @@ arcpy.env.workspace = workpath
 arcpy.env.overwriteOutput = True
 
 
-
 for fds in arcpy.ListDatasets():  
     arcpy.CreateFeatureDataset_management (out_dataset_path=clippedGDB, out_name=fds, spatial_reference=fds)
     for fc in arcpy.ListFeatureClasses('','',fds):
