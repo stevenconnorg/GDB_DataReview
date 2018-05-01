@@ -4,9 +4,9 @@
 
 This repository provides various Python and R files to expedite common processes in reviewing geodatabases for compliance to a template geodatabase data model. In particular, this reposity provides custom ArcMap toolboxes to analyze a geodatabase's compliance with a template geodatabase schema. 
 
-## CIP_dataReview ArcMap Toolbox
+## GDB_DataReview ArcMap Toolbox
 
-The CIP_dataReview ArcMap Toolbox provides numerous Python script tools to expedite the review of geodatabases in comparison with a template geodatabase model. The individual script tools included in the toolbox are described below.
+The GDB_DataReview ArcMap Toolbox provides numerous Python script tools to expedite the review of geodatabases in comparison with a template geodatabase model. The individual script tools included in the toolbox are described below.
 
 ### Find Duplicate Geometry
 The Find Duplicate Geometry tool allows users to search an entire geodatabase's Feature Classes within Feature Datasets for features with duplicate geometries. This tool loops through each Feature Dataset's Feature Class features and searches for duplicate geometries. All features with duplicate geometries are written to the output .csv file, as specified, and describes the Feature Dataset and Feature Class with duplicate geometries, the OBJECTIDs of the duplicate geometries, and a summary, which gives the count of duplicate geometries spread over unique geometries, Further, this tool creates layer files for each Feature Class' duplicate features, allowing users to edit their geodatabase directory from a temporary, filtered layer of only duplicate features to be evaluated further.
