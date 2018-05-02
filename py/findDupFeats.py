@@ -9,8 +9,7 @@ import arcpy, os
 #Get path to the geodatabase
 workpath = arcpy.GetParameterAsText(0)
 outputCSV = arcpy.GetParameterAsText(1)
-outputLayers arcpy.GetParameterAsText(2)
-
+outputLayers = arcpy.GetParameterAsText(2)
 
 
 # Workspace
@@ -30,6 +29,8 @@ keys= ["OBJECTID","FEATUREDATASET","FEATURECLASS","DUPLICATEIDS","SUMMARY"]
 outTbl.append(keys) 
 keysLen = len(keys)
 
+dataset = arcpy.ListDatasets()[0]
+fc = arcpy.ListFeatureClasses('','',dataset)[0]
 outTbl[0] = keys
 for dataset in arcpy.ListDatasets():  
     for fc in arcpy.ListFeatureClasses('','',dataset):
@@ -41,15 +42,16 @@ for dataset in arcpy.ListDatasets():
         fldNames = []
         for fld in flds:
             if fld.name not in ignoreFLD:
-                fldNames.append(fld.name)
-        arcpy.FindIdentical_management(fc, "in_memory\\tmp", fields = fldNames,output_record_option="ONLY_DUPLICATES")
+                fldNames.append(str(fld.name))
+                
+        arcpy.FindIdentical_management(fc, dupeTable, fields = [fldNames],output_record_option="ONLY_DUPLICATES")
         
         # Get table count and pass the dataset if no duplicates exist
         tblCount = arcpy.GetCount_management(dupeTable)
         print fc + " duplicate feature count: " + str(tblCount)
         arcpy.AddMessage(fc + " duplicate feature count: " + str(tblCount))
         if int(tblCount[0]) == 0:
-            arcpy.Delete_management("in_memory\\tmp") 
+            arcpy.Delete_management(dupeTable) 
             continue
         
         
@@ -78,7 +80,7 @@ for dataset in arcpy.ListDatasets():
             arcpy.MakeFeatureLayer_management(fc, outLyrName, expression)
             
             
-            arcpy.SaveToLayerFile_management(outLyrName, os.path.join(outputDir,outLyrName),"ABSOLUTE","10.3")
+            arcpy.SaveToLayerFile_management(outLyrName, os.path.join(outputLayers,outLyrName),"ABSOLUTE","10.3")
             arcpy.Delete_management(dupeTable)
             del outLyrName
             del dupeTable
@@ -88,7 +90,7 @@ import csv
 if not outTbl:
     arcpy.AddMessage("No duplicate features found!")
 else:
-    with open(outputDir+"/Duplicate_Feature_Summary.csv", "wb") as f:
+    with open(outputCSV, "wb") as f:
         writer = csv.writer(f)
         writer.writerows(outTbl)
 # Save duplicate geometry results to layer file
