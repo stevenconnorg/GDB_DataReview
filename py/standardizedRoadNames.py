@@ -14,6 +14,18 @@ env.overwriteOutput = True
 # usps suffix data from https://github.com/allanbreyes/udacity-data-science/tree/master/p2/data
      
 fc =  arcpy.GetParameterAsText(0)
+prefixFld =  arcpy.GetParameterAsText(1)
+nameFld =  arcpy.GetParameterAsText(2)
+suffixFld =  arcpy.GetParameterAsText(3)
+
+# =============================================================================
+# fc =  r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\GDB_DataReview\GDB_DataReview\dat\gdbs-complete\Example.gdb\Transportation\RoadCenterline_L"
+# prefixFld =  "roadPrefix"
+# nameFld =  "roadName"
+# suffixFld =  "roadSuffix"
+# 
+# =============================================================================
+
 
 def get_geodatabase_path(input_table):
   '''Return the Geodatabase path from the input table or feature class.
@@ -586,86 +598,93 @@ prefixes = [["NORTH","N"],
             ["North","N"],
             ["North ","N"],
             ["N","N"],
+            ["N.","N"],
             ["SOUTH", "S"],
             ["south","S"],
             ["South","S"],
             ["South ","S"],
             ["S","S"],
+            ["S.","S"],
             ["WEST","W"],
             ["west","W"],
             ["West","W"],
             ["West ","W"],
             ["W","W"],
+            ["W.","W"],
             ["EAST","E"],
             ["east","E"],
             ["East","E"],
             ["East ","E"],
-            ["E","E"]]
+            ["E","E"],
+            ["E.","E"]]
 
 commonPrefixes = [el[0] for el in prefixes]
 #commonPrefixes =[item for sublist in commonPrefixes for item in sublist]
 standardPrefixes = [el[-1] for el in prefixes]
 
-streetFields = ["ROADPREFIX","ROADNAME","ROADSUFFIX"]
+streetFields = [prefixFld,nameFld,suffixFld]
 
 with arcpy.da.UpdateCursor(fc, streetFields) as cursor:
     for row in cursor:
         roadName = row[1]
-        roadNameVals = roadName.split(" ")
-        for n, i in enumerate(roadNameVals):
-            new = str(i)
-            roadNameVals[n] = new
-        
-        if roadNameVals > 1:
-            for roadNameVal in roadNameVals:
-                roadNameVal = str(roadNameVal)
-    
-                if roadNameVal in commonSuffixes:
-                    idx = commonSuffixes.index(roadNameVal.upper())
-                    newSuffix= standardSuffixes[idx] 
-                    roadNameVals.remove(roadNameVals[-1])
-
-                if roadNameVal in commonPrefixes:
-                    idx1 = commonPrefixes.index(roadNameVal)
-                    newPrefix= standardPrefixes[idx1]
-                    roadNameVals.remove(roadNameVals[0])
-                if 'newPrefix' not in locals():
-                    newPrefix = str(row[0])
-                if 'newSuffix' not in locals():
-                    newSuffix = str(row[2])
-                    
-    
-            newName = ' '.join(roadNameVals)
-            newRow= [newPrefix,newName,newSuffix]
-            del newSuffix    
-            del newPrefix
-            del newName
-            print "old row = "+str(row)
-            print "new row = "+str(newRow)
-    
+        if roadName is None:
+            pass
         else:
-            prefix = row[0]
-            if prefix in commonPrefixes:
-                idx = commonPrefixes.index(prefix)
-                newPrefix= standardPrefixes[idx] 
-            else:
-                newPrefix = prefix.upper()
-                
-            suffix = row[2]
-            if suffix.upper() in commonSuffixes:
-                idx = commonSuffixes.index(suffix.upper())
-                newSuffix= standardSuffixes[idx] 
-            else:
-                newSuffix = suffix.upper()
+            roadNameVals = roadName.split(" ")
+            for n, i in enumerate(roadNameVals):
+                new = str(i)
+                roadNameVals[n] = new
             
-            newName = row[1].upper()            
-            newRow= [newPrefix,newName,newSuffix]
-                
-            #print names
-            
-            print "old row = "+str(row)
-            print "new row = "+str(newRow)
+            if roadNameVals > 1:
+                for roadNameVal in roadNameVals:
+                    roadNameVal = str(roadNameVal)
+        
+                    if roadNameVal.upper() in commonSuffixes:
+                        idx = commonSuffixes.index(roadNameVal.upper())
+                        newSuffix= standardSuffixes[idx] 
+                        roadNameVals.remove(roadNameVals[-1])
     
+                    if roadNameVal.upper() in commonPrefixes:
+                        idx1 = commonPrefixes.index(roadNameVal.upper())
+                        newPrefix= standardPrefixes[idx1]
+                        roadNameVals.remove(roadNameVals[0])
+                    if 'newPrefix' not in locals():
+                        newPrefix = str(row[0])
+                    if 'newSuffix' not in locals():
+                        newSuffix = str(row[2])
+                        
+        
+                newName = ' '.join(roadNameVals)
+                newRow= [newPrefix,newName,newSuffix]
+                del newSuffix    
+                del newPrefix
+                del newName
+                print "old row = "+str(row)
+                print "new row = "+str(newRow)
+        
+            else:
+                prefix = row[0]
+                if prefix.upper() in commonPrefixes:
+                    idx = commonPrefixes.index(prefix.upper())
+                    newPrefix= standardPrefixes[idx] 
+                else:
+                    newPrefix = prefix.upper()
+                    
+                suffix = row[2]
+                if suffix.upper() in commonSuffixes:
+                    idx = commonSuffixes.index(suffix.upper())
+                    newSuffix= standardSuffixes[idx] 
+                else:
+                    newSuffix = suffix.upper()
+                
+                newName = row[1].upper()            
+                newRow= [newPrefix,newName,newSuffix]
+                    
+                #print names
+                
+                print "old row = "+str(row)
+                print "new row = "+str(newRow)
+        
         del row
         cursor.updateRow(newRow)
                     
