@@ -9,3 +9,4 @@ dat/*
 archive/*
 out/*
 tutorials/*
+R/*.Rmd
