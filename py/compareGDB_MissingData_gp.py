@@ -317,7 +317,7 @@ def compareGDBs(installGDB,compGDB):
                         arcpy.env.workspace = installGDB
                         row = nullrows.newRow()
                         ignoreFLD = ['Shape'.upper(), 'OBJECTID'.upper(), 'Shape_Length'.upper(), 'Shape_Area'.upper()]
-                        if theFLD.upper() not in ignoreFLD:           
+                        if theFLD not in ignoreFLD:           
                                                         
                             if theFLD not in minF:
                                 arcpy.AddMessage(theFLD + " *NOT* included in "+compName+"/"+theFC+" fields")
@@ -486,7 +486,7 @@ def compareGDBs(installGDB,compGDB):
                             pass
                         del row
                     for mF in minF:
-                        if mF not in minFlInstall:
+                        if mF.upper() not in minFlInstall:
                             fldrow = fldrows.newRow()
                             fldrow.setValue("FDS", theFDS)
                             fldrow.setValue("FC", theFC)
