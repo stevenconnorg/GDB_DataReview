@@ -48,7 +48,7 @@ Similar to the 'Batch Export Metadata to Directory tool,' this tool imports a di
 ### Search for Indeterminant Data
 Search a 'source' geodatabase for indeterminate data from feature dataset/feature class combinations in a target geodatabase. First, searches for missing feature datasets in target geodatabase not in source geodatabase. Then, searches for feature classes in 'x' feature dataset. Then, for each feature class in the source geodatabase, this tool searches for 'indeterminate' values in each field. Indeterminate values, here, means any null, to be determined (TBD), or 'other' values.
 
-This tool creates 4 output tables, each prepended with the name of the Model_Geodatabase (e.g.: If you 'model' geodatabase is the SDSFIE CIP geodatabase, the tables will be called (CIP_MissingFDS, CIP_Missing_FCs, CIP_MissingFields, and CIP_MissingData). These tables include: 
+This tool creates 4 output tables, each prepended with the name of the Model_Geodatabase (e.g.: If your 'model' geodatabase called 'CIP', the tables will be called (CIP_MissingFDS, CIP_Missing_FCs, CIP_MissingFields, and CIP_MissingData). These tables include: 
 
 	[modelGeodatabaseName]_MissingFDS
 	[modelGeodatabaseName]_MissingFCs
