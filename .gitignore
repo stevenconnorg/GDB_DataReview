@@ -8,5 +8,6 @@ packrat/bundles*/
 dat/*
 archive/*
 out/*
-tutorials/*
+tutorialsbook/*
+
 R/*.Rmd
