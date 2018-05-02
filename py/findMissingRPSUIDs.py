@@ -11,8 +11,8 @@ import pandas
 import arcpy
 import numpy
 
-xlsx = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\dat\OSD RPI Site (For Components) FOUO.xlsx"
-gdb = "C:\Users\stevenconnorg\Documents\knight-federal-solutions\CIP_DataReview\dat\GeoBASE_3101_CIP_FINAL_20180327.gdb"
+xlsx = r"xxx"
+gdb = r"xxx"
 
 def get_field_names(table):
     """
