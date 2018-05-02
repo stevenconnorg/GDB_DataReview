@@ -1,0 +1,5 @@
+book_filename: "GDB_DataReview_Toolbox_Tutorials"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "

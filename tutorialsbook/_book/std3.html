@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>GDB_DataReview ArcMap Toolbox Tutorials</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.7.8 and GitBook 2.6.7">
+
+  <meta property="og:title" content="GDB_DataReview ArcMap Toolbox Tutorials" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="GDB_DataReview ArcMap Toolbox Tutorials" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Air Force Civil Engineering Center (AFCEC) Geospatial Integration Office (GIO)">
+
+
+<meta name="date" content="2018-05-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="delFeats.html">
+<link rel="next" href="indtSearch.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">GDB_DataReview Toolbox Tutorials</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="chapter" data-level="2" data-path="joinCalc.html"><a href="joinCalc.html"><i class="fa fa-check"></i><b>2</b> Join Fields and Calculate</a><ul>
+<li class="chapter" data-level="2.1" data-path="index.html"><a href="index.html#overview"><i class="fa fa-check"></i><b>2.1</b> Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="joinCalc.html"><a href="joinCalc.html#parameters"><i class="fa fa-check"></i><b>2.2</b> Parameters</a></li>
+<li class="chapter" data-level="2.3" data-path="joinCalc.html"><a href="joinCalc.html#how-to-use"><i class="fa fa-check"></i><b>2.3</b> How to Use</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="joinCalc.html"><a href="joinCalc.html#begin-by-opening-the-toolbox"><i class="fa fa-check"></i><b>2.3.1</b> Begin by opening the toolbox</a></li>
+<li class="chapter" data-level="2.3.2" data-path="joinCalc.html"><a href="joinCalc.html#fill-out-the-parameters"><i class="fa fa-check"></i><b>2.3.2</b> Fill out the parameters</a></li>
+<li class="chapter" data-level="2.3.3" data-path="joinCalc.html"><a href="joinCalc.html#run-the-tool-and-view-results"><i class="fa fa-check"></i><b>2.3.3</b> Run the Tool and View Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatjoinCalc.html"><a href="spatjoinCalc.html"><i class="fa fa-check"></i><b>3</b> Calculate Feature RPSUIDs from Overlapping Polygons</a><ul>
+<li class="chapter" data-level="3.1" data-path="spatjoinCalc.html"><a href="spatjoinCalc.html#overview-1"><i class="fa fa-check"></i><b>3.1</b> Overview</a></li>
+<li class="chapter" data-level="3.2" data-path="spatjoinCalc.html"><a href="spatjoinCalc.html#parameters-1"><i class="fa fa-check"></i><b>3.2</b> Parameters</a></li>
+<li class="chapter" data-level="3.3" data-path="spatjoinCalc.html"><a href="spatjoinCalc.html#how-to-use-1"><i class="fa fa-check"></i><b>3.3</b> How to Use</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="spatjoinCalc.html"><a href="spatjoinCalc.html#begin-by-opening-the-toolbox-1"><i class="fa fa-check"></i><b>3.3.1</b> Begin by opening the toolbox</a></li>
+<li class="chapter" data-level="3.3.2" data-path="spatjoinCalc.html"><a href="spatjoinCalc.html#fill-out-the-parameters-1"><i class="fa fa-check"></i><b>3.3.2</b> Fill out the parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="spatjoinCalc.html"><a href="spatjoinCalc.html#run-the-tool-and-view-results-1"><i class="fa fa-check"></i><b>3.4</b> Run the Tool and View Results</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dupGeom.html"><a href="dupGeom.html"><i class="fa fa-check"></i><b>4</b> Find Duplicate Geometry</a><ul>
+<li class="chapter" data-level="4.1" data-path="dupGeom.html"><a href="dupGeom.html#overview-2"><i class="fa fa-check"></i><b>4.1</b> Overview</a></li>
+<li class="chapter" data-level="4.2" data-path="dupGeom.html"><a href="dupGeom.html#parameters-2"><i class="fa fa-check"></i><b>4.2</b> Parameters</a></li>
+<li class="chapter" data-level="4.3" data-path="dupGeom.html"><a href="dupGeom.html#how-to-use-2"><i class="fa fa-check"></i><b>4.3</b> How to Use</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="dupGeom.html"><a href="dupGeom.html#begin-by-opening-the-toolbox-2"><i class="fa fa-check"></i><b>4.3.1</b> Begin by opening the toolbox</a></li>
+<li class="chapter" data-level="4.3.2" data-path="dupGeom.html"><a href="dupGeom.html#fill-out-the-parameters-2"><i class="fa fa-check"></i><b>4.3.2</b> Fill out the parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="dupGeom.html"><a href="dupGeom.html#run-the-tool-and-view-results-2"><i class="fa fa-check"></i><b>4.4</b> Run the Tool and View Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="delFeats.html"><a href="delFeats.html"><i class="fa fa-check"></i><b>5</b> Delete Duplicate Features</a><ul>
+<li class="chapter" data-level="5.1" data-path="delFeats.html"><a href="delFeats.html#overview-3"><i class="fa fa-check"></i><b>5.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2" data-path="delFeats.html"><a href="delFeats.html#parameters-3"><i class="fa fa-check"></i><b>5.2</b> Parameters</a></li>
+<li class="chapter" data-level="5.3" data-path="delFeats.html"><a href="delFeats.html#how-to-use-3"><i class="fa fa-check"></i><b>5.3</b> How to Use</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="delFeats.html"><a href="delFeats.html#begin-by-opening-the-toolbox-3"><i class="fa fa-check"></i><b>5.3.1</b> Begin by opening the toolbox</a></li>
+<li class="chapter" data-level="5.3.2" data-path="delFeats.html"><a href="delFeats.html#fill-out-the-parameters-3"><i class="fa fa-check"></i><b>5.3.2</b> Fill out the parameters</a></li>
+<li class="chapter" data-level="5.3.3" data-path="delFeats.html"><a href="delFeats.html#run-the-tool-and-view-results-3"><i class="fa fa-check"></i><b>5.3.3</b> Run the Tool and View Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="std3.html"><a href="std3.html"><i class="fa fa-check"></i><b>6</b> Standardized Road Prefix, Name, and Suffix</a><ul>
+<li class="chapter" data-level="6.1" data-path="std3.html"><a href="std3.html#overview-4"><i class="fa fa-check"></i><b>6.1</b> Overview</a></li>
+<li class="chapter" data-level="6.2" data-path="std3.html"><a href="std3.html#parameters-4"><i class="fa fa-check"></i><b>6.2</b> Parameters</a></li>
+<li class="chapter" data-level="6.3" data-path="std3.html"><a href="std3.html#how-to-use-4"><i class="fa fa-check"></i><b>6.3</b> How to Use</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="std3.html"><a href="std3.html#begin-by-opening-the-toolbox-4"><i class="fa fa-check"></i><b>6.3.1</b> Begin by opening the toolbox</a></li>
+<li class="chapter" data-level="6.3.2" data-path="std3.html"><a href="std3.html#fill-out-the-parameters-4"><i class="fa fa-check"></i><b>6.3.2</b> Fill out the parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="std3.html"><a href="std3.html#run-the-tool-and-view-results-4"><i class="fa fa-check"></i><b>6.4</b> Run the Tool and View Results</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="indtSearch.html"><a href="indtSearch.html"><i class="fa fa-check"></i><b>7</b> Search for Missing and Indeterminant Data</a><ul>
+<li class="chapter" data-level="7.1" data-path="indtSearch.html"><a href="indtSearch.html#overview-5"><i class="fa fa-check"></i><b>7.1</b> Overview</a></li>
+<li class="chapter" data-level="7.2" data-path="indtSearch.html"><a href="indtSearch.html#parameters-5"><i class="fa fa-check"></i><b>7.2</b> Parameters</a></li>
+<li class="chapter" data-level="7.3" data-path="indtSearch.html"><a href="indtSearch.html#how-to-use-5"><i class="fa fa-check"></i><b>7.3</b> How to Use</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="indtSearch.html"><a href="indtSearch.html#begin-by-opening-the-toolbox-5"><i class="fa fa-check"></i><b>7.3.1</b> Begin by opening the toolbox</a></li>
+<li class="chapter" data-level="7.3.2" data-path="indtSearch.html"><a href="indtSearch.html#fill-out-the-parameters-5"><i class="fa fa-check"></i><b>7.3.2</b> Fill out the parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="indtSearch.html"><a href="indtSearch.html#run-the-tool-and-view-results-5"><i class="fa fa-check"></i><b>7.4</b> Run the Tool and View Results</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">GDB_DataReview ArcMap Toolbox Tutorials</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="std3" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Standardized Road Prefix, Name, and Suffix</h1>
+<div id="overview-4" class="section level2">
+<h2><span class="header-section-number">6.1</span> Overview</h2>
+<p>The purpose of this tool is to standardize the 3 field (road prefix, road name, and road suffix) values within a feature class. This tool works by first searching the ROADNAME field within that feature class, then removes any prefixes or suffixes within the field and moves them to the appropriate field. For all prefixes and suffixes found, the prefixes are reformatted to “N”, “S”, “E”, and “W.” For all suffixes found, the suffixes are reformatted to <a href="https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv">standard USPS suffixes</a>.</p>
+</div>
+<div id="parameters-4" class="section level2">
+<h2><span class="header-section-number">6.2</span> Parameters</h2>
+<p>The tool has 4 parameters:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Road Feature Class (data type: Feature Class)</strong> - This parameter must be the path to the Feature Class that has the 3 road fields to be standardized.</p></li>
+<li><p><strong>Prefix Field (data type: Field)</strong> - The field within the feature class that has or should have road prefixes.</p></li>
+<li><p><strong>Name Field (data type: Field)</strong> - The field within the feature class that has road names.</p></li>
+<li><p><strong>Suffix Field (data type: Field)</strong> - The field within the feature class that has or should have road suffixes.</p></li>
+</ol>
+</div>
+<div id="how-to-use-4" class="section level2">
+<h2><span class="header-section-number">6.3</span> How to Use</h2>
+<div id="begin-by-opening-the-toolbox-4" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Begin by opening the toolbox</h3>
+<p>Navigate to the location of the script toolbox, then right-click the ‘Standardize 3 Address Fields’ script tool to open (Fig. <a href="std3.html#fig:std3open">6.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:std3open"></span>
+<img src="figures/std3-open.jpg" alt="Opening the Delete Duplicate Features tool" width="80%"  />
+<p class="caption">
+Figure 6.1: Opening the Delete Duplicate Features tool
+</p>
+</div>
+</div>
+<div id="fill-out-the-parameters-4" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Fill out the parameters</h3>
+<p>Next, fill out the parameters for the tool. Here, we want to update the road prefix, road name, and road suffix fields in the RoadCenterline_L feature class (Fig. <a href="std3.html#fig:std3params">6.2</a>). The fields can be derived directly from the Feature Class by using the drop-down menu.</p>
+<div class="figure" style="text-align: center"><span id="fig:std3params"></span>
+<img src="figures/std3-toolparams.jpg" alt="Opening the Delete Duplicate Features tool" width="80%"  />
+<p class="caption">
+Figure 6.2: Opening the Delete Duplicate Features tool
+</p>
+</div>
+</div>
+</div>
+<div id="run-the-tool-and-view-results-4" class="section level2">
+<h2><span class="header-section-number">6.4</span> Run the Tool and View Results</h2>
+<p>Before running the tool, we see that, indeed, the road prefixes and road suffixes are incorrectly populated inside the road name field Open the destinate Feature Class and view the update destination field values (Fig. <a href="std3.html#fig:std3before">6.3</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:std3before"></span>
+<img src="figures/std3-before.jpg" alt="Opening the Delete Duplicate Features tool" width="80%"  />
+<p class="caption">
+Figure 6.3: Opening the Delete Duplicate Features tool
+</p>
+</div>
+<p>After running the tool, we can see that the prefixes and suffixes have been populated in the correct fields, and have also been standardized to match USPS standards (Fig. <a href="std3.html#fig:std3after">6.4</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:std3after"></span>
+<img src="figures/std3-after.jpg" alt="Opening the Delete Duplicate Features tool" width="80%"  />
+<p class="caption">
+Figure 6.4: Opening the Delete Duplicate Features tool
+</p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="delFeats.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="indtSearch.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["GDB_DataReview_Toolbox_Tutorials.pdf", "GDB_DataReview_Toolbox_Tutorials.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

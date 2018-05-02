@@ -1,0 +1,1095 @@
+\documentclass[openany]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={GDB\_DataReview ArcMap Toolbox Tutorials},
+            pdfauthor={Air Force Civil Engineering Center (AFCEC) Geospatial Integration Office (GIO)},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{apalike}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{GDB\_DataReview ArcMap Toolbox Tutorials}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Air Force Civil Engineering Center (AFCEC) Geospatial Integration Office
+(GIO)}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \predate{\centering\large\emph}
+  \postdate{\par}
+  \date{2018-05-02}
+
+\usepackage{booktabs}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage {hyperref}
+\hypersetup{linktocpage}
+\hypersetup {colorlinks = true,linkcolor = blue, urlcolor = blue}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{fontspec}
+\setmainfont{Arial}[SizeFeatures={Size=13}]
+\usepackage[normalem]{ulem}
+\frontmatter
+\setmainfont{Arial}[SizeFeatures={Size=13}]
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{conjecture}{Conjecture}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{0}
+\tableofcontents
+}
+\mainmatter
+
+\chapter{Overview}\label{overview}
+
+This document gives an overview of how to use the GDB\_DataReview ArcMap
+Toolbox.
+
+The GDB\_DataReview ArcMap Toolbox provides numerous Python script tools
+to expedite the review of geodatabases in comparison with a template
+geodatabase model.
+
+\chapter{Join Fields and Calculate}\label{joinCalc}
+
+\section{Overview}\label{overview}
+
+The ArcGIS Python Script Tool ``Join Fields and Calculate'' may be used
+to update the destination values in a target feature layer field with
+the values in another table's fields using a common key (join). This
+script will perform similarly as if you joined a table to a feature
+class to calculate a certain field based on another field in the joined
+table.
+
+\section{Parameters}\label{parameters}
+
+The tool has 8 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Transfer\_From (data type: Table View)} - Which table are do
+  you want to transfer data from? This parameter must be the path to a
+  table(e.g.: Comma-separated Values (.csv) file, Excel Workbook (.xlsx)
+  Sheet, Esri geodatabase table, etc.). This table will act as `source'
+  data.
+\item
+  \textbf{Using\_Join\_Field (data type: Field)} - From the source
+  table, which field should be used to joinwith another feature class'
+  attributes? This will provide the `key' to transfer data from the
+  source table to the target table.
+\item
+  \textbf{Source\_Field (data type: Field)} - From the source table,
+  which field's data do you want to transfer to the target table? This
+  field's data will be updated in the target feature class that have
+  matching fields.
+\item
+  \textbf{Destination\_Feature (data type: Feature Layer or Feature
+  Class)} - Which feature class do you want to transfer data to? This
+  parameter must be the path to a Esri Feature Class or Feature Layer.
+  This table will act as `target' data source.
+\item
+  \textbf{Destination\_Join\_Field (data type: Field)} - From the target
+  table, which field should be used to joinwith another feature class'
+  attributes? This will provide the `key' to transfer data from the
+  source table to the target table.
+\item
+  \textbf{Destination\_Field (data type: Field)} - From the target
+  table, which field's data do you want to transfer from the source
+  table? This field's data will be updated from the source table that
+  have matching fields using the join fields provided.
+\item
+  \textbf{Where\_Clause (data type: String)} - How should the source
+  values be filtered? Default is ``IS NOT NULL'', otherwise you will
+  overwrite the target features will null values.
+\item
+  \textbf{Remove\_Leading\_Zeros (data type: Boolean)} - Do you want to
+  remove leading zeros from the Source Join Field prior to `joining' the
+  tables?
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox}
+
+Navigate to the location of the script tool, then right-click the `Join
+Fields and Calculate' script tool to open (Fig. \ref{fig:jcopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/joinCalcopentool} 
+
+}
+
+\caption{Opening the Tool}\label{fig:jcopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters}
+
+Next, fill out the parameters for the tool. Here, we want to transfer
+the RPUID attributes (source field) from the `RPSUID\_and\_RPUID.csv'
+table (transfer from) using the `FacilityNumber' join field
+(Using\_Join\_Field) to the Building\_A feature layer's (Destinate
+Feature) `realPropertyUniqueID' field (Destination\_Field) using the
+`buildingNumber' field (Destination\_Join\_Field) (Fig. 2).
+
+We also keep the default value in the `Where Clause' parameter of `IS
+NOT NULL,' in order to transfer RPUID from the source table where RPUIDs
+are not null, \textbf{otherwise you may overwrite the target features
+will null values} (Fig. 2).
+
+We noticed that the `buildingNumber' field has some leading zeros that
+we want to remove the beginning of the values, so we click the ``Remove
+Leading Zeros'' toggle (Fig. \ref{fig:jcparams}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/joinCalc-toolparams} 
+
+}
+
+\caption{Tool parameters}\label{fig:jcparams}
+\end{figure}
+
+Alternatively, you may also run this tool in `batch' for multiple
+features in a geodatabase or geodatabases (Fig. \ref{fig:batch}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/joinCalc-batch} 
+
+}
+
+\caption{Running a tool in batch}\label{fig:batch}
+\end{figure}
+
+You may also get more information for the tool and each tool parameter
+by clicking the `Tool Help' button at the bottom of the tool dialog box.
+
+\subsection{Run the Tool and View
+Results}\label{run-the-tool-and-view-results}
+
+Open the destinate Feature Class and view the update destination field
+values (Fig. \ref{fig:jcbefore}, Fig. \ref{fig:jcafter}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/joinCalc-before} 
+
+}
+
+\caption{Attribues before running the tool}\label{fig:jcbefore}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/joinCalc-results} 
+
+}
+
+\caption{Attributes after running the tool}\label{fig:jcafter}
+\end{figure}
+
+\chapter{Calculate Feature RPSUIDs from Overlapping
+Polygons}\label{spatjoinCalc}
+
+\section{Overview}\label{overview-1}
+
+This tool utilizes spatial joins to update field values in the target
+Feature Classes field to equal the source Feature Class fields in a
+source geodatabase. Using `wildcard' fitlers, this tool allows users to
+update particular target Feature Datasets, Feature Classes, and Fields.
+For the purposes of this tool within the scope of the CIP Data Review
+task, target Fields are, by default, any fields that begin with
+``realPropertySiteUnique,'' in order to udpate RPSUID fields called
+either ``realPropertySiteUniqueIdentifier'' or
+``realPropertySiteUniqueID''; however, this tool could be extended to
+any number of source/target Feature Class/Field values.
+
+\section{Parameters}\label{parameters-1}
+
+The tool has 8 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Geodatabase (data type: Workspace/File Geodatabase)} - The
+  path to the input geodatabase to update Feature Classes in.
+\item
+  \textbf{Source Feature (data type: Feature Class)} - The path to the
+  source Feature Class, which will be used to update Feature Class
+  fields in target Feature Classes.
+\item
+  \textbf{Source\_Field (data type: Field)} - The field within the
+  source Feature Class used to update values in target Feature Classes.
+\item
+  \textbf{Target Feature Dataset Wildcard (data type: String)} - Within
+  the input geodatabase, do you want to update only certain Feature
+  Datasets? Use this wildcard to filter input geodatabase Feature
+  Datasets. The Default is `*' for `All Feature Datasets,' but if you
+  only wanted to update the Feature Classes in the `Auditory' Feature
+  Dataset, set this parameter to `Auditory.' Similarly, if you only
+  wanted to update Feature Classes within environmental Feature
+  Datasets, set this parameter to 'environmental*`, which will loop
+  through all Feature Classes within Feature Datasets that start with
+  'environmental.'
+\item
+  \textbf{Target Feature Class Wildcard (data type: String)} - Within
+  the input geodatabase, do you want to update only certain Feature
+  Classes? Use this wildcard to filter input geodatabase Feature Classes
+  to update. The Default is `*' for `All Feature Classes,' but if you
+  only wanted to update Feature Classes called ``roadCenterline\_L'',
+  set this parameter to `roadCenterline\_L.' Similarly, if you only
+  wanted to update Feature Classes that begin with ``road,'' set this
+  parameter to 'road*`, which will loop through all Feature Classes that
+  start with 'road.'
+\item
+  \textbf{Target Field Wildcard (data type: String)} - This parameter is
+  used to filter fields within the target Feature Classes that you want
+  to update with the Source Feature Classes source Field. For the
+  purposes of this tool within the scope of the CIP Data Review, this
+  parameter is automatically set to ``realPropertySiteUnique*" in order
+  to `catch' all RPSUID fields within the SDSFIE 3.101 data model, where
+  certain fields are called ``realPropertySiteUniqueIdentifier'' and
+  others are called ``realPropertySiteUniqueID.''
+\item
+  \textbf{Overlap Type (data type: String)} - How do you want to limit
+  the spatial join? By default, this parameter is set to ``within,'' in
+  order to only update target features that are completely within the
+  source features. This parameter may be changed to any of the following
+  values, as specified in the
+  \href{http://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/select-layer-by-location.htm}{SelectByLocation\_management
+  tool documentation}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{INTERSECT} ---The features in the input layer will be selected
+    if they intersect a selecting feature. This is the default.\\
+  \item
+    \emph{INTERSECT\_3D} ---The features in the input layer will be
+    selected if they intersect a selecting feature in three-dimensional
+    space (x, y, and z).\\
+  \item
+    \emph{WITHIN\_A\_DISTANCE} ---The features in the input layer will
+    be selected if they are within a specified distance of a selecting
+    feature. Specify a distance in the Search Distance parameter.\\
+  \item
+    \emph{WITHIN\_A\_DISTANCE\_3D} ---The features in the input layer
+    will be selected if they are within a specified distance of a
+    selecting feature in three-dimensional space. Specify a distance in
+    the Search Distance parameter.\\
+  \item
+    \emph{WITHIN\_A\_DISTANCE\_GEODESIC} ---The features in the input
+    layer will be selected if they are within a specified distance of a
+    selecting feature. Distance between features will be calculated
+    using a geodesic method which takes into account the curvature of
+    the earth and correctly deals with data near and across the dateline
+    and poles.\\
+  \item
+    \emph{CONTAINS} ---The features in the input layer will be selected
+    if they contain a selecting feature.\\
+  \item
+    \emph{COMPLETELY\_CONTAINS} ---The features in the input layer will
+    be selected if they completely contain a selecting feature.\\
+  \item
+    \emph{CONTAINS\_CLEMENTINI} ---This spatial relationship yields the
+    same results as COMPLETELY\_CONTAINS with the following exception:
+    if the selecting feature is entirely on the boundary of the input
+    feature (no part is properly inside or outside), the feature will
+    not be selected. Clementini defines the boundary polygon as the line
+    separating inside and outside, the boundary of a line is defined as
+    its end points, and the boundary of a point is always empty.\\
+  \item
+    \emph{WITHIN} ---The features in the input layer will be selected if
+    they are within a selecting feature.\\
+  \item
+    \emph{COMPLETELY\_WITHIN} --- The features in the input layer will
+    be selected if they are completely within or contained by a
+    selecting feature.\\
+  \item
+    \emph{WITHIN\_CLEMENTINI} --- The result will be identical to WITHIN
+    with the exception that if the entirety of the feature in the input
+    layer is on the boundary of the feature in the selecting layer, the
+    feature will not be selected. Clementini defines the boundary
+    polygon as the line separating inside and outside, the boundary of a
+    line is defined as its end points, and the boundary of a point is
+    always empty.\\
+  \item
+    \emph{ARE\_IDENTICAL\_TO} --- The features in the input layer will
+    be selected if they are identical (in geometry) to a selecting
+    feature.\\
+  \item
+    \emph{BOUNDARY\_TOUCHES} --- The features in the input layer will be
+    selected if they have a boundary that touches a selecting feature.
+    When the inputs features are lines or polygons, the boundary of the
+    input feature can only touch the boundary of the selecting feature,
+    and no part of the input feature can cross the boundary of the
+    selecting feature.\\
+  \item
+    \emph{SHARE\_A\_LINE\_SEGMENT\_WITH} --- The features in the input
+    layer will be selected if they share a line segment with a selecting
+    feature. The input and selecting features must be line or polygon.\\
+  \item
+    \emph{CROSSED\_BY\_THE\_OUTLINE\_OF} --- The features in the input
+    layer will be selected if they are crossed by the outline of a
+    selecting feature. The input and selecting features must be lines or
+    polygons. If polygons are used for the input or selecting layer, the
+    polygon's boundary (line) will be used. Lines that cross at a point
+    will be selected, not lines that share a line segment.\\
+  \item
+    \emph{HAVE\_THEIR\_CENTER\_IN} --- The features in the input layer
+    will be selected if their center falls within a selecting feature.
+    The center of the feature is calculated as follows: for polygon and
+    multipoint, the geometry's centroid is used, and for line input, the
+    geometry's midpoint is used.
+  \end{itemize}
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-1}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-1}
+
+Navigate to the location of the script tool, then right-click the
+`Calculate Feature RPSUIDs from Overlapping Polygon' script tool to open
+(Fig. \ref{fig:sjcopentool}).
+
+\begin{figure}[H]
+
+\hfill{}\includegraphics{figures/spatjoinCalcopentool} 
+
+\caption{Opening the toolbox}\label{fig:sjcopentool}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-1}
+
+For this demostration, we want to update missing RPSUID values for 2
+features in the Site\_P Feature Class using RPSUID values from Site\_A
+features that contain Site\_P features \ref{fig:sjcbefore}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/spatjoinCalc-before} 
+
+}
+
+\caption{Missing RPSUID attributes for Site Point featuresl}\label{fig:sjcbefore}
+\end{figure}
+
+\pagebreak
+Next, fill out the parameters for the tool. Here, we want to transfer
+the RPSUID attributes (Source Field) from the Site\_A Feature Class in
+the Cadastre Feature Dataset (Fig. \ref{fig:sjcparams}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/spatjoinCalc-toolparams} 
+
+}
+
+\caption{Tool parameters}\label{fig:sjcparams}
+\end{figure}
+
+Since we only want to update the Site\_P features within the Cadastre
+Feature Dataset, we change the default value for the Target Feature
+Dataset Wildcard to ``Cadastre,'' since we know that the Site\_P Feature
+Class is only found within the Cadastre Feature Dataset. Further, we
+change the default value of the Target Feature Class Wildcard parameters
+to ``Site\_P'' in order to only update Site\_P features within the
+Cadastre Dataset. Since we know that the RPSUID field names within all
+Feature Classes in the data model begin with `realPropertySiteUnique',
+we can keep the default value for the Target Field Wildcard parameter in
+order to update the realPropertySiteUniqueID field in Site\_P features
+with with the Source Field in the Source Feature Class.
+
+For the purposes of this demostration, we keep the default value for the
+Overlap Type parameter to ``WITHIN,'' in order to update the fields that
+begin with ``realPropertySiteUnique'' for features that are
+\emph{within} each Source Feature Class feature.
+
+You may also get more information for the tool and each tool parameter
+by clicking the `Tool Help' button at the bottom of the tool dialog box.
+
+\section{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-1}
+
+If running the tool with Background Processessing disabled, we can see
+which RPSUIDs are being updated (Fig. \ref{fig:sjcmessages}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/spatjoinCalc-toolmessages} 
+
+}
+
+\caption{Tool parameters}\label{fig:sjcmessages}
+\end{figure}
+
+After the tool has run, we see that the 2 Site\_P features with missing
+RPSUID values are updated accordingly \ref{fig:sjcafter}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/spatjoinCalc-after} 
+
+}
+
+\caption{Updated attributes after running the tool}\label{fig:sjcafter}
+\end{figure}
+
+\chapter{Find Duplicate Geometry}\label{dupGeom}
+
+\section{Overview}\label{overview-2}
+
+The Find Duplicate Geometry tool allows users to search an entire
+geodatabase's Feature Classes within Feature Datasets for features with
+duplicate geometries. This tool loops through each Feature Dataset's
+Feature Class features and searches for duplicate geometries. All
+features with duplicate geometries are written to the output .csv file,
+as specified, and describes the Feature Dataset and Feature Class with
+duplicate geometries, the OBJECTIDs of the duplicate geometries, and a
+summary, which gives the count of duplicate geometries spread over
+unique geometries, Further, this tool creates layer files for each
+Feature Class' duplicate features, allowing users to edit their
+geodatabase directory from a temporary, filtered layer of only duplicate
+features to be evaluated further.
+
+\section{Parameters}\label{parameters-2}
+
+The tool has 5 parameters:\\
+1. \textbf{Input\_Geodatabase (data type: Workspace)} - This parameter
+must be the path of the input geodatabase to search Feature Datasets'
+Feature Class features for duplicate geometries.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{XY\_Tolerance (data type: String)} - The XY\_Tolerance
+  parameter will be applied to each vertex when evaluating if there is
+  an identical vertex in another entity, and must be input in the same
+  units as the the source geodatabase's coordinate reference system
+  (CRS).
+\item
+  \textbf{Z\_Tolerance (data type: String)} - The Z\_Tolerance parameter
+  will be applied to each vertex when evaluating if there is an
+  identical vertex in another entity with regard to elevation, and must
+  be input in the same units as the the source geodatabase's coordinate
+  reference system (CRS).
+\item
+  \textbf{Output\_CSV (data type: File)} - The path to the output
+  Duplicate\_Geometry\_Summary .xlsx/.csv file.
+\item
+  \textbf{Output\_Layers\_Directory (data type: Folder)} - The path to
+  the directory/folder to store layer files with duplicate geometries.
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-2}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-2}
+
+Navigate to the location of the script toolbox, then right-click the
+`Find Duplicate Geometry' script tool to open (Fig. \ref{fig:dupGopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/dupG-opentool} 
+
+}
+
+\caption{Opening the Find Duplicate Geometries tool}\label{fig:dupGopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-2}
+
+Next, fill out the parameters for the tool. Here, we want to search all
+Feature Classes within Feature Datasets in the Example.gdb for duplicate
+geometries using the default XY Tolerance and Z Tolerance values of `0'
+(Fig. \ref{fig:dupGparams}). We specify that we want the Duplicate
+Geometry Summary to be written to a Comma-separated Values (.csv) file
+called `test.csv.' Further, we specify that we want all the duplicate
+Feature Class feature layers to be saved to the Output Layers Directory
+`layer.'
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/dupG-params} 
+
+}
+
+\caption{Find Duplicate Geometries parameters}\label{fig:dupGparams}
+\end{figure}
+
+\section{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-2}
+
+While the tool runs (with Background Processing disabled), we can see
+the messages from the tool, showing how many duplicate features are
+found for each Feature Class (Fig. \ref{fig:dupGmessages}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/dupG-messages} 
+
+}
+
+\caption{Find Duplicate Geometries parameters}\label{fig:dupGmessages}
+\end{figure}
+
+After the tool has run, we can open the output .csv we specified in the
+tool parameters to examine which Feature Classes have duplicated
+geometries . For example, we find that the EnvRestorSampLoc\_P Feature
+Class within the environmentalRestoration Feature Dataset has 17 total
+duplicates spread across 7 unique geometries (Fig. \ref{fig:dupGcsv}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/dupG-csv} 
+
+}
+
+\caption{Find Duplicate Geometries parameters}\label{fig:dupGcsv}
+\end{figure}
+
+Navigating to the output layer directory we specified in the tool, we
+find layer files with duplicate features for each Feature Class (Fig.
+\ref{fig:dupGlays}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/dupG-lays} 
+
+}
+
+\caption{Find Duplicate Geometries parameters}\label{fig:dupGlays}
+\end{figure}
+
+After pulling in the \_dupeGeom\_EnvRestorSampLoc\_P layer file, we can
+zoom to a feature and select the features at that location to examine
+the duplicate features at that location (Fig. \ref{fig:layFeats}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/dupG-layFeats} 
+
+}
+
+\caption{The features with duplicated geometries}\label{fig:layFeats}
+\end{figure}
+
+Then, we can view the Attribute Table for the selected features to
+examine which feature we should amend or delete (Fig.
+\ref{fig:layAtts}). Here, we find that the attributes are exactly the
+same for the first duplicated geometry, and so we should probably delete
+one of these features. Editing the layer files directly will update the
+associated Feature Classes in the original geodatabase.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/dupG-layAtts} 
+
+}
+
+\caption{Attributes of duplicated features}\label{fig:layAtts}
+\end{figure}
+
+we can pull in the layer files created for each Feature Class to
+manually inspect the duplicated features to determine if/which features
+should be amended or deleted.
+
+\chapter{Delete Duplicate Features}\label{delFeats}
+
+\section{Overview}\label{overview-3}
+
+The Find Duplicate Features tool allows users to search an entire
+geodatabase's Feature Classes for duplicated features This tool loops
+through each Feature Dataset's Feature Class features and searches for
+duplicate features, not including geometry.
+
+By default, this tool does not consider compare attributes in across any
+fields that are `OID', `Guid', `GlobalID', `Blob', or `Raster' field
+types. Furthmore, the following fields are ignored in searching for
+duplicate features, by default (not case sensitive):
+`LAST\_EDITED\_DATE', `LAST\_EDITED\_USER', `CREATED\_USER',
+`CREATED\_DATE'.
+
+\section{Parameters}\label{parameters-3}
+
+The tool has 3 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Input\_Geodatabase (data type: Workspace)} - This parameter
+  must be the path of the input geodatabase to search Feature Datasets'
+  Feature Class features for duplicate features.
+\item
+  \textbf{XY\_Tolerance (data type: String)} - The XY\_Tolerance
+  parameter will be applied to each vertex when evaluating if there is
+  an identical vertex in another entity, and must be input in the same
+  units as the the source geodatabase's coordinate reference system
+  (CRS).
+\item
+  \textbf{Z\_Tolerance (data type: String)} - The Z\_Tolerance parameter
+  will be applied to each vertex when evaluating if there is an
+  identical vertex in another entity with regard to elevation, and must
+  be input in the same units as the the source geodatabase's coordinate
+  reference system (CRS).
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-3}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-3}
+
+Navigate to the location of the script toolbox, then right-click the
+`Find Duplicate Features' script tool to open (Fig. \ref{fig:delFopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/delF-opentool} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:delFopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-3}
+
+Next, fill out the parameters for the tool. Here, we want to search all
+Feature Classes within Feature Datasets in the Example.gdb for duplicate
+features (Fig. \ref{fig:delFparams}). We specify that we want to keep
+the default XY Tolerance and Z Tolerance parameters to zero, though this
+could be increased to allow duplicate geometry checks to be more
+lenient.
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.8\linewidth,]{figures/delF-params} 
+
+}
+
+\caption{Delete Duplicate Features parameters}\label{fig:delFparams}
+\end{figure}
+
+\subsection{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-3}
+
+While the tool runs (with Background Processing disabled), we can see
+the messages from the tool, which displays how many duplicate features
+will be deleted across each feature class, if applicable (Fig.
+\ref{fig:delFmessages}). Here, we see that 102 duplicates were found in
+the MilFlightTrack\_L feature class across 51 unique features,
+indicating that each of the 51 features may have been duplicated once
+(51 x 2 = 102).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/delF-messages} 
+
+}
+
+\caption{Delete Duplicate Features messages}\label{fig:delFmessages}
+\end{figure}
+
+\chapter{Standardized Road Prefix, Name, and Suffix}\label{std3}
+
+\section{Overview}\label{overview-4}
+
+The purpose of this tool is to standardize the 3 field (road prefix,
+road name, and road suffix) values within a feature class. This tool
+works by first searching the ROADNAME field within that feature class,
+then removes any prefixes or suffixes within the field and moves them to
+the appropriate field. For all prefixes and suffixes found, the prefixes
+are reformatted to ``N'', ``S'', ``E'', and ``W.'' For all suffixes
+found, the suffixes are reformatted to
+\href{https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv}{standard
+USPS suffixes}.
+
+\section{Parameters}\label{parameters-4}
+
+The tool has 4 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Road Feature Class (data type: Feature Class)} - This
+  parameter must be the path to the Feature Class that has the 3 road
+  fields to be standardized.
+\item
+  \textbf{Prefix Field (data type: Field)} - The field within the
+  feature class that has or should have road prefixes.
+\item
+  \textbf{Name Field (data type: Field)} - The field within the feature
+  class that has road names.
+\item
+  \textbf{Suffix Field (data type: Field)} - The field within the
+  feature class that has or should have road suffixes.
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-4}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-4}
+
+Navigate to the location of the script toolbox, then right-click the
+`Standardize 3 Address Fields' script tool to open (Fig.
+\ref{fig:std3open}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/std3-open} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:std3open}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-4}
+
+Next, fill out the parameters for the tool. Here, we want to update the
+road prefix, road name, and road suffix fields in the RoadCenterline\_L
+feature class (Fig. \ref{fig:std3params}). The fields can be derived
+directly from the Feature Class by using the drop-down menu.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/std3-toolparams} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:std3params}
+\end{figure}
+
+\section{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-4}
+
+Before running the tool, we see that, indeed, the road prefixes and road
+suffixes are incorrectly populated inside the road name field Open the
+destinate Feature Class and view the update destination field values
+(Fig. \ref{fig:std3before}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/std3-before} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:std3before}
+\end{figure}
+
+After running the tool, we can see that the prefixes and suffixes have
+been populated in the correct fields, and have also been standardized to
+match USPS standards (Fig. \ref{fig:std3after}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/std3-after} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:std3after}
+\end{figure}
+
+\chapter{Search for Missing and Indeterminant Data}\label{indtSearch}
+
+\section{Overview}\label{overview-5}
+
+Search a `source' geodatabase for indeterminate data from feature
+dataset/feature class combinations in a target geodatabase. First,
+searches for missing feature datasets in target geodatabase not in
+source geodatabase. Then, searches for feature classes in `x' feature
+dataset. Then, for each feature class in the source geodatabase, this
+tool searches for `indeterminate' values in each field. Indeterminate
+values, here, means any null, to be determined (TBD), or `other' values.
+
+This tool creates 4 output tables, each prepended with the name of the
+Model\_Geodatabase (e.g.: If your `model' geodatabase called `CIP', the
+tables will be called (CIP\_MissingFDS, CIP\_Missing\_FCs,
+CIP\_MissingFields, and CIP\_MissingData). These tables include:
+
+\begin{itemize}
+\tightlist
+\item
+  {[}modelGeodatabaseName{]}\_MissingFDS - Gives a list of Feature
+  Datasets within the target geodatabase that are not included in the
+  source geodatabase.\\
+\item
+  {[}modelGeodatabaseName{]}\_MissingFCs - Gives a list of Feature
+  Classes for each Feature Dataset within the target geodatabase that
+  are not included in the source geodatabase.\\
+\item
+  {[}modelGeodatabaseName{]}\_MissingFields - Gives a list of Fields for
+  each Feature Dataset/Feature Class combination within the target
+  geodatabase that are not included in the source geodatabase.\\
+\item
+  {[}modelGeodatabaseName{]}\_MissingData - For each Feature
+  Dataset/Feature Class combination in both the target and source
+  geodatabase, this table gives an overview of missing attributes for
+  each field in the source geodatabase's Feature Class.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    For Fields in each of the source geodatabase's Feature Classes, this
+    table highlights fields not included in the target geodatabase's
+    Feature Class under the `FIELD\_NONSDS' column (e.g.:
+    `FIELD\_NONSDS' = F when fields are included in both geodatabases,
+    and `FIELD\_NONSDS' = T when the field exists in the source
+    geodatabase for said Feature Class, but not the target geodatabase's
+    Feature Class).
+  \item
+    This table then lists whether or not the feature class is empty
+    (i.e.: EMPTY\_FC = T or F).
+  \item
+    Then, for each field, the MissingData table gives a count of
+    Null\footnote{Null values include :None, ``None'', ``none'',
+      ``NONE'', ``'',``-99999'',``77777'',77777, "
+      ``,''NA``,''na``,''N/A``,''n/a``,''NULL``,''Null``,''``,''null``,''``''``,''
+      ``,'' ``,'' ``,'' ``}, `TBD'\footnote{TBD values include :
+      ``tbd'',``TBD'',``To be determined'',``Tbd'',99999,``99999''}, and
+    `Other'\footnote{Other values include : ``Other'', ``other'',
+      ``OTHER'',``88888'',88888} features, further giving the counts of
+    each value in `NULL\_VALUE\_COUNTS', `TBD\_VALUE\_COUNTS', and
+    `OTHER\_VALUE\_COUNTS' fields.
+  \item
+    The sum of the Null, TBD, and Other features are populated in the
+    `TOTAL\_INDT\_COUNT' (i.e.: Total indeterminant feature count), with
+    the `TOTAL\_DET\_COUNT' column giving the total number of features
+    with `determinated' values (i.e.: not indeterminant values).
+  \item
+    The POP\_VALS column lists the count of all unique populated values
+    for each field, while the INC\_POP\_VALS column lists any field
+    values that are not included in the field's domain.
+  \end{itemize}
+\end{itemize}
+
+\section{Parameters}\label{parameters-5}
+
+The tool has 2 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Source Geodatabase (data type: Workspace/File Geodatabase)} -
+  The path to the file geodatabase to be searched for
+  indeterminant/missing data.
+\item
+  \textbf{Target Geodatabase (data type: Workspace/File Geodatabase)} -
+  The path to the file geodatabase with which the source geodatabase
+  will be compared against.
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-5}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-5}
+
+Navigate to the location of the script toolbox, then right-click the
+`Search for Indeterminant Data' script tool to open (Fig.
+\ref{fig:indtSearchopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/indtSearch-open} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-5}
+
+Next, fill out the parameters for the tool. Here, we want to compare the
+`Example.gdb' against the `CIP.gdb' (Fig. \ref{fig:indtSearchparams}).
+The fields can be derived directly from the Feature Class by using the
+drop-down menu.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/indtSearch-params} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchparams}
+\end{figure}
+
+\section{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-5}
+
+While we run the tool, we can see view the messages of the tool, giving
+a listing of the fields being searched for indeterminant data with the
+counts of indeterminant values (Fig. \ref{fig:indtSearchmessages}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/indtSearch-messages} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmessages}
+\end{figure}
+
+After the tool has run, we can inspect the output tables within the
+`Example.gdb' geodatabase (Fig. \ref{fig:indtSearchtables}). Opening the
+CIP\_MissingFDS table, we see that the Example geodatabase have no
+missing Feature Datasets \ref{fig:indtSearchmissingFDS}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/indtSearch-tables} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchtables}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/indtSearch-missingFDS} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmissingFDS}
+\end{figure}
+
+Examining the MissingFCs table, we see that the Example geodatabase has
+one Feature Class, RoadSeg\_L from the Transportation Feature Dataset,
+missing when compared with the CIP geodatabase
+\ref{fig:indtSearchmissingFCs}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/indtSearch-missingFCs} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmissingFCs}
+\end{figure}
+
+We can look at the MissingFLD table to see which fields are missing from
+each Feature Class from the target geodatabase that are included in the
+source geodatabase \ref{fig:indtSearchmissingFLDs}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/indtSearch-missingFLDs} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmissingFLDs}
+\end{figure}
+
+To examine indeterminant field attribution, we can examine the
+MissingData table \ref{fig:indtSearchmissingData}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/indtSearch-missingData} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmissingData}
+\end{figure}
+
+\bibliography{packages.bib}
+
+
+\end{document}
