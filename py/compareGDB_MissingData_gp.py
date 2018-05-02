@@ -317,7 +317,7 @@ def compareGDBs(installGDB,compGDB):
                         arcpy.env.workspace = installGDB
                         row = nullrows.newRow()
                         ignoreFLD = ['Shape'.upper(), 'OBJECTID'.upper(), 'Shape_Length'.upper(), 'Shape_Area'.upper()]
-                        if theFLD not in ignoreFLD:           
+                        if theFLD.upper() not in ignoreFLD:           
                                                         
                             if theFLD not in minF:
                                 arcpy.AddMessage(theFLD + " *NOT* included in "+compName+"/"+theFC+" fields")
