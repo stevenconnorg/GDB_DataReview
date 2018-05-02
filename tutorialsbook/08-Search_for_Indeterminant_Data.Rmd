@@ -38,7 +38,7 @@ While we run the tool, we can see view the messages of the tool, giving a listin
 ```{r indtSearchmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra='', out.width = '80%'}
 knitr::include_graphics("figures/indtSearch-messages.jpg",auto_pdf = TRUE)
 ```
-After the tool has run, we can inspect the output tables within the 'Example.gdb' geodatabase (Fig. \@ref(fig:indtSearchtables)). Opening the CIP_MissingFDS table, we see that the Example geodatabase have no missing Feature Datasets \@ref(fig:indtSearchmissingFDS)). Examining the MissingFCs table, we see that the Example geodatabase has one Feature Class, RoadSeg_L from the Transportation Feature Dataset, missing when compared with the CIP geodatabase \@ref(fig:indtSearchmissingFCs)).
+After the tool has run, we can inspect the output tables within the 'Example.gdb' geodatabase (Fig. \@ref(fig:indtSearchtables)). Opening the CIP_MissingFDS table, we see that the Example geodatabase have no missing Feature Datasets \@ref(fig:indtSearchmissingFDS)). 
 
 
 ```{r indtSearchtables, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra='', out.width = '80%'}
@@ -48,9 +48,18 @@ knitr::include_graphics("figures/indtSearch-tables.jpg",auto_pdf = TRUE)
 ```{r indtSearchmissingFDS, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra='', out.width = '80%'}
 knitr::include_graphics("figures/indtSearch-missingFDS.jpg",auto_pdf = TRUE)
 ```
+Examining the MissingFCs table, we see that the Example geodatabase has one Feature Class, RoadSeg_L from the Transportation Feature Dataset, missing when compared with the CIP geodatabase \@ref(fig:indtSearchmissingFCs)).
 
 ```{r indtSearchmissingFCs, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra='', out.width = '80%'}
 knitr::include_graphics("figures/indtSearch-missingFCs.jpg",auto_pdf = TRUE)
 ```
+We can look at the MissingFLD table to see which fields are missing from each Feature Class from the target geodatabase that are included in the source geodatabase  \@ref(fig:indtSearchmissingFLDs)).
 
+```{r indtSearchmissingFLDs, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra='', out.width = '80%'}
+knitr::include_graphics("figures/indtSearch-missingFLDs.jpg",auto_pdf = TRUE)
+```
+To examine indeterminant field attribution, we can examine the MissingData table \@ref(fig:indtSearchmissingData)).
+```{r indtSearchmissingData, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra='', out.width = '80%'}
+knitr::include_graphics("figures/indtSearch-missingData.jpg",auto_pdf = TRUE)
+```
 
