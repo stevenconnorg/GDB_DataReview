@@ -85,7 +85,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2018-05-02}
+  \date{2018-05-03}
 
 \usepackage{booktabs}
 \usepackage{graphics}
@@ -105,10 +105,8 @@
 \usepackage{tabu}
 \usepackage{threeparttable}
 \usepackage{fontspec}
-\setmainfont{Arial}[SizeFeatures={Size=13}]
 \usepackage[normalem]{ulem}
 \frontmatter
-\setmainfont{Arial}[SizeFeatures={Size=13}]
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -141,9 +139,46 @@ Toolbox.
 
 The GDB\_DataReview ArcMap Toolbox provides numerous Python script tools
 to expedite the review of geodatabases in comparison with a template
-geodatabase model.
+geodatabase model. This toolbox was developed to aid Air Force (AF)
+installations in maintaining geospatial data in compliance with the the
+current Air Force Data Model (GeoBase 3.1.0.1) developed under the
+\href{https://www.sdsfieonline.org/Components/USAF}{AF GeoBase mission}.
+This data model is based upon the
+\href{https://www.sdsfieonline.org/}{Spatial Data Standards for
+Facilities, Infrastructure, and Environment (SDSFIE)} SDSFIE-V 3.1 Gold
+model, which complies with the Department of Defense Instruction (DoDI)
+8130.01, \emph{Installation Geospatial Information and Service}
+(IGI\&S), while also providing some flexibility within the program to
+aid the AF mission. As part of the IGI\&S program, this toolbox also
+aids in standardizing methods to adhere to the Fiscal Year 2017 CIP data
+call required by DoDI 8130.01.
 
-\chapter{Join Fields and Calculate}\label{joinCalc}
+The GDB\_DataReview Toolbox provides methods to:
+
+\begin{itemize}
+\tightlist
+\item
+  Update feature class data using both
+  \protect\hyperlink{joinCalc}{tabular} and
+  \protect\hyperlink{spatjoinCalc}{spatial} joins,
+\item
+  Find \protect\hyperlink{dupGeom}{duplicate geometries}, delete
+  \protect\hyperlink{dupFeats}{duplicate features}, and
+  \protect\hyperlink{chkGeom}{check/repair} feature geometries,
+\item
+  Standardize \protect\hyperlink{std3}{road prefixes, names and
+  suffixes} or \protect\hyperlink{stdAdd1}{building addresses},
+\item
+  \protect\hyperlink{indtSearch}{Search for} and
+  \protect\hyperlink{summIndt}{summarize} indeterminant and missing data
+  in a geodatabase when compared with a template geodatabase
+\item
+  Batch \protect\hyperlink{exMeta}{exporting} and
+  \protect\hyperlink{imMeta}{importing} geodatabase metadata
+\end{itemize}
+
+\hypertarget{joinCalc}{\chapter{Join Fields and
+Calculate}\label{joinCalc}}
 
 \section{Overview}\label{overview}
 
@@ -284,8 +319,8 @@ values (Fig. \ref{fig:jcbefore}, Fig. \ref{fig:jcafter}).
 \caption{Attributes after running the tool}\label{fig:jcafter}
 \end{figure}
 
-\chapter{Calculate Feature RPSUIDs from Overlapping
-Polygons}\label{spatjoinCalc}
+\hypertarget{spatjoinCalc}{\chapter{Calculate Feature RPSUIDs from
+Overlapping Polygons}\label{spatjoinCalc}}
 
 \section{Overview}\label{overview-1}
 
@@ -532,7 +567,7 @@ RPSUID values are updated accordingly \ref{fig:sjcafter}).
 \caption{Updated attributes after running the tool}\label{fig:sjcafter}
 \end{figure}
 
-\chapter{Find Duplicate Geometry}\label{dupGeom}
+\hypertarget{dupGeom}{\chapter{Find Duplicate Geometry}\label{dupGeom}}
 
 \section{Overview}\label{overview-2}
 
@@ -788,9 +823,205 @@ indicating that each of the 51 features may have been duplicated once
 \caption{Delete Duplicate Features messages}\label{fig:delFmessages}
 \end{figure}
 
-\chapter{Standardized Road Prefix, Name, and Suffix}\label{std3}
+\hypertarget{chkGeom}{\chapter{Check and/or Repair
+Geometries}\label{chkGeom}}
 
 \section{Overview}\label{overview-4}
+
+The Check and/or Repair Geometries tool allows users to search an entire
+geodatabase's Feature Classes for geometry problems. This tool loops
+through each Feature Dataset's Feature Class features and searches for
+geometry problems, including null geometry, self intersections,
+duplicate vertexes, and more.
+
+If geometry problems exists, an output table is created containing the
+following fields: CLASS, FEATURE\_ID, and PROBLEM. The feature classes
+which contain geometry problems are then repaired.
+
+After the repair is conducted, the subset of feature classes with
+repaired geometry problems are checked again for geometry problems to
+confirm their repair. Another output table is generated for the subset
+of feature classes. An empty output table confirms the geometry problems
+were correctly repaired.
+
+\section{Parameters}\label{parameters-4}
+
+The tool has 2 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Input\_Geodatabase (data type: Workspace)} - This parameter
+  must be the path of the input geodatabase to search Feature Datasets'
+  Feature Class features for duplicate features.\\
+\item
+  \textbf{Installation\_Review\_Geodatabase (data type: Workspace)} -
+  This parameter should be the path of the Installation Review
+  Geodatabase to compile all CIP processing outputs in a single
+  location.
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-4}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-4}
+
+Navigate to the location of the script toolbox, then right-click the
+`Check and/or Repair Geometry' script tool to open (Fig.
+\ref{fig:chkGopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/chkG-open} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:chkGopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-4}
+
+Next, fill out the parameters for the tool. Here, we want to search all
+Feature Classes within Feature Datasets in the Example.gdb for duplicate
+features (Fig. \ref{fig:chkGparams}). Last, we specify where we want to
+output the resulting tables, prefereably in an Installation Review
+geodatabase specifically for holding CIP processing results.\\
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/chkG-params} 
+
+}
+
+\caption{Delete Duplicate Features parameters}\label{fig:chkGparams}
+\end{figure}
+
+\subsection{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-4}
+
+While the tool runs (with Background Processing disabled), we can see
+the messages from the tool, which displays the following: how many
+feature classes are being checked for geometry problems, how many
+geometry problems that were found, where the output results are found,
+how many and which feature classes will be processed to repair geometry
+problems, how many feature classes are being re-checked for geometry
+errors, and how many geometry problems were found after the re-check
+(Fig. \ref{fig:chkGmessages}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/chkG-messages} 
+
+}
+
+\caption{Delete Duplicate Features messages}\label{fig:chkGmessages}
+\end{figure}
+
+Here, we see that 16 geometry problems were found in the Yaeger CIP
+geodatabase across 10 different feature classes, with each listed. A
+re-check was conducted on the 10 feature classes and then 0 geometry
+problems were found (Fig. \ref{fig:chkGafter}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/chkG-after} 
+
+}
+
+\caption{Delete Duplicate Features messages}\label{fig:chkGafter}
+\end{figure}
+
+\hypertarget{stdAdd1}{\chapter{Standardized Address
+Field}\label{stdAdd1}}
+
+\section{Overview}\label{overview-5}
+
+The Standardize Address Field tool allows users to standardize 1 address
+field in a feature class. This tool works by searching the address field
+within the input feature class, then replaces any street prefixes (e.g.:
+North, north, East, West) with a standard prefix abbreviation (i.e.:
+``N'', ``S'', ``E'', and ``W''), while all suffixes (e.g.: AVE, Avenue,
+Street) are reformatted to
+\href{https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv}{standard
+USPS suffixes}.
+
+\section{Parameters}\label{parameters-5}
+
+The tool has 2 parameters:\\
+1. \textbf{Feature Class (data type: Feature Class )} - The path to the
+Feature Class with the address field to standardize.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Field (data type: Field)} - The address field in the Feature
+  Class to be standardized.
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-5}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-5}
+
+Navigate to the location of the script toolbox, then right-click the
+`Find Duplicate Features' script tool to open (Fig. \ref{fig:std1open}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/std1-opentool} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:std1open}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-5}
+
+Next, fill out the parameters for the tool. Here, we want to update the
+buildingAddress field in the Building\_A Feature Class in the
+Example.gdb (Fig. \ref{fig:std1params}) because we notice none
+standardized addresses in the field (Fig. \ref{fig:std1before}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/std1-toolparams} 
+
+}
+
+\caption{Delete Duplicate Features parameters}\label{fig:std1params}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/std1-before} 
+
+}
+
+\caption{Delete Duplicate Features parameters}\label{fig:std1before}
+\end{figure}
+
+\subsection{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-5}
+
+After the tool has run, we can see that the building address values have
+been appropriately standardized (Fig. \ref{fig:std1after}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/std1-after} 
+
+}
+
+\caption{Delete Duplicate Features messages}\label{fig:std1after}
+\end{figure}
+
+\hypertarget{std3}{\chapter{Standardized Road Prefix, Name, and
+Suffix}\label{std3}}
+
+\section{Overview}\label{overview-6}
 
 The purpose of this tool is to standardize the 3 field (road prefix,
 road name, and road suffix) values within a feature class. This tool
@@ -802,7 +1033,7 @@ found, the suffixes are reformatted to
 \href{https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv}{standard
 USPS suffixes}.
 
-\section{Parameters}\label{parameters-4}
+\section{Parameters}\label{parameters-6}
 
 The tool has 4 parameters:
 
@@ -823,10 +1054,10 @@ The tool has 4 parameters:
   feature class that has or should have road suffixes.
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-4}
+\section{How to Use}\label{how-to-use-6}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-4}
+toolbox}\label{begin-by-opening-the-toolbox-6}
 
 Navigate to the location of the script toolbox, then right-click the
 `Standardize 3 Address Fields' script tool to open (Fig.
@@ -841,7 +1072,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening the Delete Duplicate Features tool}\label{fig:std3open}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-4}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-6}
 
 Next, fill out the parameters for the tool. Here, we want to update the
 road prefix, road name, and road suffix fields in the RoadCenterline\_L
@@ -858,7 +1089,7 @@ directly from the Feature Class by using the drop-down menu.
 \end{figure}
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-4}
+Results}\label{run-the-tool-and-view-results-6}
 
 Before running the tool, we see that, indeed, the road prefixes and road
 suffixes are incorrectly populated inside the road name field Open the
@@ -887,9 +1118,10 @@ match USPS standards (Fig. \ref{fig:std3after}).
 \caption{Opening the Delete Duplicate Features tool}\label{fig:std3after}
 \end{figure}
 
-\chapter{Search for Missing and Indeterminant Data}\label{indtSearch}
+\hypertarget{indtSearch}{\chapter{Search for Missing and Indeterminant
+Data}\label{indtSearch}}
 
-\section{Overview}\label{overview-5}
+\section{Overview}\label{overview-7}
 
 Search a `source' geodatabase for indeterminate data from feature
 dataset/feature class combinations in a target geodatabase. First,
@@ -960,7 +1192,7 @@ CIP\_MissingFields, and CIP\_MissingData). These tables include:
   \end{itemize}
 \end{itemize}
 
-\section{Parameters}\label{parameters-5}
+\section{Parameters}\label{parameters-7}
 
 The tool has 2 parameters:
 
@@ -977,10 +1209,10 @@ The tool has 2 parameters:
   will be compared against.
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-5}
+\section{How to Use}\label{how-to-use-7}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-5}
+toolbox}\label{begin-by-opening-the-toolbox-7}
 
 Navigate to the location of the script toolbox, then right-click the
 `Search for Indeterminant Data' script tool to open (Fig.
@@ -995,7 +1227,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchopen}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-5}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-7}
 
 Next, fill out the parameters for the tool. Here, we want to compare the
 `Example.gdb' against the `CIP.gdb' (Fig. \ref{fig:indtSearchparams}).
@@ -1012,7 +1244,7 @@ drop-down menu.
 \end{figure}
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-5}
+Results}\label{run-the-tool-and-view-results-7}
 
 While we run the tool, we can see view the messages of the tool, giving
 a listing of the fields being searched for indeterminant data with the
@@ -1087,6 +1319,416 @@ MissingData table \ref{fig:indtSearchmissingData}).
 }
 
 \caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmissingData}
+\end{figure}
+
+\hypertarget{summIndt}{\chapter{Summarise Indeterminant/Missing Data
+Tables}\label{summIndt}}
+
+\section{Overview}\label{overview-8}
+
+This tool takes the 4 tables created with the
+\protect\hyperlink{indtSearch}{Search for Missing and Indeterminant
+Data} tool and creates an outbook Excel Workbook which includes the
+following sheets:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Summary\_by\_FC} - gives the counts and percentages of
+  `Other', `Null', and `TBD' cells by Feature Class, as well as the
+  total counts and percentages of indeterminate (Other + Null + TBD) and
+  determinate cells (not Other, Null, or TBD),
+\item
+  \textbf{Summary\_by\_Field} - gives the same statistics as the
+  Summary\_by\_FC sheet, but broken down further by Feature Class
+  Fields,
+\item
+  \textbf{Empty Feature Classes} - gives the standard Feature Classes in
+  the comparison geodatabase not included in the input geodatabase(i.e.:
+  Feature Classes included in comparison geodatabases)
+\item
+  \textbf{Indeterminate\_Overview}, gives :
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The total count of feature classes that are empty
+  \item
+    The total number of standard feature classes that are empty
+  \item
+    The source geodatabase installation name
+  \item
+    The total number of missing feature classes
+  \item
+    The total number of missing feature datasets
+  \item
+    The total number of empty fields from empty feature classes
+  \item
+    The total number of empty fields from non-empty feature classes.
+  \end{itemize}
+\end{enumerate}
+
+\section{Parameters}\label{parameters-8}
+
+The inputs required for this tool to work are the 4 output tables
+created with the ``Search for Indeterminate Data'' script tool from one
+comparison geodatabase (\textbf{repeat:} ensure these are all from the
+same comparison geodatabase {[}i.e.: {[}comparison GDB{]} is the same
+across all four input tables{]}):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{comparisonGDBname\_MissingFDS Table (data type: GDB Table)} -
+  The path to the MissingFDS table created with the
+  \protect\hyperlink{indtSearch}{Search for Missing and Indeterminant
+  Data} tool for one `target' geodatabase.
+\item
+  \textbf{comparisonGDBname\_MissingFCs (data type: GDB Table)} - The
+  path to the MissingFCs table created with the
+  \protect\hyperlink{indtSearch}{Search for Missing and Indeterminant
+  Data} tool for one `target' geodatabase.
+\item
+  \textbf{comparisonGDBname\_MissingFields (data type: GDB Table)} - The
+  path to the MissingFields table created with the
+  \protect\hyperlink{indtSearch}{Search for Missing and Indeterminant
+  Data} tool for one `target' geodatabase.
+\item
+  \textbf{comparisonGDBname\_MissingData (data type: GDB Table)} - The
+  path to the MissingData table created with the
+  \protect\hyperlink{indtSearch}{Search for Missing and Indeterminant
+  Data} tool for one `target' geodatabase.
+\item
+  \textbf{Output Excel File' (data type: .xlsx file)} - The path to the
+  output Excel Workbook to save the summary sheets to.
+\end{enumerate}
+
+\section{Disclaimer}\label{disclaimer}
+
+This script tool requires a few non-standard ArcGIS 10.x Python modules:
+\href{http://www.numpy.org/}{numpy} and
+\href{https://pandas.pydata.org/}{pandas}. To install these modules for
+use in ArcGIS, you can download and install the modules using the
+commands ``pip install pandas'' and ``pip install numpy.''
+
+To do this, follow these instructions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Press the windows key on your keyboard
+\item
+  Type ``cmd'' to open the command prompt window
+\item
+  Set your working directory as your ArcGIS Python scripts directory.
+  This is typically located at
+  ``C:/Python27/ArcGIS{[}versionNumber{]}/Scripts. Do this by typing `cd
+  C:/Python27/ArcGIS{[}versionNumber{]}/Scripts' and clicking enter).
+  Replace {[}versionNumber{]} with you ArcGIS version number (e.g.: if
+  you are running ArcMap10.6, input:''C:/Python27/ArcGIS10.6/Scripts"
+\item
+  Type `pip install numpy' and press enter, then type `pip install
+  pandas' and press enter. If all goes well, you will have these modules
+  successfully installed for use in ArcGIS' Python distribution
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-8}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-8}
+
+Navigate to the location of the script toolbox, then right-click the
+`Summarise Indeterminant Data Tables' script tool to open (Fig.
+\ref{fig:summIndtopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/summIndt-open} 
+
+}
+
+\caption{Opening the DSummarise Indeterminant Data Tables tool}\label{fig:summIndtopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-8}
+
+Next, fill out the parameters for the tool. Here, we want to summarise
+the Indeterminant Data Tables created in the Example.gdb that was
+created when comparing against the CIP geodatabase. Again, be sure that
+these input tables all derive from the same target geodatabase!
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/summIndt-toolparams} 
+
+}
+
+\caption{Setting the parameters for the Summarise Indeterminant Data Tables tool }\label{fig:summIndtparams}
+\end{figure}
+
+\section{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-8}
+
+While we run the tool, we can see view the messages of the tool (Fig.
+\ref{fig:summIndtmessages}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/summIndt-messages} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtmessages}
+\end{figure}
+
+After the tool has run, we can open the output Excel Workbook we
+specified to see the 4 output sheets : Summary\_by\_FC,
+Summary\_by\_Field, Empty Feature Classes, and Indeterminate\_Overview
+(Fig. \ref{fig:summIndtsheets}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/summIndt-sheets} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheets}
+\end{figure}
+
+Viewing the Summary\_by\_FC sheets gives us a comprehensive overview of
+the counts and percentages of indeterminant Attribute Table cells by
+indeterminant data type (i.e.: Null, TBD, and Other) (Fig.
+\ref{fig:summIndtsheet1}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/summIndt-sheet1} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheet1}
+\end{figure}
+
+The Summary\_by\_Field provides provides a breaks down of the
+Summary\_by\_FC table by field (Fig. \ref{fig:summIndtsheet2}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/summIndt-sheet2} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheet2}
+\end{figure}
+
+The Empty Feature Classes sheet provides a listing of the Feature
+Classes included in the Example.gdb that are empty, as well as the empty
+fields from those empty feature classes (Fig. \ref{fig:summIndtsheet3}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/summIndt-sheet3} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheet3}
+\end{figure}
+
+Lastly, the Indeterminate\_Overview sheet provides a general overview of
+missing and indeterminant data at a geodatabase level (Fig.
+\ref{fig:summIndtsheet4}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/summIndt-sheet4} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheet4}
+\end{figure}
+
+\hypertarget{exMeta}{\chapter{Batch Export Metadata}\label{exMeta}}
+
+\section{Overview}\label{overview-9}
+
+This tool provides an automated method to export metadata for each
+Feature Dataset and Feature Class (within Feature Datasets) in the input
+geodatabase, by exporting each item's metadata to an .xml file to an
+output directory, as specified. This tool allows you to specify a
+metadata translator, by defaulting using one of ArcGIS standard
+translators ``ARCGIS2FGDC.xml'' (typically located at ``C:/Program Files
+(x86)/ArcGIS/Desktop10.6/Metadata/Translator'', but you may specify any
+translator. If the source metadata is a Feature Dataset, the output .xml
+file is named after the Feature Dataset. Alternatively, the output .xml
+metadata for Feature Classes are exported with the Feature Dataset name
+prepended before the Feature Class name.
+
+These output .xml files can easily be edited in batch using the
+\href{http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html}{Batch
+Metadata Modifier Tool} developed out of the University of Idaho's
+Interactive Numeric \& Spatial Information Data Engine (INSIDE)
+geospatial data clearinghouse.
+
+\section{Parameters}\label{parameters-9}
+
+The tool has 3 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Input Geodatabase (data type: Workspace/File Geodatabase)} -
+  The input geodatabase to export Feature Dataset/Feature Class metadata
+  from.
+\item
+  \textbf{Metadata Translator (data type: .xml file)} - The metadata
+  translator to be used to create output .xml metadata files.
+\item
+  \textbf{Output Directory (data type: Folder)} - The folder within
+  which to write output .xml metadata files.
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-9}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-9}
+
+Navigate to the location of the script toolbox, then right-click the
+`Batch Export Metadata to Directory' script tool to open (Fig.
+\ref{fig:exMetaopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/exMeta-open} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:exMetaopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-9}
+
+Next, fill out the parameters for the tool. Here, we want to export
+metadata for all Feature Datasets and all Feature Classes (within those
+Feature Datasets) within the Example.gdb geodatabase using the default
+ARCGIS2FGDC metadata translator that comes with ArcGIS to a new
+directory called `metadata' (Fig. \ref{fig:exMetaparams}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/exMeta-params} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:exMetaparams}
+\end{figure}
+
+\section{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-9}
+
+After running the tool, we can view the output metadata files inside the
+output directory specified (Fig. \ref{fig:exMetaafter}). For Feature
+Classes, the output .xml files has the associated Feature Dataset name
+prepended to the filename, while Feature Dataset metadata file is simply
+the name of the Feature Dataset.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/exMeta-after} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:exMetaafter}
+\end{figure}
+
+\hypertarget{imMeta}{\chapter{Batch Import Metadata}\label{imMeta}}
+
+\section{Overview}\label{overview-10}
+
+This tool provides an automated method to import metadata for each
+Feature Dataset and Feature Class (within Feature Datasets) in the input
+geodatabase, following the output .xml file naming convention created
+with the \protect\hyperlink{exMeta}{Batch Export Metadata} tool. This
+tool allows you to specify a metadata translator, by defaulting using
+one of ArcGIS standard translators ``ARCGIS2FGDC.xml'' (typically
+located at ``C:/Program Files
+(x86)/ArcGIS/Desktop10.6/Metadata/Translator'', but you may specify any
+translator. If the source metadata is a Feature Dataset, the output .xml
+file is named after the Feature Dataset. Alternatively, the output .xml
+metadata for Feature Classes are exported with the Feature Dataset name
+prepended before the Feature Class name.
+
+\section{Parameters}\label{parameters-10}
+
+The tool has 3 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Input Geodatabase (data type: Workspace/File Geodatabase)} -
+  The input geodatabase to export Feature Dataset/Feature Class metadata
+  from.
+\item
+  \textbf{Metadata Translator (data type: .xml file)} - The metadata
+  translator to be used to create output .xml metadata files.
+\item
+  \textbf{Output Directory (data type: Folder)} - The folder within
+  which to write output .xml metadata files.
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-10}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-10}
+
+Navigate to the location of the script toolbox, then right-click the
+`Batch Export Metadata to Directory' script tool to open (Fig.
+\ref{fig:imMetaopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/exMeta-open} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:imMetaopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-10}
+
+Next, fill out the parameters for the tool. Here, we want to export
+metadata for all Feature Datasets and all Feature Classes (within those
+Feature Datasets) within the Example.gdb geodatabase using the default
+ARCGIS2FGDC metadata translator that comes with ArcGIS to a new
+directory called `metadata' (Fig. \ref{fig:imMetaparams}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/exMeta-params} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:imMetaparams}
+\end{figure}
+
+\section{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-10}
+
+After running the tool, we can view the output metadata files inside the
+output directory specified (Fig. \ref{fig:imMetaafter}). For Feature
+Classes, the output .xml files has the associated Feature Dataset name
+prepended to the filename, while Feature Dataset metadata file is simply
+the name of the Feature Dataset.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/exMeta-after} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:imMetaafter}
 \end{figure}
 
 \bibliography{packages.bib}
