@@ -587,21 +587,25 @@ prefixes = [["NORTH","N"],
             ["North","N"],
             ["North ","N"],
             ["N","N"],
+            ["N.","N"],
             ["SOUTH", "S"],
             ["south","S"],
             ["South","S"],
             ["South ","S"],
             ["S","S"],
+            ["S.","S"],
             ["WEST","W"],
             ["west","W"],
             ["West","W"],
             ["West ","W"],
             ["W","W"],
+            ["W.","W"],
             ["EAST","E"],
             ["east","E"],
             ["East","E"],
             ["East ","E"],
-            ["E","E"]]
+            ["E","E"],
+            ["E.","E"]]
 
 commonPrefixes = [el[0] for el in prefixes]
 #commonPrefixes =[item for sublist in commonPrefixes for item in sublist]
@@ -615,38 +619,37 @@ with arcpy.da.UpdateCursor(fc, streetFields) as cursor:
         if roadName is None:
             pass
         else:
-            
             roadNameVals = roadName.split(" ")
-            for n, i in enumerate(roadNameVals):
-                new = str(i)
-                roadNameVals[n] = new
-            
-            for roadNameVal in roadNameVals:
-    			roadNameVal = str(roadNameVal)
+            if len(roadNameVals) > 1:
+                for n, i in enumerate(roadNameVals):
+                    new = str(i)
+                    roadNameVals[n] = new
+                
+                for roadNameVal in roadNameVals:
+                    roadNameVal = roadNameVal.upper()
+                    if roadNameVal in commonSuffixes:
+                        idx1 = commonSuffixes.index(roadNameVal)
+                        newSuffix= standardSuffixes[idx1]
+                        idx2 =   roadNameVals.index(roadNameVal)
+                        roadNameVals[idx2] = newSuffix
+                        
+                    if roadNameVal in commonPrefixes:
+                        idx1 = commonPrefixes.index(roadNameVal)
+                        newPrefix= standardPrefixes[idx1]
+                        idx2 =   roadNameVals.index(roadNameVal)
+                        roadNameVals[idx2] = newPrefix
+                    else:
+                        pass
     
-    			if roadNameVal in commonSuffixes:
-    				idx = commonSuffixes.index(roadNameVal.upper())
-    				newSuffix= standardSuffixes[idx] 
-    				roadNameVals.remove(roadNameVals[-1])
+                newName = ' '.join(roadNameVals)
+                newRow= [newName]
+                print "old row = "+str(row)
+                print "new row = "+str(newRow)
+                del newName
+                
     
-    			if roadNameVal in commonPrefixes:
-    				idx1 = commonPrefixes.index(roadNameVal)
-    				newPrefix= standardPrefixes[idx1]
-    				roadNameVals.remove(roadNameVals[0])
-    			if 'newPrefix' not in locals():
-    				newPrefix = str(row[0])
-    			if 'newSuffix' not in locals():
-    				newSuffix = str(row[2])
-                    
-        
-            newName = ' '.join(roadNameVals)
-            newRow= [newPrefix,newName,newSuffix]
-            del newSuffix    
-            del newPrefix
-            del newName
-            print "old row = "+str(row)
-            print "new row = "+str(newRow)
-
-            del row
-            cursor.updateRow(newRow)
-                    
+                del row
+                cursor.updateRow(newRow)
+                        
+            else:
+                pass
