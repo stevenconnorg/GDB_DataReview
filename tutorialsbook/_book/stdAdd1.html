@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="spatjoinCalc.html">
-<link rel="next" href="delFeats.html">
+<link rel="prev" href="chkGeom.html">
+<link rel="next" href="std3.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -187,85 +187,59 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dupGeom" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Find Duplicate Geometry</h1>
-<div id="overview-2" class="section level2">
-<h2><span class="header-section-number">4.1</span> Overview</h2>
-<p>The Find Duplicate Geometry tool allows users to search an entire geodatabase’s Feature Classes within Feature Datasets for features with duplicate geometries. This tool loops through each Feature Dataset’s Feature Class features and searches for duplicate geometries. All features with duplicate geometries are written to the output .csv file, as specified, and describes the Feature Dataset and Feature Class with duplicate geometries, the OBJECTIDs of the duplicate geometries, and a summary, which gives the count of duplicate geometries spread over unique geometries, Further, this tool creates layer files for each Feature Class’ duplicate features, allowing users to edit their geodatabase directory from a temporary, filtered layer of only duplicate features to be evaluated further.</p>
+<div id="stdAdd1" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Standardized Address Field</h1>
+<div id="overview-5" class="section level2">
+<h2><span class="header-section-number">7.1</span> Overview</h2>
+<p>The Standardize Address Field tool allows users to standardize 1 address field in a feature class. This tool works by searching the address field within the input feature class, then replaces any street prefixes (e.g.: North, north, East, West) with a standard prefix abbreviation (i.e.: “N”, “S”, “E”, and “W”), while all suffixes (e.g.: AVE, Avenue, Street) are reformatted to <a href="https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv">standard USPS suffixes</a>.</p>
 </div>
-<div id="parameters-2" class="section level2">
-<h2><span class="header-section-number">4.2</span> Parameters</h2>
-<p>The tool has 5 parameters:<br />
-1. <strong>Input_Geodatabase (data type: Workspace)</strong> - This parameter must be the path of the input geodatabase to search Feature Datasets’ Feature Class features for duplicate geometries.</p>
+<div id="parameters-5" class="section level2">
+<h2><span class="header-section-number">7.2</span> Parameters</h2>
+<p>The tool has 2 parameters:<br />
+1. <strong>Feature Class (data type: Feature Class )</strong> - The path to the Feature Class with the address field to standardize.</p>
 <ol start="2" style="list-style-type: decimal">
-<li><p><strong>XY_Tolerance (data type: String)</strong> - The XY_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity, and must be input in the same units as the the source geodatabase’s coordinate reference system (CRS).</p></li>
-<li><p><strong>Z_Tolerance (data type: String)</strong> - The Z_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity with regard to elevation, and must be input in the same units as the the source geodatabase’s coordinate reference system (CRS).</p></li>
-<li><p><strong>Output_CSV (data type: File)</strong> - The path to the output Duplicate_Geometry_Summary .xlsx/.csv file.</p></li>
-<li><p><strong>Output_Layers_Directory (data type: Folder)</strong> - The path to the directory/folder to store layer files with duplicate geometries.</p></li>
+<li><strong>Field (data type: Field)</strong> - The address field in the Feature Class to be standardized.</li>
 </ol>
 </div>
-<div id="how-to-use-2" class="section level2">
-<h2><span class="header-section-number">4.3</span> How to Use</h2>
-<div id="begin-by-opening-the-toolbox-2" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> Begin by opening the toolbox</h3>
-<p>Navigate to the location of the script toolbox, then right-click the ‘Find Duplicate Geometry’ script tool to open (Fig. <a href="dupGeom.html#fig:dupGopen">4.1</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGopen"></span>
-<img src="figures/dupG-opentool.jpg" alt="Opening the Find Duplicate Geometries tool"  />
+<div id="how-to-use-5" class="section level2">
+<h2><span class="header-section-number">7.3</span> How to Use</h2>
+<div id="begin-by-opening-the-toolbox-5" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Begin by opening the toolbox</h3>
+<p>Navigate to the location of the script toolbox, then right-click the ‘Find Duplicate Features’ script tool to open (Fig. <a href="stdAdd1.html#fig:std1open">7.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:std1open"></span>
+<img src="figures/std1-opentool.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.1: Opening the Find Duplicate Geometries tool
+Figure 7.1: Opening the Delete Duplicate Features tool
 </p>
 </div>
 </div>
-<div id="fill-out-the-parameters-2" class="section level3">
-<h3><span class="header-section-number">4.3.2</span> Fill out the parameters</h3>
-<p>Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate geometries using the default XY Tolerance and Z Tolerance values of ‘0’ (Fig. <a href="dupGeom.html#fig:dupGparams">4.2</a>). We specify that we want the Duplicate Geometry Summary to be written to a Comma-separated Values (.csv) file called ‘test.csv.’ Further, we specify that we want all the duplicate Feature Class feature layers to be saved to the Output Layers Directory ‘layer.’</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGparams"></span>
-<img src="figures/dupG-params.jpg" alt="Find Duplicate Geometries parameters"  />
+<div id="fill-out-the-parameters-5" class="section level3">
+<h3><span class="header-section-number">7.3.2</span> Fill out the parameters</h3>
+<p>Next, fill out the parameters for the tool. Here, we want to update the buildingAddress field in the Building_A Feature Class in the Example.gdb (Fig. <a href="stdAdd1.html#fig:std1params">7.2</a>) because we notice none standardized addresses in the field (Fig. <a href="stdAdd1.html#fig:std1before">7.3</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:std1params"></span>
+<img src="figures/std1-toolparams.jpg" alt="Delete Duplicate Features parameters"  />
 <p class="caption">
-Figure 4.2: Find Duplicate Geometries parameters
+Figure 7.2: Delete Duplicate Features parameters
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:std1before"></span>
+<img src="figures/std1-before.jpg" alt="Delete Duplicate Features parameters"  />
+<p class="caption">
+Figure 7.3: Delete Duplicate Features parameters
 </p>
 </div>
 </div>
-</div>
-<div id="run-the-tool-and-view-results-2" class="section level2">
-<h2><span class="header-section-number">4.4</span> Run the Tool and View Results</h2>
-<p>While the tool runs (with Background Processing disabled), we can see the messages from the tool, showing how many duplicate features are found for each Feature Class (Fig. <a href="dupGeom.html#fig:dupGmessages">4.3</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGmessages"></span>
-<img src="figures/dupG-messages.jpg" alt="Find Duplicate Geometries parameters"  />
+<div id="run-the-tool-and-view-results-5" class="section level3">
+<h3><span class="header-section-number">7.3.3</span> Run the Tool and View Results</h3>
+<p>After the tool has run, we can see that the building address values have been appropriately standardized (Fig. <a href="stdAdd1.html#fig:std1after">7.4</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:std1after"></span>
+<img src="figures/std1-after.jpg" alt="Delete Duplicate Features messages"  />
 <p class="caption">
-Figure 4.3: Find Duplicate Geometries parameters
+Figure 7.4: Delete Duplicate Features messages
 </p>
 </div>
-<p>After the tool has run, we can open the output .csv we specified in the tool parameters to examine which Feature Classes have duplicated geometries . For example, we find that the EnvRestorSampLoc_P Feature Class within the environmentalRestoration Feature Dataset has 17 total duplicates spread across 7 unique geometries (Fig. <a href="dupGeom.html#fig:dupGcsv">4.4</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGcsv"></span>
-<img src="figures/dupG-csv.JPG" alt="Find Duplicate Geometries parameters"  />
-<p class="caption">
-Figure 4.4: Find Duplicate Geometries parameters
-</p>
-</div>
-<p>Navigating to the output layer directory we specified in the tool, we find layer files with duplicate features for each Feature Class (Fig. <a href="dupGeom.html#fig:dupGlays">4.5</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGlays"></span>
-<img src="figures/dupG-lays.jpg" alt="Find Duplicate Geometries parameters"  />
-<p class="caption">
-Figure 4.5: Find Duplicate Geometries parameters
-</p>
-</div>
-<p>After pulling in the _dupeGeom_EnvRestorSampLoc_P layer file, we can zoom to a feature and select the features at that location to examine the duplicate features at that location (Fig. <a href="dupGeom.html#fig:layFeats">4.6</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:layFeats"></span>
-<img src="figures/dupG-layFeats.jpg" alt="The features with duplicated geometries"  />
-<p class="caption">
-Figure 4.6: The features with duplicated geometries
-</p>
-</div>
-<p>Then, we can view the Attribute Table for the selected features to examine which feature we should amend or delete (Fig. <a href="dupGeom.html#fig:layAtts">4.7</a>). Here, we find that the attributes are exactly the same for the first duplicated geometry, and so we should probably delete one of these features. Editing the layer files directly will update the associated Feature Classes in the original geodatabase.</p>
-<div class="figure" style="text-align: center"><span id="fig:layAtts"></span>
-<img src="figures/dupG-layAtts.jpg" alt="Attributes of duplicated features"  />
-<p class="caption">
-Figure 4.7: Attributes of duplicated features
-</p>
-</div>
-<p>we can pull in the layer files created for each Feature Class to manually inspect the duplicated features to determine if/which features should be amended or deleted.</p>
 
+</div>
 </div>
 </div>
             </section>
@@ -273,8 +247,8 @@ Figure 4.7: Attributes of duplicated features
           </div>
         </div>
       </div>
-<a href="spatjoinCalc.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="delFeats.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="chkGeom.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="std3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

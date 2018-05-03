@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="spatjoinCalc.html">
-<link rel="next" href="delFeats.html">
+<link rel="prev" href="indtSearch.html">
+<link rel="next" href="exMeta.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -187,84 +187,116 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dupGeom" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Find Duplicate Geometry</h1>
-<div id="overview-2" class="section level2">
-<h2><span class="header-section-number">4.1</span> Overview</h2>
-<p>The Find Duplicate Geometry tool allows users to search an entire geodatabase’s Feature Classes within Feature Datasets for features with duplicate geometries. This tool loops through each Feature Dataset’s Feature Class features and searches for duplicate geometries. All features with duplicate geometries are written to the output .csv file, as specified, and describes the Feature Dataset and Feature Class with duplicate geometries, the OBJECTIDs of the duplicate geometries, and a summary, which gives the count of duplicate geometries spread over unique geometries, Further, this tool creates layer files for each Feature Class’ duplicate features, allowing users to edit their geodatabase directory from a temporary, filtered layer of only duplicate features to be evaluated further.</p>
-</div>
-<div id="parameters-2" class="section level2">
-<h2><span class="header-section-number">4.2</span> Parameters</h2>
-<p>The tool has 5 parameters:<br />
-1. <strong>Input_Geodatabase (data type: Workspace)</strong> - This parameter must be the path of the input geodatabase to search Feature Datasets’ Feature Class features for duplicate geometries.</p>
-<ol start="2" style="list-style-type: decimal">
-<li><p><strong>XY_Tolerance (data type: String)</strong> - The XY_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity, and must be input in the same units as the the source geodatabase’s coordinate reference system (CRS).</p></li>
-<li><p><strong>Z_Tolerance (data type: String)</strong> - The Z_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity with regard to elevation, and must be input in the same units as the the source geodatabase’s coordinate reference system (CRS).</p></li>
-<li><p><strong>Output_CSV (data type: File)</strong> - The path to the output Duplicate_Geometry_Summary .xlsx/.csv file.</p></li>
-<li><p><strong>Output_Layers_Directory (data type: Folder)</strong> - The path to the directory/folder to store layer files with duplicate geometries.</p></li>
+<div id="summIndt" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Summarise Indeterminant/Missing Data Tables</h1>
+<div id="overview-8" class="section level2">
+<h2><span class="header-section-number">10.1</span> Overview</h2>
+<p>This tool takes the 4 tables created with the <a href="indtSearch.html#indtSearch">Search for Missing and Indeterminant Data</a> tool and creates an outbook Excel Workbook which includes the following sheets:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Summary_by_FC</strong> - gives the counts and percentages of ‘Other’, ‘Null’, and ‘TBD’ cells by Feature Class, as well as the total counts and percentages of indeterminate (Other + Null + TBD) and determinate cells (not Other, Null, or TBD),</li>
+<li><strong>Summary_by_Field</strong> - gives the same statistics as the Summary_by_FC sheet, but broken down further by Feature Class Fields,</li>
+<li><strong>Empty Feature Classes</strong> - gives the standard Feature Classes in the comparison geodatabase not included in the input geodatabase(i.e.: Feature Classes included in comparison geodatabases)</li>
+<li><strong>Indeterminate_Overview</strong>, gives :
+<ul>
+<li>The total count of feature classes that are empty</li>
+<li>The total number of standard feature classes that are empty</li>
+<li>The source geodatabase installation name</li>
+<li>The total number of missing feature classes</li>
+<li>The total number of missing feature datasets</li>
+<li>The total number of empty fields from empty feature classes</li>
+<li>The total number of empty fields from non-empty feature classes.</li>
+</ul></li>
 </ol>
 </div>
-<div id="how-to-use-2" class="section level2">
-<h2><span class="header-section-number">4.3</span> How to Use</h2>
-<div id="begin-by-opening-the-toolbox-2" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> Begin by opening the toolbox</h3>
-<p>Navigate to the location of the script toolbox, then right-click the ‘Find Duplicate Geometry’ script tool to open (Fig. <a href="dupGeom.html#fig:dupGopen">4.1</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGopen"></span>
-<img src="figures/dupG-opentool.jpg" alt="Opening the Find Duplicate Geometries tool"  />
+<div id="parameters-8" class="section level2">
+<h2><span class="header-section-number">10.2</span> Parameters</h2>
+<p>The inputs required for this tool to work are the 4 output tables created with the “Search for Indeterminate Data” script tool from one comparison geodatabase (<strong>repeat:</strong> ensure these are all from the same comparison geodatabase [i.e.: [comparison GDB] is the same across all four input tables]):</p>
+<ol style="list-style-type: decimal">
+<li><strong>comparisonGDBname_MissingFDS Table (data type: GDB Table)</strong> - The path to the MissingFDS table created with the <a href="indtSearch.html#indtSearch">Search for Missing and Indeterminant Data</a> tool for one ‘target’ geodatabase.</li>
+<li><strong>comparisonGDBname_MissingFCs (data type: GDB Table)</strong> - The path to the MissingFCs table created with the <a href="indtSearch.html#indtSearch">Search for Missing and Indeterminant Data</a> tool for one ‘target’ geodatabase.</li>
+<li><strong>comparisonGDBname_MissingFields (data type: GDB Table)</strong> - The path to the MissingFields table created with the <a href="indtSearch.html#indtSearch">Search for Missing and Indeterminant Data</a> tool for one ‘target’ geodatabase.</li>
+<li><strong>comparisonGDBname_MissingData (data type: GDB Table)</strong> - The path to the MissingData table created with the <a href="indtSearch.html#indtSearch">Search for Missing and Indeterminant Data</a> tool for one ‘target’ geodatabase.</li>
+<li><strong>Output Excel File’ (data type: .xlsx file)</strong> - The path to the output Excel Workbook to save the summary sheets to.</li>
+</ol>
+</div>
+<div id="disclaimer" class="section level2">
+<h2><span class="header-section-number">10.3</span> Disclaimer</h2>
+<p>This script tool requires a few non-standard ArcGIS 10.x Python modules: <a href="http://www.numpy.org/">numpy</a> and <a href="https://pandas.pydata.org/">pandas</a>. To install these modules for use in ArcGIS, you can download and install the modules using the commands “pip install pandas” and “pip install numpy.”</p>
+<p>To do this, follow these instructions:</p>
+<ol style="list-style-type: decimal">
+<li>Press the windows key on your keyboard</li>
+<li>Type “cmd” to open the command prompt window</li>
+<li>Set your working directory as your ArcGIS Python scripts directory. This is typically located at “C:/Python27/ArcGIS[versionNumber]/Scripts. Do this by typing ‘cd C:/Python27/ArcGIS[versionNumber]/Scripts’ and clicking enter). Replace [versionNumber] with you ArcGIS version number (e.g.: if you are running ArcMap10.6, input:”C:/Python27/ArcGIS10.6/Scripts&quot;</li>
+<li>Type ‘pip install numpy’ and press enter, then type ‘pip install pandas’ and press enter. If all goes well, you will have these modules successfully installed for use in ArcGIS’ Python distribution</li>
+</ol>
+</div>
+<div id="how-to-use-8" class="section level2">
+<h2><span class="header-section-number">10.4</span> How to Use</h2>
+<div id="begin-by-opening-the-toolbox-8" class="section level3">
+<h3><span class="header-section-number">10.4.1</span> Begin by opening the toolbox</h3>
+Navigate to the location of the script toolbox, then right-click the ‘Summarise Indeterminant Data Tables’ script tool to open (Fig. <a href="summIndt.html#fig:summIndtopen">10.1</a>).
+<div class="figure" style="text-align: center"><span id="fig:summIndtopen"></span>
+<img src="figures/summIndt-open.jpg" alt="Opening the DSummarise Indeterminant Data Tables tool"  />
 <p class="caption">
-Figure 4.1: Opening the Find Duplicate Geometries tool
+Figure 10.1: Opening the DSummarise Indeterminant Data Tables tool
 </p>
 </div>
 </div>
-<div id="fill-out-the-parameters-2" class="section level3">
-<h3><span class="header-section-number">4.3.2</span> Fill out the parameters</h3>
-<p>Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate geometries using the default XY Tolerance and Z Tolerance values of ‘0’ (Fig. <a href="dupGeom.html#fig:dupGparams">4.2</a>). We specify that we want the Duplicate Geometry Summary to be written to a Comma-separated Values (.csv) file called ‘test.csv.’ Further, we specify that we want all the duplicate Feature Class feature layers to be saved to the Output Layers Directory ‘layer.’</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGparams"></span>
-<img src="figures/dupG-params.jpg" alt="Find Duplicate Geometries parameters"  />
+<div id="fill-out-the-parameters-8" class="section level3">
+<h3><span class="header-section-number">10.4.2</span> Fill out the parameters</h3>
+Next, fill out the parameters for the tool. Here, we want to summarise the Indeterminant Data Tables created in the Example.gdb that was created when comparing against the CIP geodatabase. Again, be sure that these input tables all derive from the same target geodatabase!
+<div class="figure" style="text-align: center"><span id="fig:summIndtparams"></span>
+<img src="figures/summIndt-toolparams.jpg" alt="Setting the parameters for the Summarise Indeterminant Data Tables tool "  />
 <p class="caption">
-Figure 4.2: Find Duplicate Geometries parameters
+Figure 10.2: Setting the parameters for the Summarise Indeterminant Data Tables tool
 </p>
 </div>
 </div>
 </div>
-<div id="run-the-tool-and-view-results-2" class="section level2">
-<h2><span class="header-section-number">4.4</span> Run the Tool and View Results</h2>
-<p>While the tool runs (with Background Processing disabled), we can see the messages from the tool, showing how many duplicate features are found for each Feature Class (Fig. <a href="dupGeom.html#fig:dupGmessages">4.3</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGmessages"></span>
-<img src="figures/dupG-messages.jpg" alt="Find Duplicate Geometries parameters"  />
+<div id="run-the-tool-and-view-results-8" class="section level2">
+<h2><span class="header-section-number">10.5</span> Run the Tool and View Results</h2>
+While we run the tool, we can see view the messages of the tool (Fig. <a href="summIndt.html#fig:summIndtmessages">10.3</a>).
+<div class="figure" style="text-align: center"><span id="fig:summIndtmessages"></span>
+<img src="figures/summIndt-messages.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.3: Find Duplicate Geometries parameters
+Figure 10.3: Opening the Delete Duplicate Features tool
 </p>
 </div>
-<p>After the tool has run, we can open the output .csv we specified in the tool parameters to examine which Feature Classes have duplicated geometries . For example, we find that the EnvRestorSampLoc_P Feature Class within the environmentalRestoration Feature Dataset has 17 total duplicates spread across 7 unique geometries (Fig. <a href="dupGeom.html#fig:dupGcsv">4.4</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGcsv"></span>
-<img src="figures/dupG-csv.JPG" alt="Find Duplicate Geometries parameters"  />
+<p>After the tool has run, we can open the output Excel Workbook we specified to see the 4 output sheets : Summary_by_FC, Summary_by_Field, Empty Feature Classes, and Indeterminate_Overview (Fig. <a href="summIndt.html#fig:summIndtsheets">10.4</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:summIndtsheets"></span>
+<img src="figures/summIndt-sheets.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.4: Find Duplicate Geometries parameters
+Figure 10.4: Opening the Delete Duplicate Features tool
 </p>
 </div>
-<p>Navigating to the output layer directory we specified in the tool, we find layer files with duplicate features for each Feature Class (Fig. <a href="dupGeom.html#fig:dupGlays">4.5</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGlays"></span>
-<img src="figures/dupG-lays.jpg" alt="Find Duplicate Geometries parameters"  />
+Viewing the Summary_by_FC sheets gives us a comprehensive overview of the counts and percentages of indeterminant Attribute Table cells by indeterminant data type (i.e.: Null, TBD, and Other) (Fig. <a href="summIndt.html#fig:summIndtsheet1">10.5</a>).
+<div class="figure" style="text-align: center"><span id="fig:summIndtsheet1"></span>
+<img src="figures/summIndt-sheet1.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.5: Find Duplicate Geometries parameters
+Figure 10.5: Opening the Delete Duplicate Features tool
 </p>
 </div>
-<p>After pulling in the _dupeGeom_EnvRestorSampLoc_P layer file, we can zoom to a feature and select the features at that location to examine the duplicate features at that location (Fig. <a href="dupGeom.html#fig:layFeats">4.6</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:layFeats"></span>
-<img src="figures/dupG-layFeats.jpg" alt="The features with duplicated geometries"  />
+The Summary_by_Field provides provides a breaks down of the Summary_by_FC table by field (Fig. <a href="summIndt.html#fig:summIndtsheet2">10.6</a>).
+<div class="figure" style="text-align: center"><span id="fig:summIndtsheet2"></span>
+<img src="figures/summIndt-sheet2.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.6: The features with duplicated geometries
+Figure 10.6: Opening the Delete Duplicate Features tool
 </p>
 </div>
-<p>Then, we can view the Attribute Table for the selected features to examine which feature we should amend or delete (Fig. <a href="dupGeom.html#fig:layAtts">4.7</a>). Here, we find that the attributes are exactly the same for the first duplicated geometry, and so we should probably delete one of these features. Editing the layer files directly will update the associated Feature Classes in the original geodatabase.</p>
-<div class="figure" style="text-align: center"><span id="fig:layAtts"></span>
-<img src="figures/dupG-layAtts.jpg" alt="Attributes of duplicated features"  />
+The Empty Feature Classes sheet provides a listing of the Feature Classes included in the Example.gdb that are empty, as well as the empty fields from those empty feature classes (Fig. <a href="summIndt.html#fig:summIndtsheet3">10.7</a>).
+<div class="figure" style="text-align: center"><span id="fig:summIndtsheet3"></span>
+<img src="figures/summIndt-sheet3.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.7: Attributes of duplicated features
+Figure 10.7: Opening the Delete Duplicate Features tool
 </p>
 </div>
-<p>we can pull in the layer files created for each Feature Class to manually inspect the duplicated features to determine if/which features should be amended or deleted.</p>
+Lastly, the Indeterminate_Overview sheet provides a general overview of missing and indeterminant data at a geodatabase level (Fig. <a href="summIndt.html#fig:summIndtsheet4">10.8</a>).
+<div class="figure" style="text-align: center"><span id="fig:summIndtsheet4"></span>
+<img src="figures/summIndt-sheet4.jpg" alt="Opening the Delete Duplicate Features tool"  />
+<p class="caption">
+Figure 10.8: Opening the Delete Duplicate Features tool
+</p>
+</div>
 
 </div>
 </div>
@@ -273,8 +305,8 @@ Figure 4.7: Attributes of duplicated features
           </div>
         </div>
       </div>
-<a href="spatjoinCalc.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="delFeats.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="indtSearch.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exMeta.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="spatjoinCalc.html">
-<link rel="next" href="delFeats.html">
+<link rel="prev" href="exMeta.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -187,94 +187,96 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dupGeom" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Find Duplicate Geometry</h1>
-<div id="overview-2" class="section level2">
-<h2><span class="header-section-number">4.1</span> Overview</h2>
-<p>The Find Duplicate Geometry tool allows users to search an entire geodatabase’s Feature Classes within Feature Datasets for features with duplicate geometries. This tool loops through each Feature Dataset’s Feature Class features and searches for duplicate geometries. All features with duplicate geometries are written to the output .csv file, as specified, and describes the Feature Dataset and Feature Class with duplicate geometries, the OBJECTIDs of the duplicate geometries, and a summary, which gives the count of duplicate geometries spread over unique geometries, Further, this tool creates layer files for each Feature Class’ duplicate features, allowing users to edit their geodatabase directory from a temporary, filtered layer of only duplicate features to be evaluated further.</p>
+<div id="imMeta" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Batch Import Metadata</h1>
+<div id="overview-10" class="section level2">
+<h2><span class="header-section-number">12.1</span> Overview</h2>
+<p>This tool provides an automated method to import metadata for each Feature Dataset and Feature Class (within Feature Datasets) in the input geodatabase, following the output .xml file naming convention created with the <a href="exMeta.html#exMeta">Batch Export Metadata</a> tool, and potentially updated using the <a href="http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html">Batch Metadata Modifier Tool</a> developed out of the University of Idaho’s Interactive Numeric &amp; Spatial Information Data Engine (INSIDE) geospatial data clearinghouse.</p>
 </div>
-<div id="parameters-2" class="section level2">
-<h2><span class="header-section-number">4.2</span> Parameters</h2>
-<p>The tool has 5 parameters:<br />
-1. <strong>Input_Geodatabase (data type: Workspace)</strong> - This parameter must be the path of the input geodatabase to search Feature Datasets’ Feature Class features for duplicate geometries.</p>
-<ol start="2" style="list-style-type: decimal">
-<li><p><strong>XY_Tolerance (data type: String)</strong> - The XY_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity, and must be input in the same units as the the source geodatabase’s coordinate reference system (CRS).</p></li>
-<li><p><strong>Z_Tolerance (data type: String)</strong> - The Z_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity with regard to elevation, and must be input in the same units as the the source geodatabase’s coordinate reference system (CRS).</p></li>
-<li><p><strong>Output_CSV (data type: File)</strong> - The path to the output Duplicate_Geometry_Summary .xlsx/.csv file.</p></li>
-<li><p><strong>Output_Layers_Directory (data type: Folder)</strong> - The path to the directory/folder to store layer files with duplicate geometries.</p></li>
+<div id="parameters-10" class="section level2">
+<h2><span class="header-section-number">12.2</span> Parameters</h2>
+<p>The tool has 3 parameters<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Input Geodatabase (data type: Workspace/File Geodatabase)</strong> - The input geodatabase to export Feature Dataset/Feature Class metadata from.</li>
+<li><strong>Input Metadata Directory (data type: Folder)</strong> - The folder within which to write output .xml metadata files.</li>
+<li><strong>Import Type (data type: String)</strong> - The folder within which to write output .xml metadata files. These include:
+<ul>
+<li>FROM_ARCGIS —The source metadata is ArcGIS metadata. The metadata won’t be converted.</li>
+<li>FROM_ESRIISO —The source metadata contains ESRI-ISO-formatted metadata; that is, it was created using the ISO metadata editor provided with ArcGIS Desktop 9.3.1 and earlier releases. The source metadata will be converted to ArcGIS metadata when you run the tool.</li>
+<li>FROM_FGDC —The source metadata is stored in the FGDC CSDGM metadata standard’s XML format. The source metadata will be converted to ArcGIS metadata when you run the tool.</li>
+<li>FROM_ISO_19139 —The source metadata is formatted according to the ISO 19139 metadata standard. The source metadata will be converted to ArcGIS metadata when you run the tool.</li>
+</ul></li>
+<li><strong>Auto Update? (data type: String)</strong> - Whether to ENABLED or DISABLE metadata autoupdates. This parameter requires one of the two following options:
+<ul>
+<li>ENABLED —Information in the imported metadata describing the item’s properties will be modified to contain the actual item properties. For example, if the imported metadata includes the number of features contained by a feature class, this number will be updated in the item’s metadata by the metadata synchronization process after the features have been edited in ArcGIS. Also, additional properties that were not present in the imported metadata and that can be synchronized for the item will be added. This is the default.</li>
+<li>DISABLED — Imported information won’t be modified. For example, the number of features contained by a feature class won’t be updated in the item’s metadata by the metadata synchronization process after the features have been edited in ArcGIS; the metadata will always contain the old, out-of-date number. Additional properties of the item that were not present in the imported metadata and that can be synchronized for the item will be added.</li>
+</ul></li>
 </ol>
 </div>
-<div id="how-to-use-2" class="section level2">
-<h2><span class="header-section-number">4.3</span> How to Use</h2>
-<div id="begin-by-opening-the-toolbox-2" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> Begin by opening the toolbox</h3>
-<p>Navigate to the location of the script toolbox, then right-click the ‘Find Duplicate Geometry’ script tool to open (Fig. <a href="dupGeom.html#fig:dupGopen">4.1</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGopen"></span>
-<img src="figures/dupG-opentool.jpg" alt="Opening the Find Duplicate Geometries tool"  />
+<div id="how-to-use-10" class="section level2">
+<h2><span class="header-section-number">12.3</span> How to Use</h2>
+<div id="begin-by-opening-the-toolbox-10" class="section level3">
+<h3><span class="header-section-number">12.3.1</span> Begin by opening the toolbox</h3>
+Navigate to the location of the script toolbox, then right-click the ‘Batch Export Metadata to Directory’ script tool to open (Fig. <a href="imMeta.html#fig:imMetaopen">12.1</a>).
+<div class="figure" style="text-align: center"><span id="fig:imMetaopen"></span>
+<img src="figures/imMeta-open.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.1: Opening the Find Duplicate Geometries tool
+Figure 12.1: Opening the Delete Duplicate Features tool
 </p>
 </div>
 </div>
-<div id="fill-out-the-parameters-2" class="section level3">
-<h3><span class="header-section-number">4.3.2</span> Fill out the parameters</h3>
-<p>Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate geometries using the default XY Tolerance and Z Tolerance values of ‘0’ (Fig. <a href="dupGeom.html#fig:dupGparams">4.2</a>). We specify that we want the Duplicate Geometry Summary to be written to a Comma-separated Values (.csv) file called ‘test.csv.’ Further, we specify that we want all the duplicate Feature Class feature layers to be saved to the Output Layers Directory ‘layer.’</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGparams"></span>
-<img src="figures/dupG-params.jpg" alt="Find Duplicate Geometries parameters"  />
+<div id="fill-out-the-parameters-10" class="section level3">
+<h3><span class="header-section-number">12.3.2</span> Fill out the parameters</h3>
+Next, fill out the parameters for the tool. Here, we want to export metadata for all Feature Datasets and all Feature Classes (within those Feature Datasets) within the Example.gdb geodatabase using the default ARCGIS2FGDC metadata translator that comes with ArcGIS to a new directory called ‘metadata’ (Fig. <a href="imMeta.html#fig:imMetaparams">12.2</a>).
+<div class="figure" style="text-align: center"><span id="fig:imMetaparams"></span>
+<img src="figures/imMeta-params.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.2: Find Duplicate Geometries parameters
+Figure 12.2: Opening the Delete Duplicate Features tool
 </p>
 </div>
 </div>
 </div>
-<div id="run-the-tool-and-view-results-2" class="section level2">
-<h2><span class="header-section-number">4.4</span> Run the Tool and View Results</h2>
-<p>While the tool runs (with Background Processing disabled), we can see the messages from the tool, showing how many duplicate features are found for each Feature Class (Fig. <a href="dupGeom.html#fig:dupGmessages">4.3</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGmessages"></span>
-<img src="figures/dupG-messages.jpg" alt="Find Duplicate Geometries parameters"  />
+<div id="run-the-tool-and-view-results-10" class="section level2">
+<h2><span class="header-section-number">12.4</span> Run the Tool and View Results</h2>
+While the tool runs, we can see which .xml files are being imported to each Feature Dataset’s/Feature Class’ metadata, as well as which Feature Datasets/Feature Classes do not have matching .xml files in the output directory (Fig. <a href="imMeta.html#fig:imMetamessages">12.3</a>).
+<div class="figure" style="text-align: center"><span id="fig:imMetamessages"></span>
+<img src="figures/imMeta-messages.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.3: Find Duplicate Geometries parameters
+Figure 12.3: Opening the Delete Duplicate Features tool
 </p>
 </div>
-<p>After the tool has run, we can open the output .csv we specified in the tool parameters to examine which Feature Classes have duplicated geometries . For example, we find that the EnvRestorSampLoc_P Feature Class within the environmentalRestoration Feature Dataset has 17 total duplicates spread across 7 unique geometries (Fig. <a href="dupGeom.html#fig:dupGcsv">4.4</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGcsv"></span>
-<img src="figures/dupG-csv.JPG" alt="Find Duplicate Geometries parameters"  />
+<p>After running the tool, we can view the update Item Descriptions for the Feature Classes and Feature Datasets imported with the .xml files (Fig. <a href="imMeta.html#fig:imMetaafter">12.4</a>). You can also change the way ArcMap displays the metadata by going to Customize &gt; ArcMap Options in ArcMap, then clicking the Metadata tab and changing the Metadata Style in the drop-down menu. You can find more information on Item Descriptions on Esri’s <a href="http://desktop.arcgis.com/en/arcmap/latest/map/working-with-arcmap/documenting-items-in-the-catalog-window.htm">Item Desecription Help Page</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:imMetaafter"></span>
+<img src="figures/imMeta-after.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.4: Find Duplicate Geometries parameters
+Figure 12.4: Opening the Delete Duplicate Features tool
 </p>
 </div>
-<p>Navigating to the output layer directory we specified in the tool, we find layer files with duplicate features for each Feature Class (Fig. <a href="dupGeom.html#fig:dupGlays">4.5</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGlays"></span>
-<img src="figures/dupG-lays.jpg" alt="Find Duplicate Geometries parameters"  />
-<p class="caption">
-Figure 4.5: Find Duplicate Geometries parameters
-</p>
-</div>
-<p>After pulling in the _dupeGeom_EnvRestorSampLoc_P layer file, we can zoom to a feature and select the features at that location to examine the duplicate features at that location (Fig. <a href="dupGeom.html#fig:layFeats">4.6</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:layFeats"></span>
-<img src="figures/dupG-layFeats.jpg" alt="The features with duplicated geometries"  />
-<p class="caption">
-Figure 4.6: The features with duplicated geometries
-</p>
-</div>
-<p>Then, we can view the Attribute Table for the selected features to examine which feature we should amend or delete (Fig. <a href="dupGeom.html#fig:layAtts">4.7</a>). Here, we find that the attributes are exactly the same for the first duplicated geometry, and so we should probably delete one of these features. Editing the layer files directly will update the associated Feature Classes in the original geodatabase.</p>
-<div class="figure" style="text-align: center"><span id="fig:layAtts"></span>
-<img src="figures/dupG-layAtts.jpg" alt="Attributes of duplicated features"  />
-<p class="caption">
-Figure 4.7: Attributes of duplicated features
-</p>
-</div>
-<p>we can pull in the layer files created for each Feature Class to manually inspect the duplicated features to determine if/which features should be amended or deleted.</p>
 
 </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>More information of the Import Type and Auto Update parameters may be found at the help page for ArcMap’s <a href="http://desktop.arcgis.com/en/arcmap/latest/tools/conversion-toolbox/import-metadata.htm">Import Metadata Tool</a>.<a href="imMeta.html#fnref4">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="spatjoinCalc.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="delFeats.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exMeta.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

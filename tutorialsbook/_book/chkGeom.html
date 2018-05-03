@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="spatjoinCalc.html">
-<link rel="next" href="delFeats.html">
+<link rel="prev" href="delFeats.html">
+<link rel="next" href="stdAdd1.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -187,85 +187,64 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dupGeom" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Find Duplicate Geometry</h1>
-<div id="overview-2" class="section level2">
-<h2><span class="header-section-number">4.1</span> Overview</h2>
-<p>The Find Duplicate Geometry tool allows users to search an entire geodatabase’s Feature Classes within Feature Datasets for features with duplicate geometries. This tool loops through each Feature Dataset’s Feature Class features and searches for duplicate geometries. All features with duplicate geometries are written to the output .csv file, as specified, and describes the Feature Dataset and Feature Class with duplicate geometries, the OBJECTIDs of the duplicate geometries, and a summary, which gives the count of duplicate geometries spread over unique geometries, Further, this tool creates layer files for each Feature Class’ duplicate features, allowing users to edit their geodatabase directory from a temporary, filtered layer of only duplicate features to be evaluated further.</p>
+<div id="chkGeom" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Check and/or Repair Geometries</h1>
+<div id="overview-4" class="section level2">
+<h2><span class="header-section-number">6.1</span> Overview</h2>
+<p>The Check and/or Repair Geometries tool allows users to search an entire geodatabase’s Feature Classes for geometry problems. This tool loops through each Feature Dataset’s Feature Class features and searches for geometry problems, including null geometry, self intersections, duplicate vertexes, and more.</p>
+<p>If geometry problems exists, an output table is created containing the following fields: CLASS, FEATURE_ID, and PROBLEM. The feature classes which contain geometry problems are then repaired.</p>
+<p>After the repair is conducted, the subset of feature classes with repaired geometry problems are checked again for geometry problems to confirm their repair. Another output table is generated for the subset of feature classes. An empty output table confirms the geometry problems were correctly repaired.</p>
 </div>
-<div id="parameters-2" class="section level2">
-<h2><span class="header-section-number">4.2</span> Parameters</h2>
-<p>The tool has 5 parameters:<br />
-1. <strong>Input_Geodatabase (data type: Workspace)</strong> - This parameter must be the path of the input geodatabase to search Feature Datasets’ Feature Class features for duplicate geometries.</p>
-<ol start="2" style="list-style-type: decimal">
-<li><p><strong>XY_Tolerance (data type: String)</strong> - The XY_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity, and must be input in the same units as the the source geodatabase’s coordinate reference system (CRS).</p></li>
-<li><p><strong>Z_Tolerance (data type: String)</strong> - The Z_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity with regard to elevation, and must be input in the same units as the the source geodatabase’s coordinate reference system (CRS).</p></li>
-<li><p><strong>Output_CSV (data type: File)</strong> - The path to the output Duplicate_Geometry_Summary .xlsx/.csv file.</p></li>
-<li><p><strong>Output_Layers_Directory (data type: Folder)</strong> - The path to the directory/folder to store layer files with duplicate geometries.</p></li>
+<div id="parameters-4" class="section level2">
+<h2><span class="header-section-number">6.2</span> Parameters</h2>
+<p>The tool has 2 parameters:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Input_Geodatabase (data type: Workspace)</strong> - This parameter must be the path of the input geodatabase to search Feature Datasets’ Feature Class features for duplicate features.<br />
+</li>
+<li><strong>Installation_Review_Geodatabase (data type: Workspace)</strong> - This parameter should be the path of the Installation Review Geodatabase to compile all CIP processing outputs in a single location.</li>
 </ol>
 </div>
-<div id="how-to-use-2" class="section level2">
-<h2><span class="header-section-number">4.3</span> How to Use</h2>
-<div id="begin-by-opening-the-toolbox-2" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> Begin by opening the toolbox</h3>
-<p>Navigate to the location of the script toolbox, then right-click the ‘Find Duplicate Geometry’ script tool to open (Fig. <a href="dupGeom.html#fig:dupGopen">4.1</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGopen"></span>
-<img src="figures/dupG-opentool.jpg" alt="Opening the Find Duplicate Geometries tool"  />
+<div id="how-to-use-4" class="section level2">
+<h2><span class="header-section-number">6.3</span> How to Use</h2>
+<div id="begin-by-opening-the-toolbox-4" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Begin by opening the toolbox</h3>
+Navigate to the location of the script toolbox, then right-click the ‘Check and/or Repair Geometry’ script tool to open (Fig. <a href="chkGeom.html#fig:chkGopen">6.1</a>).
+<div class="figure" style="text-align: center"><span id="fig:chkGopen"></span>
+<img src="figures/chkG-open.jpg" alt="Opening the Delete Duplicate Features tool"  />
 <p class="caption">
-Figure 4.1: Opening the Find Duplicate Geometries tool
+Figure 6.1: Opening the Delete Duplicate Features tool
 </p>
 </div>
 </div>
-<div id="fill-out-the-parameters-2" class="section level3">
-<h3><span class="header-section-number">4.3.2</span> Fill out the parameters</h3>
-<p>Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate geometries using the default XY Tolerance and Z Tolerance values of ‘0’ (Fig. <a href="dupGeom.html#fig:dupGparams">4.2</a>). We specify that we want the Duplicate Geometry Summary to be written to a Comma-separated Values (.csv) file called ‘test.csv.’ Further, we specify that we want all the duplicate Feature Class feature layers to be saved to the Output Layers Directory ‘layer.’</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGparams"></span>
-<img src="figures/dupG-params.jpg" alt="Find Duplicate Geometries parameters"  />
-<p class="caption">
-Figure 4.2: Find Duplicate Geometries parameters
-</p>
-</div>
-</div>
-</div>
-<div id="run-the-tool-and-view-results-2" class="section level2">
-<h2><span class="header-section-number">4.4</span> Run the Tool and View Results</h2>
-<p>While the tool runs (with Background Processing disabled), we can see the messages from the tool, showing how many duplicate features are found for each Feature Class (Fig. <a href="dupGeom.html#fig:dupGmessages">4.3</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGmessages"></span>
-<img src="figures/dupG-messages.jpg" alt="Find Duplicate Geometries parameters"  />
-<p class="caption">
-Figure 4.3: Find Duplicate Geometries parameters
-</p>
-</div>
-<p>After the tool has run, we can open the output .csv we specified in the tool parameters to examine which Feature Classes have duplicated geometries . For example, we find that the EnvRestorSampLoc_P Feature Class within the environmentalRestoration Feature Dataset has 17 total duplicates spread across 7 unique geometries (Fig. <a href="dupGeom.html#fig:dupGcsv">4.4</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGcsv"></span>
-<img src="figures/dupG-csv.JPG" alt="Find Duplicate Geometries parameters"  />
-<p class="caption">
-Figure 4.4: Find Duplicate Geometries parameters
-</p>
-</div>
-<p>Navigating to the output layer directory we specified in the tool, we find layer files with duplicate features for each Feature Class (Fig. <a href="dupGeom.html#fig:dupGlays">4.5</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:dupGlays"></span>
-<img src="figures/dupG-lays.jpg" alt="Find Duplicate Geometries parameters"  />
-<p class="caption">
-Figure 4.5: Find Duplicate Geometries parameters
-</p>
-</div>
-<p>After pulling in the _dupeGeom_EnvRestorSampLoc_P layer file, we can zoom to a feature and select the features at that location to examine the duplicate features at that location (Fig. <a href="dupGeom.html#fig:layFeats">4.6</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:layFeats"></span>
-<img src="figures/dupG-layFeats.jpg" alt="The features with duplicated geometries"  />
-<p class="caption">
-Figure 4.6: The features with duplicated geometries
-</p>
-</div>
-<p>Then, we can view the Attribute Table for the selected features to examine which feature we should amend or delete (Fig. <a href="dupGeom.html#fig:layAtts">4.7</a>). Here, we find that the attributes are exactly the same for the first duplicated geometry, and so we should probably delete one of these features. Editing the layer files directly will update the associated Feature Classes in the original geodatabase.</p>
-<div class="figure" style="text-align: center"><span id="fig:layAtts"></span>
-<img src="figures/dupG-layAtts.jpg" alt="Attributes of duplicated features"  />
-<p class="caption">
-Figure 4.7: Attributes of duplicated features
-</p>
-</div>
-<p>we can pull in the layer files created for each Feature Class to manually inspect the duplicated features to determine if/which features should be amended or deleted.</p>
+<div id="fill-out-the-parameters-4" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Fill out the parameters</h3>
+Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate features (Fig. <a href="chkGeom.html#fig:chkGparams">6.2</a>). Last, we specify where we want to output the resulting tables, prefereably in an Installation Review geodatabase specifically for holding CIP processing results.<br />
 
+<div class="figure" style="text-align: center"><span id="fig:chkGparams"></span>
+<img src="figures/chkG-params.jpg" alt="Delete Duplicate Features parameters"  />
+<p class="caption">
+Figure 6.2: Delete Duplicate Features parameters
+</p>
+</div>
+</div>
+<div id="run-the-tool-and-view-results-4" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Run the Tool and View Results</h3>
+While the tool runs (with Background Processing disabled), we can see the messages from the tool, which displays the following: how many feature classes are being checked for geometry problems, how many geometry problems that were found, where the output results are found, how many and which feature classes will be processed to repair geometry problems, how many feature classes are being re-checked for geometry errors, and how many geometry problems were found after the re-check (Fig. <a href="chkGeom.html#fig:chkGmessages">6.3</a>).
+<div class="figure" style="text-align: center"><span id="fig:chkGmessages"></span>
+<img src="figures/chkG-messages.jpg" alt="Delete Duplicate Features messages"  />
+<p class="caption">
+Figure 6.3: Delete Duplicate Features messages
+</p>
+</div>
+<p>Here, we see that 16 geometry problems were found in the Yaeger CIP geodatabase across 10 different feature classes, with each listed. A re-check was conducted on the 10 feature classes and then 0 geometry problems were found (Fig. <a href="chkGeom.html#fig:chkGafter">6.4</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:chkGafter"></span>
+<img src="figures/chkG-after.jpg" alt="Delete Duplicate Features messages"  />
+<p class="caption">
+Figure 6.4: Delete Duplicate Features messages
+</p>
+</div>
+
+</div>
 </div>
 </div>
             </section>
@@ -273,8 +252,8 @@ Figure 4.7: Attributes of duplicated features
           </div>
         </div>
       </div>
-<a href="spatjoinCalc.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="delFeats.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="delFeats.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="stdAdd1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
