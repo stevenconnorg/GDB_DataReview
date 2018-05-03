@@ -259,12 +259,12 @@ def summariseMissingData(installGDB):
     summary["UNDETERMINED_PCT"] = (j5.TOTAL_INDT_COUNT/(j5.POP_VALS_COUNT))*100
     summary["DETERMINED_CNT"] = j5.TOTAL_DET_COUNT
     summary["UNDETERMINED_CNT"] = j5.TOTAL_INDT_COUNT
-    pandas_to_table(summary,compName+"_Summary_Cell_Pct_by_FC")
+    #pandas_to_table(summary,compName+"_Summary_Cell_Pct_by_FC")
 
     #summary.to_csv(os.path.join(outputFolder,compName+"_Summary_Cell_Pct_by_FC.csv"))
     
     writer = pandas.ExcelWriter(outputFile+".xlsx")
-    #summary.to_excel(writer,sheet_name=compName+"_Summary_by_FC")
+    summary.to_excel(writer,sheet_name=compName+"_Summary_by_FC")
 
     ''' do the above but grouping by field also '''
         # FOR EACH FIELD, GET COUNT OF CELLS THAT ARE NULL
@@ -331,9 +331,9 @@ def summariseMissingData(installGDB):
     countsByField=countsByField.query('UNDETERMINED_CNT > 0')
 	
 	
-    pandas_to_table(pddf=countsByField,tablename=compName+"_Indeterminate_Counts_by_Field")
+    #pandas_to_table(pddf=countsByField,tablename=compName+"_Indeterminate_Counts_by_Field")
     #countsByField.to_csv(os.path.join(outputFolder,compName+"_Indeterminate_Counts_by_Field.csv"))
-    #countsByField.to_excel(writer,sheet_name=compName+"_Summary_by_Field")
+    countsByField.to_excel(writer,sheet_name=compName+"_Summary_by_Field")
 
 	
     ### FOR EACH FEATURE CLASS INCLUDED, HOW MANY ARE EMPTY? 
@@ -357,9 +357,8 @@ def summariseMissingData(installGDB):
     arcpy.AddMessage ("Getting count of empty fields from non-empty feature classes ")
     emptyFLDsum = pdNullTbl.query("POP_VALS_COUNT ==0 & EMPTY_FC == 'F'").groupby(['FDS','FC','INSTALLATION']).ngroups
 
-    pandas_to_table(pddf=emptyFCbyFDS,tablename=compName+"_EmptyFeatureClasses")
-    #emptyFCbyFDS.to_csv(os.path.join(outputFolder,compName+"_EmptyFeatureClasses.csv"))
-    #emptyFCbyFDS.to_excel(writer,sheet_name=compName+"__EmptyFeatureClasses")
+    #pandas_to_table(pddf=emptyFCbyFDS,tablename=compName+"_EmptyFeatureClasses")
+    emptyFCbyFDS.to_excel(writer,sheet_name=compName+"__EmptyFeatureClasses")
 
     ### GET NUMBER OF MISSING FEATURE DATASETS
     arcpy.AddMessage ("Getting count of missing feature datasets ")
@@ -383,9 +382,9 @@ def summariseMissingData(installGDB):
          }
     
     d= pandas.DataFrame(d)
-    pandas_to_table(pddf=d,tablename=compName+"_Overview")
+    #pandas_to_table(pddf=d,tablename=compName+"_Overview")
     #d.to_csv(os.path.join(outputFolder,compName+"_Indeterminate_Overview.csv"))
-    #d.to_excel(writer,sheet_name=compName+"_Indeterminate_Overview")
+    d.to_excel(writer,sheet_name=compName+"_Indeterminate_Overview")
 
     writer.save()
     time_elapsed = datetime.now() - start_time  
