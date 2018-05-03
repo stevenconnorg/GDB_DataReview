@@ -19,9 +19,14 @@ This tool loops through all Feature Classes within Feature Datasets in a source 
 This tool utilizes spatial joins to update field values in the target Feature Classes field to equal the source Feature Class fields in a source geodatabase. Using 'wildcard' fitlers, this tool allows users to update particular target Feature Datasets, Feature Classes, and Fields. For the purposes of this tool within the scope of the CIP Data Review task, target Fields are, by default, any fields that begin with "realPropertySiteUnique," in order to udpate RPSUID fields called either "realPropertySiteUniqueIdentifier" or "realPropertySiteUniqueID"; however, this tool could be extended to any number of source/target Feature Class/Field values. 
 
 ### Check and/or Repair Geometries
-
-....
-
+The Check and/or Repair Geometries tool allows users to search an entire geodatabase’s Feature Classes for
+geometry problems. This tool loops through each Feature Dataset’s Feature Class features and searches for
+geometry problems, including null geometry, self intersections, duplicate vertexes, and more.
+If geometry problems exists, an output table is created containing the following fields: CLASS, FEATURE_
+ID, and PROBLEM. The feature classes which contain geometry problems are then repaired.
+After the repair is conducted, the subset of feature classes with repaired geometry problems are checked
+again for geometry problems to confirm their repair. Another output table is generated for the subset of
+feature classes. An empty output table confirms the geometry problems were correctly repaired.
 
 ### Find Duplicate Features
 The Find Duplicate Features tool allows users to search an entire geodatabase's Feature Classes within Feature Datasets for features with duplicate features. For this tool, duplicate features include any Feature Class' fields not including the geometry, Shape_Area, or Shape_Length fields. This tool loops through each Feature Dataset's Feature Class features and searches for duplicate features across all other fields. All features with duplicate features are written to the output .csv file, as specified, and describes the Feature Dataset and Feature Class with duplicate features, the OBJECTIDs of the duplicate features, and a summary narrative, which gives the count of unique duplicate features. Further, this tool creates layer files for each Feature Class' duplicate features, allowing users to edit their geodatabase directory from a temporary, filtered layer of only duplicate features to be evaluated further.
