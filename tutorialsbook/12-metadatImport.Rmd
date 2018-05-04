@@ -11,7 +11,6 @@ The tool has 3 parameters^[More information of the Import Type and Auto Update p
 1. **Input Geodatabase (data type: Workspace/File Geodatabase)** - The input geodatabase to export Feature Dataset/Feature Class metadata from.
 2. **Input Metadata Directory (data type: Folder)** - The folder within which to write output .xml metadata files.
 3. **Import Type (data type: String)** - The folder within which to write output .xml metadata files. These include:
-    * FROM_ARCGIS —The source metadata is ArcGIS metadata. The metadata won't be converted.
     * FROM_ESRIISO —The source metadata contains ESRI-ISO-formatted metadata; that is, it was created using the ISO metadata editor provided with ArcGIS Desktop 9.3.1 and earlier releases. The source metadata will be converted to ArcGIS metadata when you run the tool.
     * FROM_FGDC —The source metadata is stored in the FGDC CSDGM metadata standard's XML format. The source metadata will be converted to ArcGIS metadata when you run the tool.
     * FROM_ISO_19139 —The source metadata is formatted according to the ISO 19139 metadata standard. The source metadata will be converted to ArcGIS metadata when you run the tool.
