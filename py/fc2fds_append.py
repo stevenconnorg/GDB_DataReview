@@ -34,21 +34,17 @@ def getFeaturesdf(GDB):
 			d = d.append(pandas.DataFrame({'FDS': theFDS, 'FC': theFC}, index=[0]), ignore_index=True)
 	return(d)
 
-def fc2fds(installGDB,compGDB):
+
+def fc2fds(sourceGDB,targetGDB):
 	## get target geodatabase
-	path_gdb = compGDB
+	path_gdb = targetGDB
 	## get source data geodatabase
-	path_sGDB = installGDB
+	path_sGDB = sourceGDB
 	gdb = os.path.basename(path_sGDB) # get gdb name
 	filename = os.path.splitext(gdb) # get name without extension
 	gdbN = filename[0]
 	gbdName = gdbN+".gdb" # append 'cleaned' to name 
-	if arcpy.Exists(os.path.join(mainDir,"gdbs-cleaned",gbdName)):
-                print gbdName +" exists in gdbs-cleaned directory! Using this gdb!"
-		pass
-	else:
-		arcpy.CreateFileGDB_management (os.path.join(mainDir,"gdbs-cleaned"), gbdName) # and create empty gdb as '[gdbName]_cleaned'
-	outGDB = os.path.join(mainDir,"gdbs-cleaned",gbdName) # path to outout gdb
+    outGDB = os.path.join(mainDir,"gdbs-cleaned",gbdName) # path to outout gdb
 	# get list of feature classes in source geodatabase (they're all loose feature classes)
 	arcpy.env.workspace = path_sGDB
 	#arcpy.env.overwriteOutput = True 
@@ -96,15 +92,22 @@ def fc2fds(installGDB,compGDB):
 	del path_gdb
 
 # define comparison/target geodatabase inside targetGDBdir ("gdbs-target")
-installationGDBdir = os.path.join(mainDir,"gdbs")
-targetGDBdir = os.path.join(mainDir,"gdbs-target")
-compGDB = os.path.join(targetGDBdir,"Full.gdb")
-installationgdbList =  getDirectoryFiles(installationGDBdir)
-
+# =============================================================================
+# installationGDBdir = os.path.join(mainDir,"gdbs")
+# targetGDBdir = os.path.join(mainDir,"gdbs-target")
+# compGDB = os.path.join(targetGDBdir,"Full.gdb")
+# installationgdbList =  getDirectoryFiles(installationGDBdir)
+# 
+# =============================================================================
 # for each gdbs in installationGDBdir, create new geodatabase inside "gdbs-cleaned" directory & move source feature classes into respective feature datasets according to target geodatabase  
-for installGDB in installationgdbList:
-	installationName = os.path.splitext(os.path.basename(installGDB))[0]
-	#print ("Getting Feature Datasets, Feature Classes and Fields for " + compGDB)
-	#compFeaturesdf = getFeaturesdf(GDB=compGDB)
-	compName = os.path.splitext(os.path.basename(compGDB))[0]
-	fc2fds(installGDB,compGDB)
+# =============================================================================
+# for installGDB in installationgdbList:
+# 	installationName = os.path.splitext(os.path.basename(installGDB))[0]
+# 	#print ("Getting Feature Datasets, Feature Classes and Fields for " + compGDB)
+# 	#compFeaturesdf = getFeaturesdf(GDB=compGDB)
+# 	compName = os.path.splitext(os.path.basename(compGDB))[0]
+# 
+# =============================================================================
+installGDB = 
+compGDB= 
+fc2fds(installGDB,compGDB)
