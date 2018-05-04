@@ -22,22 +22,22 @@ The tool has 3 parameters^[More information of the Import Type and Auto Update p
 ## How to Use
 ### Begin by opening the toolbox  
 Navigate to the location of the script toolbox, then right-click the 'Batch Export Metadata to Directory' script tool to open (Fig. \@ref(fig:imMetaopen)).
-```{r imMetaopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra=''}
+```{r imMetaopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center'}
 knitr::include_graphics("figures/imMeta-open.jpg",auto_pdf = TRUE)
 ```
 ###  Fill out the parameters 
 Next, fill out the parameters for the tool. Here, we want to export metadata for all Feature Datasets and all Feature Classes (within those Feature Datasets) within the Example.gdb geodatabase using the default ARCGIS2FGDC metadata translator that comes with ArcGIS to a new directory called 'metadata' (Fig. \@ref(fig:imMetaparams)). 
-```{r imMetaparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra=''}
+```{r imMetaparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center'}
 knitr::include_graphics("figures/imMeta-params.jpg",auto_pdf = TRUE)
 ```
 ## Run the Tool and View Results
 While the tool runs, we can see which .xml files are being imported to each Feature Dataset's/Feature Class' metadata, as well as which Feature Datasets/Feature Classes do not have matching .xml files in the output directory (Fig. \@ref(fig:imMetamessages)). 
-```{r imMetamessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra=''}
+```{r imMetamessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center'}
 knitr::include_graphics("figures/imMeta-messages.jpg",auto_pdf = TRUE)
 ```
 
 After running the tool, we can view the update Item Descriptions for the Feature Classes and Feature Datasets imported with the .xml files (Fig. \@ref(fig:imMetaafter)). You can also change the way ArcMap displays the metadata by going to Customize > ArcMap Options in ArcMap, then clicking the Metadata tab and changing the Metadata Style in the drop-down menu. You can find more information on Item Descriptions on Esri's [Item Desecription Help Page](http://desktop.arcgis.com/en/arcmap/latest/map/working-with-arcmap/documenting-items-in-the-catalog-window.htm).
 
-```{r imMetaafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center',out.extra=''}
+```{r imMetaafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center'}
 knitr::include_graphics("figures/imMeta-after.jpg",auto_pdf = TRUE)
 ```

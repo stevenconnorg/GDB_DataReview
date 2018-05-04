@@ -19,47 +19,47 @@ The tool has 5 parameters:
 ### Begin by opening the toolbox  
 Navigate to the location of the script toolbox, then right-click the 'Find Duplicate Geometry' script tool to open (Fig. \@ref(fig:dupGopen)).
 
-```{r dupGopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Find Duplicate Geometries tool",fig.align = 'center',out.extra=''}
+```{r dupGopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Find Duplicate Geometries tool",fig.align = 'center'}
 knitr::include_graphics("figures/dupG-opentool.jpg",auto_pdf = TRUE)
 ```
 ###  Fill out the parameters 
 Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate geometries using the default XY Tolerance and Z Tolerance values of '0' (Fig. \@ref(fig:dupGparams)). We specify that we want the Duplicate Geometry Summary to be written to a Comma-separated Values (.csv) file called 'test.csv.' Further, we specify that we want all the duplicate Feature Class feature layers to be saved to the Output Layers Directory 'layer.'
 
 
-```{r dupGparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center',out.extra=''}
+```{r dupGparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center'}
 knitr::include_graphics("figures/dupG-params.jpg",auto_pdf = TRUE)
 ```
 
 ## Run the Tool and View Results
 While the tool runs (with Background Processing disabled), we can see the messages from the tool, showing how many duplicate features are found for each Feature Class (Fig. \@ref(fig:dupGmessages)).
 
-```{r dupGmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center',out.extra=''}
+```{r dupGmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center'}
 knitr::include_graphics("figures/dupG-messages.jpg",auto_pdf = TRUE)
 ```
 
 After the tool has run, we can open the output .csv we specified in the tool parameters to examine which Feature Classes have duplicated geometries . For example, we find that the EnvRestorSampLoc_P Feature Class within the environmentalRestoration Feature Dataset has 17 total duplicates spread across 7 unique geometries (Fig. \@ref(fig:dupGcsv)).
 
-```{r dupGcsv, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center',out.extra=''}
+```{r dupGcsv, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center'}
 knitr::include_graphics("figures/dupG-csv.jpg",auto_pdf = TRUE)
 ```
 
 Navigating to the output layer directory we specified in the tool, we find layer files with duplicate features for each Feature Class (Fig. \@ref(fig:dupGlays)).
 
 
-```{r dupGlays, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center',out.extra=''}
+```{r dupGlays, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center'}
 knitr::include_graphics("figures/dupG-lays.jpg",auto_pdf = TRUE)
 ```
 
 After pulling in the _dupeGeom_EnvRestorSampLoc_P layer file, we can zoom to a feature and select the features at that location to examine the duplicate features at that location (Fig. \@ref(fig:layFeats)).
 
-```{r layFeats, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The features with duplicated geometries",fig.align = 'center',out.extra=''}
+```{r layFeats, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The features with duplicated geometries",fig.align = 'center'}
 knitr::include_graphics("figures/dupG-layFeats.jpg",auto_pdf = TRUE)
 ```
 
 Then, we can view the Attribute Table for the selected features to examine which feature we should amend or delete (Fig. \@ref(fig:layAtts)). Here, we find that the attributes are exactly the same for the first duplicated geometry, and so we should probably delete one of these features. Editing the layer files directly will update the associated Feature Classes in the original geodatabase. 
 
 
-```{r layAtts, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attributes of duplicated features",fig.align = 'center',out.extra=''}
+```{r layAtts, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attributes of duplicated features",fig.align = 'center'}
 knitr::include_graphics("figures/dupG-layAtts.jpg",auto_pdf = TRUE)
 ```
 

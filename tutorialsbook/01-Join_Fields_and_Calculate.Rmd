@@ -26,7 +26,7 @@ The tool has 8 parameters:
 ### Begin by opening the toolbox  
 Navigate to the location of the script tool, then right-click the 'Join Fields and Calculate' script tool to open (Fig. \@ref(fig:jcopen)).
 
-```{r jcopen, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Tool",fig.align = 'center',out.extra=''}
+```{r jcopen, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Tool",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalcopentool.jpg",auto_pdf = TRUE)
 ```
 
@@ -38,13 +38,13 @@ We also keep the default value in the 'Where Clause' parameter of 'IS NOT NULL,'
 
 We noticed that the 'buildingNumber' field has some leading zeros that we want to remove the beginning of the values, so we click the "Remove Leading Zeros" toggle (Fig. \@ref(fig:jcparams)).
 
-```{r jcparams, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center',out.extra=''}
+```{r jcparams, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalc-toolparams.jpg",auto_pdf = TRUE)
 ```
 
 Alternatively, you may also run this tool in 'batch' for multiple features in a geodatabase or geodatabases (Fig. \@ref(fig:batch)).
 
-```{r batch, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Running a tool in batch",fig.align = 'center',out.extra=''}
+```{r batch, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Running a tool in batch",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalc-batch.jpg",auto_pdf = TRUE)
 ```
 
@@ -53,12 +53,12 @@ You may also get more information for the tool and each tool parameter by clicki
 ###  Run the Tool and View Results
 Open the destinate Feature Class and view the update destination field values (Fig. \@ref(fig:jcbefore), Fig. \@ref(fig:jcafter)).
 
-```{r jcbefore, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attribues before running the tool",fig.align = 'center',out.extra=''}
+```{r jcbefore, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attribues before running the tool",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalc-before.jpg",auto_pdf = TRUE)
 ```
 
 
-```{r jcafter, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attributes after running the tool",fig.align = 'center',out.extra=''}
+```{r jcafter, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attributes after running the tool",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalc-results.jpg",auto_pdf = TRUE)
 ```
 

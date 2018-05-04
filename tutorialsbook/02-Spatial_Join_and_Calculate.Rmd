@@ -40,20 +40,20 @@ The tool has 8 parameters:
 ### Begin by opening the toolbox  
 Navigate to the location of the script tool, then right-click the 'Calculate Feature RPSUIDs from Overlapping Polygon' script tool to open (Fig. \@ref(fig:sjcopentool)).
 
-```{r sjcopentool, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the toolbox",fig.align = 'right',out.extra=''}
+```{r sjcopentool, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the toolbox",fig.align = 'right'}
 knitr::include_graphics("figures/spatjoinCalcopentool.jpg",auto_pdf = TRUE)
 ```
 
 
 ###  Fill out the parameters 
 For this demostration, we want to update missing RPSUID values for 2 features in the Site_P Feature Class using RPSUID values from Site_A features that contain Site_P features \@ref(fig:sjcbefore)).
-```{r sjcbefore, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Missing RPSUID attributes for Site Point featuresl",fig.align='center',out.extra=''}
+```{r sjcbefore, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Missing RPSUID attributes for Site Point featuresl",fig.align='center'}
 knitr::include_graphics("figures/spatjoinCalc-before.jpg",auto_pdf = TRUE)
 ```
 \pagebreak
 Next, fill out the parameters for the tool. Here, we want to transfer the RPSUID attributes (Source Field) from the Site_A Feature Class in the Cadastre Feature Dataset (Fig. \@ref(fig:sjcparams)).
 
-```{r sjcparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center',out.extra=''}
+```{r sjcparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center'}
 knitr::include_graphics("figures/spatjoinCalc-toolparams.jpg",auto_pdf = TRUE)
 ```
 Since we only want to update the Site_P features within the Cadastre Feature Dataset, we change the default value for the Target Feature Dataset Wildcard to "Cadastre," since we know that the Site_P Feature Class is only found within the Cadastre Feature Dataset. Further, we change the default value of the Target Feature Class Wildcard parameters to "Site_P" in order to only update Site_P features within the Cadastre Dataset. Since we know that the RPSUID field names within all Feature Classes in the data model begin with 'realPropertySiteUnique', we can keep the default value for the Target Field Wildcard parameter in order to update the realPropertySiteUniqueID field in Site_P features with with the Source Field in the Source Feature Class. 
@@ -65,11 +65,11 @@ You may also get more information for the tool and each tool parameter by clicki
 ## Run the Tool and View Results
 If running the tool with Background Processessing disabled, we can see which RPSUIDs are being updated (Fig. \@ref(fig:sjcmessages)).
 
-```{r sjcmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center',out.extra=''}
+```{r sjcmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center'}
 knitr::include_graphics("figures/spatjoinCalc-toolmessages.jpg",auto_pdf = TRUE)
 ```
 After the tool has run, we see that the 2 Site_P features with missing RPSUID values are updated accordingly \@ref(fig:sjcafter)).
-```{r sjcafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Updated attributes after running the tool",fig.align='center',out.extra=''}
+```{r sjcafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Updated attributes after running the tool",fig.align='center'}
 knitr::include_graphics("figures/spatjoinCalc-after.jpg",auto_pdf = TRUE)
 ```
 
