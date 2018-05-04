@@ -426,7 +426,7 @@ values (Fig. \ref{fig:jcbefore}, Fig. \ref{fig:jcafter}).
 
 }
 
-\caption{Attribues before running the tool}\label{fig:jcbefore}
+\caption{Attribues before running the Join Fields and Calculate tool}\label{fig:jcbefore}
 \end{figure}
 
 \begin{figure}[H]
@@ -435,7 +435,7 @@ values (Fig. \ref{fig:jcbefore}, Fig. \ref{fig:jcafter}).
 
 }
 
-\caption{Attributes after running the tool}\label{fig:jcafter}
+\caption{Attributes after running the tool, matching against both Building Number and RPSUID to update RPUID values}\label{fig:jcafter}
 \end{figure}
 
 \hypertarget{spatjoinCalc}{\chapter{Calculate Feature RPSUIDs from
@@ -625,7 +625,6 @@ features that contain Site\_P features \ref{fig:sjcbefore}).
 \caption{Missing RPSUID attributes for Site Point featuresl}\label{fig:sjcbefore}
 \end{figure}
 
-\pagebreak
 Next, fill out the parameters for the tool. Here, we want to transfer
 the RPSUID attributes (Source Field) from the Site\_A Feature Class in
 the Cadastre Feature Dataset (Fig. \ref{fig:sjcparams}).
@@ -649,15 +648,13 @@ Cadastre Dataset. Since we know that the RPSUID field names within all
 Feature Classes in the data model begin with `realPropertySiteUnique',
 we can keep the default value for the Target Field Wildcard parameter in
 order to update the realPropertySiteUniqueID field in Site\_P features
-with with the Source Field in the Source Feature Class.
-
-For the purposes of this demostration, we keep the default value for the
-Overlap Type parameter to ``WITHIN,'' in order to update the fields that
-begin with ``realPropertySiteUnique'' for features that are
-\emph{within} each Source Feature Class feature.
-
-You may also get more information for the tool and each tool parameter
-by clicking the `Tool Help' button at the bottom of the tool dialog box.
+with with the Source Field in the Source Feature Class. For the purposes
+of this demostration, we keep the default value for the Overlap Type
+parameter to ``WITHIN,'' in order to update the fields that begin with
+``realPropertySiteUnique'' for features that are \emph{within} each
+Source Feature Class feature. You may also get more information for the
+tool and each tool parameter by clicking the `Tool Help' button at the
+bottom of the tool dialog box.
 
 \section{Run the Tool and View
 Results}\label{run-the-tool-and-view-results-2}
@@ -683,7 +680,7 @@ RPSUID values are updated accordingly \ref{fig:sjcafter}).
 
 }
 
-\caption{Updated attributes after running the tool}\label{fig:sjcafter}
+\caption{AFter running the tool, new Site A feaures and new Site P features are created.}\label{fig:sjcafter}
 \end{figure}
 
 \hypertarget{dupGeom}{\chapter{Find Duplicate Geometry}\label{dupGeom}}
@@ -705,14 +702,15 @@ features to be evaluated further.
 
 \section{Parameters}\label{parameters-3}
 
-The tool has 5 parameters:\\
-1. \textbf{Input\_Geodatabase (data type: Workspace)} - This parameter
-must be the path of the input geodatabase to search Feature Datasets'
-Feature Class features for duplicate geometries.
+The tool has 5 parameters:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Input\_Geodatabase (data type: Workspace)} - This parameter
+  must be the path of the input geodatabase to search Feature Datasets'
+  Feature Class features for duplicate geometries.\\
 \item
   \textbf{XY\_Tolerance (data type: String)} - The XY\_Tolerance
   parameter will be applied to each vertex when evaluating if there is
@@ -783,7 +781,7 @@ found for each Feature Class (Fig. \ref{fig:dupGmessages}).
 
 }
 
-\caption{Find Duplicate Geometries parameters}\label{fig:dupGmessages}
+\caption{Messages from the Find Duplicate Geometries tool}\label{fig:dupGmessages}
 \end{figure}
 
 After the tool has run, we can open the output .csv we specified in the
@@ -840,12 +838,8 @@ associated Feature Classes in the original geodatabase.
 
 }
 
-\caption{Attributes of duplicated features}\label{fig:layAtts}
+\caption{Examining the attributes of duplicated features from layer files}\label{fig:layAtts}
 \end{figure}
-
-we can pull in the layer files created for each Feature Class to
-manually inspect the duplicated features to determine if/which features
-should be amended or deleted.
 
 \chapter{Delete Duplicate Features}\label{delFeats}
 
@@ -997,7 +991,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:chkGopen}
+\caption{Opening the Check and/or Repair Geometries tool}\label{fig:chkGopen}
 \end{figure}
 
 \subsection{Fill out the parameters}\label{fill-out-the-parameters-5}
@@ -1014,7 +1008,7 @@ geodatabase specifically for holding CIP processing results.\\
 
 }
 
-\caption{Delete Duplicate Features parameters}\label{fig:chkGparams}
+\caption{Check and/or Repair Geometries tool parameters}\label{fig:chkGparams}
 \end{figure}
 
 \subsection{Run the Tool and View
@@ -1035,7 +1029,7 @@ errors, and how many geometry problems were found after the re-check
 
 }
 
-\caption{Delete Duplicate Features messages}\label{fig:chkGmessages}
+\caption{Output messages from the Check and/or Repair Geometries tool}\label{fig:chkGmessages}
 \end{figure}
 
 Here, we see that 16 geometry problems were found in the Yaeger CIP
@@ -1049,7 +1043,7 @@ problems were found (Fig. \ref{fig:chkGafter}).
 
 }
 
-\caption{Delete Duplicate Features messages}\label{fig:chkGafter}
+\caption{Output table of duplicate geometries found for each Feature Class, with the re-run showing that all geometries have been fixed.}\label{fig:chkGafter}
 \end{figure}
 
 \hypertarget{stdAdd1}{\chapter{Standardized Address
@@ -1095,7 +1089,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:std1open}
+\caption{Opening the Standardize Address Field tool}\label{fig:std1open}
 \end{figure}
 
 \subsection{Fill out the parameters}\label{fill-out-the-parameters-6}
@@ -1111,14 +1105,14 @@ standardized addresses in the field (Fig. \ref{fig:std1before}).
 
 }
 
-\caption{Delete Duplicate Features parameters}\label{fig:std1params}
+\caption{Tool parameters to run}\label{fig:std1params}
 \end{figure}\begin{figure}[H]
 
 {\centering \includegraphics{figures/std1-before} 
 
 }
 
-\caption{Delete Duplicate Features parameters}\label{fig:std1before}
+\caption{The unstandardized address field attributes before running the tool.}\label{fig:std1before}
 \end{figure}
 
 \subsection{Run the Tool and View
@@ -1133,7 +1127,7 @@ been appropriately standardized (Fig. \ref{fig:std1after}).
 
 }
 
-\caption{Delete Duplicate Features messages}\label{fig:std1after}
+\caption{The standardized address field attributes after running the tool.}\label{fig:std1after}
 \end{figure}
 
 \hypertarget{std3}{\chapter{Standardized Road Prefix, Name, and
@@ -1188,7 +1182,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:std3open}
+\caption{Opening Standardize Road Prefix, Name, and Suffix tool}\label{fig:std3open}
 \end{figure}
 
 \subsection{Fill out the parameters}\label{fill-out-the-parameters-7}
@@ -1204,7 +1198,7 @@ directly from the Feature Class by using the drop-down menu.
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:std3params}
+\caption{Standardize Road Prefix, Name, and Suffix tool parameters}\label{fig:std3params}
 \end{figure}
 
 \section{Run the Tool and View
@@ -1221,7 +1215,7 @@ destinate Feature Class and view the update destination field values
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:std3before}
+\caption{Unstandardized road prefixes, names, and suffixes before running the tool.}\label{fig:std3before}
 \end{figure}
 
 After running the tool, we can see that the prefixes and suffixes have
@@ -1234,7 +1228,7 @@ match USPS standards (Fig. \ref{fig:std3after}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:std3after}
+\caption{Standardized road prefixes, names, and suffixes after running the tool.}\label{fig:std3after}
 \end{figure}
 
 \hypertarget{indtSearch}{\chapter{Search for Missing and Indeterminant
@@ -1343,7 +1337,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchopen}
+\caption{Opening the Search for Missing and Indeterminant Data tool}\label{fig:indtSearchopen}
 \end{figure}
 
 \subsection{Fill out the parameters}\label{fill-out-the-parameters-8}
@@ -1359,7 +1353,7 @@ drop-down menu.
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchparams}
+\caption{Opening the Search for Missing and Indeterminant Data tool}\label{fig:indtSearchparams}
 \end{figure}
 
 \section{Run the Tool and View
@@ -1375,7 +1369,7 @@ counts of indeterminant values (Fig. \ref{fig:indtSearchmessages}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmessages}
+\caption{Search for Missing and Indeterminant Data tool messages}\label{fig:indtSearchmessages}
 \end{figure}
 
 After the tool has run, we can inspect the output tables within the
@@ -1389,14 +1383,14 @@ missing Feature Datasets \ref{fig:indtSearchmissingFDS}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchtables}
+\caption{Search for Missing and Indeterminant Data output tables}\label{fig:indtSearchtables}
 \end{figure}\begin{figure}[H]
 
 {\centering \includegraphics{figures/indtSearch-missingFDS} 
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmissingFDS}
+\caption{The output Missing Feature Datasets table}\label{fig:indtSearchmissingFDS}
 \end{figure}
 
 Examining the MissingFCs table, we see that the Example geodatabase has
@@ -1410,7 +1404,7 @@ missing when compared with the CIP geodatabase
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmissingFCs}
+\caption{The output Missing Feature Classes table}\label{fig:indtSearchmissingFCs}
 \end{figure}
 
 We can look at the MissingFLD table to see which fields are missing from
@@ -1423,7 +1417,7 @@ source geodatabase \ref{fig:indtSearchmissingFLDs}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmissingFLDs}
+\caption{The output Missing Feature Fields table}\label{fig:indtSearchmissingFLDs}
 \end{figure}
 
 To examine indeterminant field attribution, we can examine the
@@ -1435,7 +1429,7 @@ MissingData table \ref{fig:indtSearchmissingData}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:indtSearchmissingData}
+\caption{The output Missing Data table}\label{fig:indtSearchmissingData}
 \end{figure}
 
 \hypertarget{summIndt}{\chapter{Summarise Indeterminant/Missing Data
@@ -1549,7 +1543,7 @@ To do this, follow these instructions:
 \item
   Type `pip install numpy' and press enter, then type `pip install
   pandas' and press enter. If all goes well, you will have these modules
-  successfully installed for use in ArcGIS' Python distribution ```
+  successfully installed for use in ArcGIS' Python distribution
 \end{enumerate}
 
 \section{How to Use}\label{how-to-use-9}
@@ -1567,7 +1561,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 }
 
-\caption{Opening the DSummarise Indeterminant Data Tables tool}\label{fig:summIndtopen}
+\caption{Opening the Summarise Indeterminant Data Tables tool}\label{fig:summIndtopen}
 \end{figure}
 
 \subsection{Fill out the parameters}\label{fill-out-the-parameters-9}
@@ -1612,7 +1606,7 @@ Summary\_by\_Field, Empty Feature Classes, and Indeterminate\_Overview
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheets}
+\caption{The output Excel Workbook sheets Summary by FC, Summary by Field, Empty Feature Classes, and Indeterminate Overview}\label{fig:summIndtsheets}
 \end{figure}
 
 Viewing the Summary\_by\_FC sheets gives us a comprehensive overview of
@@ -1626,7 +1620,7 @@ indeterminant data type (i.e.: Null, TBD, and Other) (Fig.
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheet1}
+\caption{The output Summary by Feature Class table}\label{fig:summIndtsheet1}
 \end{figure}
 
 The Summary\_by\_Field provides provides a breaks down of the
@@ -1638,7 +1632,7 @@ Summary\_by\_FC table by field (Fig. \ref{fig:summIndtsheet2}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheet2}
+\caption{The output Summary by Field table}\label{fig:summIndtsheet2}
 \end{figure}
 
 The Empty Feature Classes sheet provides a listing of the Feature
@@ -1651,7 +1645,7 @@ fields from those empty feature classes (Fig. \ref{fig:summIndtsheet3}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheet3}
+\caption{The output Empty Feature Classes table}\label{fig:summIndtsheet3}
 \end{figure}
 
 Lastly, the Indeterminate\_Overview sheet provides a general overview of
@@ -1664,7 +1658,7 @@ missing and indeterminant data at a geodatabase level (Fig.
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:summIndtsheet4}
+\caption{The output Indeterminate Overview table}\label{fig:summIndtsheet4}
 \end{figure}
 
 \hypertarget{exMeta}{\chapter{Batch Export Metadata}\label{exMeta}}
@@ -1693,7 +1687,7 @@ Feature Dataset. Alternatively, the output .xml metadata for Feature
 Classes are exported with the Feature Dataset name prepended before the
 Feature Class name.
 
-These output .xml files can easily be edited in batch using the
+These output .xml files can more easily be edited in batch using the
 \href{http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html}{Batch
 Metadata Modifier Tool} developed out of the University of Idaho's
 Interactive Numeric \& Spatial Information Data Engine (INSIDE)
@@ -1732,7 +1726,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:exMetaopen}
+\caption{Opening the Batch Export Metadata tool}\label{fig:exMetaopen}
 \end{figure}
 
 \subsection{Fill out the parameters}\label{fill-out-the-parameters-10}
@@ -1749,7 +1743,7 @@ directory called `metadata' (Fig. \ref{fig:exMetaparams}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:exMetaparams}
+\caption{Batch Export Metadata tool parameters}\label{fig:exMetaparams}
 \end{figure}
 
 \section{Run the Tool and View
@@ -1767,7 +1761,7 @@ the name of the Feature Dataset.
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:exMetaafter}
+\caption{Batch Export Metadata output .xml files for each Feature Dataset/Feature Class}\label{fig:exMetaafter}
 \end{figure}
 
 \hypertarget{imMeta}{\chapter{Batch Import Metadata}\label{imMeta}}
@@ -1782,7 +1776,14 @@ potentially updated using the
 \href{http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html}{Batch
 Metadata Modifier Tool} developed out of the University of Idaho's
 Interactive Numeric \& Spatial Information Data Engine (INSIDE)
-geospatial data clearinghouse.
+geospatial data clearinghouse. As per SDSFIE standards, it is
+recommended that you view this metadata using the
+\href{https://www.sdsfieonline.org/Standards/Metadata}{SDSFIE-M Metadata
+Style for ArcGIS}\footnote{When installing this tool, be sure to install
+  it to the location of your current ArcGIS distribution on your
+  computer, typically located at C:/Program Files
+  (x86)/ArcGIS/Desktop10.6/, replacing with the approproate ArcGIS
+  version}.
 
 \section{Parameters}\label{parameters-11}
 
@@ -1864,7 +1865,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:imMetaopen}
+\caption{Opening the Batch Import Metadata tool}\label{fig:imMetaopen}
 \end{figure}
 
 \subsection{Fill out the parameters}\label{fill-out-the-parameters-11}
@@ -1881,7 +1882,7 @@ directory called `metadata' (Fig. \ref{fig:imMetaparams}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:imMetaparams}
+\caption{Batch Import Metadata tool parameters}\label{fig:imMetaparams}
 \end{figure}
 
 \section{Run the Tool and View
@@ -1898,7 +1899,7 @@ directory (Fig. \ref{fig:imMetamessages}).
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:imMetamessages}
+\caption{Batch Import Metadata tool messages}\label{fig:imMetamessages}
 \end{figure}
 
 After running the tool, we can view the update Item Descriptions for the
@@ -1917,7 +1918,7 @@ Desecription Help Page}.
 
 }
 
-\caption{Opening the Delete Duplicate Features tool}\label{fig:imMetaafter}
+\caption{Opening the Item Description to view updated Metadata}\label{fig:imMetaafter}
 \end{figure}
 
 \bibliography{packages.bib}
