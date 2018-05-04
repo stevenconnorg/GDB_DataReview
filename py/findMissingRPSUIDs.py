@@ -11,8 +11,8 @@ import pandas
 import arcpy
 import numpy
 
-xlsx = r"xxx"
-gdb = r"xxx"
+xlsx = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\GDB_DataReview\GDB_DataReview\dat\OSD RPI Site (For Components) FOUO.xlsx"
+gdb = r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\GeoBASE_3101_CIP_FINAL_20180502\GeoBASE_3101_CIP_FINAL_20180502.gdb"
 
 def get_field_names(table):
     """
@@ -112,7 +112,7 @@ def feature_class_to_pandas_data_frame(feature_class, field_list):
     :param field_list: Fields for input.
     :return: Pandas DataFrame object.
     """
-    return DataFrame(
+    return pandas.DataFrame(
         arcpy.da.FeatureClassToNumPyArray(
             in_table=feature_class,
             field_names=field_list,
@@ -122,7 +122,6 @@ def feature_class_to_pandas_data_frame(feature_class, field_list):
     )
         
         
-fcFields = []
 
 fds = "Cadastre"
 fClass = "Site_A"
@@ -131,10 +130,9 @@ fcPath = os.path.join(gdb,fds,fClass)
 
 arcpy.env.workspace =gdb
 
-for fds in arcpy.ListDatasets():
-    for fc in arcpy.ListFeatureClasses(wild_card = fClass,feature_dataset=fds):
-        for fld in arcpy.ListFields(fc):
-            fcFields.append(fld.name)
+fcFields = []
+for fld in arcpy.ListFields(fcPath):
+    fcFields.append(fld.name)
 
 iDat = pandas.DataFrame( [row for row in arcpy.da.SearchCursor(fcPath, fcFields) ] )
 
@@ -188,7 +186,6 @@ newNames = []
 for n in list(disDat):
     newName = (n,n.replace(' ', '_'))[-1]
     newNames.append(newName)
-outNames = (list(disDat),list(disDat).replace(' ', '_'))[-1]
 
 disDat.columns = newNames
 
@@ -206,7 +203,7 @@ inIndices = disDat['RPSUID'].isin(isIn)
 inIndices = disDat[inIndices]
 inIndices
 
-disDat.Site_Reconciliation_Mismatch_Reason.loc[missingIndices.index] = "Missing in Geodatabase"
+disDat.Component_Comments.loc[missingIndices.index] = "Missing in Geodatabase"
 disDat.Component_Comments.loc[extraIndices.index] = "Non-SDS"
 disDat.Component_Comments.loc[inIndices.index] = "Not Missing"
 
@@ -214,9 +211,5 @@ outName = (xlsx,xlsx.replace(' ', '_'))[-1]
 writer = pandas.ExcelWriter(outName)
 disDat.to_excel(writer)
 writer.save()
-
-disDat.columns = list(disDat)
-pandas_to_table(disDat,"Missing_RPSUIDS")
-
 
 
