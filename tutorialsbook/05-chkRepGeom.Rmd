@@ -15,20 +15,20 @@ The tool has 2 parameters:
 ## How to Use
 ### Begin by opening the toolbox  
 Navigate to the location of the script toolbox, then right-click the 'Check and/or Repair Geometry' script tool to open (Fig. \@ref(fig:chkGopen)).
-```{r chkGopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align='center'}
+```{r chkGopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Check and/or Repair Geometries tool",fig.align='center'}
 knitr::include_graphics("figures/chkG-open.jpg",auto_pdf = TRUE)
 ```
 ###  Fill out the parameters 
 Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate features  (Fig. \@ref(fig:chkGparams)). Last, we specify where we want to output the resulting tables, prefereably in an Installation Review geodatabase specifically for holding CIP processing results.  
-```{r chkGparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Delete Duplicate Features parameters",fig.align='center'}
+```{r chkGparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Check and/or Repair Geometries tool parameters",fig.align='center'}
 knitr::include_graphics("figures/chkG-params.jpg",auto_pdf = TRUE)
 ```
 ###  Run the Tool and View Results
 While the tool runs (with Background Processing disabled), we can see the messages from the tool, which displays the following: how many feature classes are being checked for geometry problems, how many geometry problems that were found, where the output results are found, how many and which feature classes will be processed to repair geometry problems, how many feature classes are being re-checked for geometry errors, and how many geometry problems were found after the re-check (Fig. \@ref(fig:chkGmessages)). 
-```{r chkGmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Delete Duplicate Features messages",fig.align='center'}
+```{r chkGmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Output messages from the Check and/or Repair Geometries tool",fig.align='center'}
 knitr::include_graphics("figures/chkG-messages.jpg",auto_pdf = TRUE)
 ```
 Here, we see that 16 geometry problems were found in the Yaeger CIP geodatabase across 10 different feature classes, with each listed. A re-check was conducted on the 10 feature classes and then 0 geometry problems were found (Fig. \@ref(fig:chkGafter)). 
-```{r chkGafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Delete Duplicate Features messages",fig.align='center'}
+```{r chkGafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Output table of duplicate geometries found for each Feature Class, with the re-run showing that all geometries have been fixed.",fig.align='center'}
 knitr::include_graphics("figures/chkG-after.jpg",auto_pdf = TRUE)
 ```
