@@ -27,7 +27,7 @@ The inputs required for this tool to work are the 4 output tables created with t
 5. **Output Excel File' (data type: .xlsx file)** - The path to the output Excel Workbook to save the summary sheets to.
 
 
-** Disclaimer!**
+## **Disclaimer!**
 This script tool requires a few non-standard ArcGIS 10.x Python modules: [numpy](http://www.numpy.org/) and  [pandas](https://pandas.pydata.org/). To install these modules for use in ArcGIS, you can download and install the modules using the commands "pip install pandas" and "pip install numpy." 
 
 To do this, follow these instructions:  
