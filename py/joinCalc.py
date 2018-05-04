@@ -51,7 +51,7 @@ updateRPSUID =arcpy.GetParameterAsText(10)
 if checkedLeftstrip:
     with arcpy.da.UpdateCursor(pointFc,[IdFld]) as cursor:
             for row in cursor:
-                row=[i.lstrip('0') for i in row]
+                row=[i.strip('0') if i is not None else None for i in row]
                 cursor.updateRow(row)
                 
 if checkedRemoveBlanks:
