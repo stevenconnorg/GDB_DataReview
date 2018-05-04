@@ -25,7 +25,7 @@
 <meta name="author" content="Air Force Civil Engineering Center (AFCEC) Geospatial Integration Office (GIO)">
 
 
-<meta name="date" content="2018-05-03">
+<meta name="date" content="2018-05-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -200,7 +200,7 @@
 <h1><span class="header-section-number">Chapter 12</span> Batch Export Metadata</h1>
 <div id="overview-10" class="section level2">
 <h2><span class="header-section-number">12.1</span> Overview</h2>
-<p>This tool provides an automated method to export metadata for each Feature Dataset and Feature Class (within Feature Datasets) in the input geodatabase, by exporting each item’s metadata to an .xml file to an output directory, as specified. This tool allows you to specify a metadata translator, by defaulting using one of ArcGIS standard translators “ARCGIS2FGDC.xml” (typically located at “C:/Program Files (x86)/ArcGIS/Desktop10.6/Metadata/Translator”, but you may specify any translator. If the source metadata is a Feature Dataset, the output .xml file is named after the Feature Dataset. Alternatively, the output .xml metadata for Feature Classes are exported with the Feature Dataset name prepended before the Feature Class name.</p>
+<p>This tool provides an automated method to export metadata for each Feature Dataset and Feature Class (within Feature Datasets) in the input geodatabase, by exporting each item’s metadata to an .xml file to an output directory, as specified. This tool allows you to specify a metadata translator, by defaulting using one of ArcGIS standard translators “ARCGIS2FGDC.xml” (typically located at “C:/Program Files (x86)/ArcGIS/Desktop10.6/Metadata/Translator”, but you may specify any translator. In particular, it is recommended that you download and install the SDSFIE-M Metadata Style for ArcGIS from <a href="https://www.sdsfieonline.org/Standards/Metadata">The Spatial Data Standards for Facilities, Infrastructure, and Environment (SDSFIE) Metadata standard</a>. In this case, you would change the default .xml translator to the ARCGIS2SDSFIE-M.xml provided with the SDSFIE-M Metadata Style for ArcGIS software.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. If the source metadata is a Feature Dataset, the output .xml file is named after the Feature Dataset. Alternatively, the output .xml metadata for Feature Classes are exported with the Feature Dataset name prepended before the Feature Class name.</p>
 <p>These output .xml files can easily be edited in batch using the <a href="http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html">Batch Metadata Modifier Tool</a> developed out of the University of Idaho’s Interactive Numeric &amp; Spatial Information Data Engine (INSIDE) geospatial data clearinghouse.</p>
 </div>
 <div id="parameters-10" class="section level2">
@@ -246,6 +246,12 @@ Figure 12.3: Opening the Delete Duplicate Features tool
 </div>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>Be sure to install the software to the software path for your ArcGIS distribution currently installed to view this metadata style within ArcCatalog, for example: “C:/Program Files (x86)/ArcGIS/Desktop10.6/”<a href="exMeta.html#fnref4">↩</a></p></li>
+</ol>
 </div>
             </section>
 

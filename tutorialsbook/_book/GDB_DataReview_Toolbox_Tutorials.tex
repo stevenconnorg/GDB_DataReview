@@ -85,7 +85,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2018-05-03}
+  \date{2018-05-04}
 
 \usepackage{booktabs}
 \usepackage{graphics}
@@ -274,8 +274,8 @@ Then, 8 site points were created for the empty Site\_P feature class.
 \end{figure}
 
 After running the tool, we can see the Site\_P and Site\_A features are
-created properly, where previously missed (Fig. \ref{fig:csdbefore}
-(Fig. \ref{fig:csdafter}).
+created properly, where previously missed (Fig. \ref{fig:csdbefore} \&
+Fig. \ref{fig:csdafter}).
 
 \begin{figure}[H]
 
@@ -869,10 +869,11 @@ The tool has 3 parameters:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   \textbf{Input\_Geodatabase (data type: Workspace)} - This parameter
   must be the path of the input geodatabase to search Feature Datasets'
-  Feature Class features for duplicate features.
+  Feature Class features for duplicate features.\\
 \item
   \textbf{XY\_Tolerance (data type: String)} - The XY\_Tolerance
   parameter will be applied to each vertex when evaluating if there is
@@ -915,7 +916,7 @@ lenient.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.8\linewidth,]{figures/delF-params} 
+{\centering \includegraphics[width=0.8\linewidth]{figures/delF-params} 
 
 }
 
@@ -1680,10 +1681,20 @@ output directory, as specified. This tool allows you to specify a
 metadata translator, by defaulting using one of ArcGIS standard
 translators ``ARCGIS2FGDC.xml'' (typically located at ``C:/Program Files
 (x86)/ArcGIS/Desktop10.6/Metadata/Translator'', but you may specify any
-translator. If the source metadata is a Feature Dataset, the output .xml
-file is named after the Feature Dataset. Alternatively, the output .xml
-metadata for Feature Classes are exported with the Feature Dataset name
-prepended before the Feature Class name.
+translator. In particular, it is recommended that you download and
+install the SDSFIE-M Metadata Style for ArcGIS from
+\href{https://www.sdsfieonline.org/Standards/Metadata}{The Spatial Data
+Standards for Facilities, Infrastructure, and Environment (SDSFIE)
+Metadata standard}. In this case, you would change the default .xml
+translator to the ARCGIS2SDSFIE-M.xml provided with the SDSFIE-M
+Metadata Style for ArcGIS software.\footnote{Be sure to install the
+  software to the software path for your ArcGIS distribution currently
+  installed to view this metadata style within ArcCatalog, for example:
+  ``C:/Program Files (x86)/ArcGIS/Desktop10.6/''}. If the source
+metadata is a Feature Dataset, the output .xml file is named after the
+Feature Dataset. Alternatively, the output .xml metadata for Feature
+Classes are exported with the Feature Dataset name prepended before the
+Feature Class name.
 
 These output .xml files can easily be edited in batch using the
 \href{http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html}{Batch
@@ -1799,9 +1810,6 @@ The tool has 3 parameters\footnote{More information of the Import Type
 
   \begin{itemize}
   \tightlist
-  \item
-    FROM\_ARCGIS ---The source metadata is ArcGIS metadata. The metadata
-    won't be converted.
   \item
     FROM\_ESRIISO ---The source metadata contains ESRI-ISO-formatted
     metadata; that is, it was created using the ISO metadata editor
