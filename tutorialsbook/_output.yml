@@ -1,4 +1,6 @@
 bookdown::gitbook:
+  split_by: none
+  self_contained: true
   css: style.css
   config:
     toc:
