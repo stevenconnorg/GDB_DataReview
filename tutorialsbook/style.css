@@ -12,3 +12,22 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+div.warnh1 {
+  font-weight: 700;
+  font-size: 17px;
+  color: black;
+  background-color: #fffff;
+  margin-right: 80px;
+  margin-left: 80px;
+  text-align: center;
+}
+
+div.warnp {
+  font-weight: 400;
+  color: black;
+  background-color: #F5F5F5;
+  margin-right: 100px;
+  margin-left: 100px;
+  border-style: double;
+}
