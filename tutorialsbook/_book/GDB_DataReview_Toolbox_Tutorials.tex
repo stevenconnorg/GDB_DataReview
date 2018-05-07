@@ -85,7 +85,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2018-05-04}
+  \date{2018-05-07}
 
 \usepackage{booktabs}
 \usepackage{graphics}
@@ -97,16 +97,50 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{multirow}
-\usepackage[table]{xcolor}
 \usepackage{wrapfig}
 \usepackage{float}
 \usepackage{colortbl}
+\usepackage{framed}
+\usepackage{tcolorbox}
+\usepackage{fullwidth}
 \usepackage{pdflscape}
+\usepackage{xcolor}
 \usepackage{tabu}
 \usepackage{threeparttable}
+\usepackage[framemethod=default]{mdframed}
 \usepackage{fontspec}
 \usepackage[normalem]{ulem}
 \frontmatter
+
+\definecolor{shadecolor}{RGB}{248,248,248}
+
+\newenvironment{changemargin}[2]{%
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{#1}%
+\setlength{\rightmargin}{#2}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{\parskip}%
+}%
+\item[]
+\begin{mdframed}[backgroundcolor=shadecolor]
+}
+{\end{mdframed}\end{list}}
+
+
+\newenvironment{warnp}{\begin{changemargin}{+2cm}{+2cm}}{\end{changemargin}}
+
+
+\newenvironment{warnh1}{ 
+\LARGE
+\bfseries
+\begin{center}
+}
+{
+\end{center}
+
+}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -123,6 +157,7 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
+\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
 \maketitle
 
@@ -1516,7 +1551,9 @@ across all four input tables{]}):
   output Excel Workbook to save the summary sheets to.
 \end{enumerate}
 
-\section{\texorpdfstring{\textbf{Disclaimer!}}{Disclaimer!}}\label{disclaimer}
+\BeginKnitrBlock{warnh1}
+Disclaimer!
+\EndKnitrBlock{warnh1} \BeginKnitrBlock{warnp}
 
 This script tool requires a few non-standard ArcGIS 10.x Python modules:
 \href{http://www.numpy.org/}{numpy} and
@@ -1534,17 +1571,15 @@ To do this, follow these instructions:
 \item
   Type ``cmd'' to open the command prompt window
 \item
-  Set your working directory as your ArcGIS Python scripts directory.
-  This is typically located at
-  ``C:/Python27/ArcGIS{[}versionNumber{]}/Scripts. Do this by typing `cd
-  C:/Python27/ArcGIS{[}versionNumber{]}/Scripts' and clicking enter).
-  Replace {[}versionNumber{]} with you ArcGIS version number (e.g.: if
-  you are running ArcMap10.6, input:''C:/Python27/ArcGIS10.6/Scripts"
+  Set your working directory to the ArcGIS Python directory with the
+  `pip' command (e.g.: if you are running ArcMap10.6, input:
+  ``C:/Python27/ArcGIS10.6/Scripts'')
 \item
   Type `pip install numpy' and press enter, then type `pip install
   pandas' and press enter. If all goes well, you will have these modules
   successfully installed for use in ArcGIS' Python distribution
 \end{enumerate}
+\EndKnitrBlock{warnp}
 
 \section{How to Use}\label{how-to-use-9}
 
