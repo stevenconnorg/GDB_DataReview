@@ -27,15 +27,22 @@ The inputs required for this tool to work are the 4 output tables created with t
 5. **Output Excel File' (data type: .xlsx file)** - The path to the output Excel Workbook to save the summary sheets to.
 
 
-## **Disclaimer!**
+```{block2, type='warnh1'}
+Disclaimer!
+```
+```{block2, type='warnp'}
 This script tool requires a few non-standard ArcGIS 10.x Python modules: [numpy](http://www.numpy.org/) and  [pandas](https://pandas.pydata.org/). To install these modules for use in ArcGIS, you can download and install the modules using the commands "pip install pandas" and "pip install numpy." 
 
 To do this, follow these instructions:  
 
 1. Press the windows key on your keyboard
 2. Type "cmd" to open the command prompt window
-3. Set your working directory as your ArcGIS Python scripts directory. This is typically located at "C:/Python27/ArcGIS[versionNumber]/Scripts. Do this by typing 'cd C:/Python27/ArcGIS[versionNumber]/Scripts' and clicking enter). Replace [versionNumber] with you ArcGIS version number (e.g.: if you are running ArcMap10.6, input: "C:/Python27/ArcGIS10.6/Scripts"
+3. Set your working directory to the ArcGIS Python directory with the 'pip' command (e.g.: if you are running ArcMap10.6, input: "C:/Python27/ArcGIS10.6/Scripts")
 4. Type 'pip install numpy' and press enter, then type 'pip install pandas' and press enter. If all goes well, you will have these modules successfully installed for use in ArcGIS' Python distribution 
+
+```
+
+
 
 
 ## How to Use
