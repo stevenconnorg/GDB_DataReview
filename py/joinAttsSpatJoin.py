@@ -23,6 +23,8 @@ targetFieldWildcard =arcpy.GetParameterAsText(5)
 
 overlap_type=arcpy.GetParameterAsText(6)
 
+searchDistance =arcpy.GetParameterAsText(7)
+
 def unique_values(table , field):
     with arcpy.da.SearchCursor(table, [field]) as cursor:
         return sorted({str(row[0]) for row in cursor})
@@ -50,7 +52,13 @@ for fds in theFDSs:
                     if arcpy.Exists(targetLayer):   
                         arcpy.Delete_management(targetLayer)
                     arcpy.MakeFeatureLayer_management(os.path.join(gdb,fds,fc),targetLayer)
-                    arcpy.SelectLayerByLocation_management (targetLayer, overlap_type=overlap_type,select_features="in_memory\\source",selection_type="NEW_SELECTION")
+                    if overlap_type in ["WITHIN_A_DISTANCE_GEODESIC", "WITHIN_A_DISTANCE", "WITHIN_A_DISTANCE_3D", "INTERSECT", "INTERSECT_3D", "HAVE_THEIR_CENTER_IN", "CONTAINS", "WITHIN"]:
+                        if searchDistance is None:
+                            arcpy.AddError("You must supply a Search Distance value for overlap type "+ overlap_type+"!")
+                        else:
+                            arcpy.SelectLayerByLocation_management (targetLayer, overlap_type=overlap_type,select_features="in_memory\\source",selection_type="NEW_SELECTION",search_distance=searchDistance)
+                    else:
+                        arcpy.SelectLayerByLocation_management (targetLayer, overlap_type=overlap_type,select_features="in_memory\\source",selection_type="NEW_SELECTION")
                     for fld in arcpy.ListFields(targetLayer,wild_card=targetFieldWildcard):
                         with arcpy.da.UpdateCursor(targetLayer, fld.name) as cursor2:
                             for row in cursor:
