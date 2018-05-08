@@ -1,5 +1,7 @@
 \documentclass[openany]{book}
 \usepackage{lmodern}
+\usepackage{setspace}
+\setstretch{1.25}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -21,11 +23,11 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[margin=1in]{geometry}
+\usepackage[left=4cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={GDB\_DataReview ArcMap Toolbox Tutorials},
-            pdfauthor={Air Force Civil Engineering Center (AFCEC) Geospatial Integration Office (GIO)},
+            pdfauthor={Steven C. Gonzalez \& Marie Cline; Air Force Civil Engineering Center (AFCEC); Geospatial Integration Office (GIO)},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -79,13 +81,12 @@
   \title{GDB\_DataReview ArcMap Toolbox Tutorials}
   \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
-  \author{Air Force Civil Engineering Center (AFCEC) Geospatial Integration Office
-(GIO)}
+  \author{Steven C. Gonzalez \& Marie Cline \\ Air Force Civil Engineering Center (AFCEC) \\ Geospatial Integration Office (GIO)}
   \preauthor{\centering\large\emph}
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2018-05-07}
+  \date{2018-05-08}
 
 \usepackage{booktabs}
 \usepackage{graphics}
@@ -110,13 +111,16 @@
 \usepackage[framemethod=default]{mdframed}
 \usepackage{fontspec}
 \usepackage[normalem]{ulem}
+\raggedbottom 
+\usepackage{makeidx}
+\makeindex
 \frontmatter
 
 \definecolor{shadecolor}{RGB}{248,248,248}
 
 \newenvironment{changemargin}[2]{%
 \begin{list}{}{%
-\setlength{\topsep}{0pt}%
+\setlength{\topsep}{10pt}%
 \setlength{\leftmargin}{#1}%
 \setlength{\rightmargin}{#2}%
 \setlength{\listparindent}{\parindent}%
@@ -166,8 +170,11 @@
 \tableofcontents
 }
 \mainmatter
+author:\\
+- Steven C. Gonzalez \& Marie Cline - Air Force Civil Engineering Center
+(AFCEC) - Geospatial Integration Office (GIO)
 
-\chapter{Overview}\label{overview}
+\chapter{Toolbox Overview}\label{overview}
 
 This document gives an overview of how to use the GDB\_DataReview ArcMap
 Toolbox.
@@ -175,18 +182,19 @@ Toolbox.
 The GDB\_DataReview ArcMap Toolbox provides numerous Python script tools
 to expedite the review of geodatabases in comparison with a template
 geodatabase model. This toolbox was developed to aid Air Force (AF)
-installations in maintaining geospatial data in compliance with the the
+installations in maintaining geospatial data in compliance with the
 current Air Force Data Model (GeoBase 3.1.0.1) developed under the
 \href{https://www.sdsfieonline.org/Components/USAF}{AF GeoBase mission}.
-This data model is based upon the
+
+The GeoBase 3.1.0.1 data model is based upon the
 \href{https://www.sdsfieonline.org/}{Spatial Data Standards for
 Facilities, Infrastructure, and Environment (SDSFIE)} SDSFIE-V 3.1 Gold
 model, which complies with the Department of Defense Instruction (DoDI)
 8130.01, \emph{Installation Geospatial Information and Service}
-(IGI\&S), while also providing some flexibility within the program to
-aid the AF mission. As part of the IGI\&S program, this toolbox also
-aids in standardizing methods to adhere to the Fiscal Year 2017 CIP data
-call required by DoDI 8130.01.
+(IGI\&S), but allows some greater flexibility within the program to aid
+the AF mission. As part of the IGI\&S program, this toolbox also aids in
+standardizing methods to adhere to the Fiscal Year 2017 CIP data call
+required by DoDI 8130.01.
 
 The GDB\_DataReview Toolbox provides methods to:
 
@@ -211,6 +219,29 @@ The GDB\_DataReview Toolbox provides methods to:
   Batch \protect\hyperlink{exMeta}{exporting} and
   \protect\hyperlink{imMeta}{importing} geodatabase metadata
 \end{itemize}
+
+\chapter{Opening the Toolbox}\label{opening-the-toolbox}
+
+In order to access this toolbox, open ArcCatalog (or the ArcCatalog
+window within ArcMap). Within the `Catalog Tree' windowpane in
+ArcCatalog, click the Folder Connections folder and navigate to the
+location of the toolbox. You may need to add a folder connection by
+right clicking `Folder Connections' and clicking `Connect to Folder.'
+Then navigate to the folder with the toolbox within the newly connected
+folder. Then, you can click the plus sign by the toolbox to view the
+tools within it (Fig. \ref{fig:opentoolbox}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/opentoolbox} 
+
+}
+
+\caption{Opening the Create Site Data tool}\label{fig:opentoolbox}
+\end{figure}
+
+\pagebreak
+\printindex
 
 \chapter{Create Site Data}\label{siteData}
 
@@ -238,9 +269,9 @@ The tool has 3 parameters:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Input\_Feature\_Dataset (data type: Workspace)} - This
-  parameter must be the path of the input geodatabase to search Feature
-  Datasets' Feature Class features for duplicate features.\\
+  \textbf{Input\_Geodatabase (data type: Workspace)} - This parameter
+  must be the path of the input geodatabase to search Feature Datasets'
+  Feature Class features for duplicate features.\\
 \item
   \textbf{Bypass Installation\_A and Site\_A Geometry Compare (data
   type: Boolean)} - This parameter is a check box that is unchecked by
@@ -248,9 +279,73 @@ The tool has 3 parameters:
   Installation\_A and Site\_A will be bypassed.
 \item
   \textbf{Installation\_A \& Site\_A Geometry Compare Type (data type:
-  String Value List)} - This parameter is ``HAVE THEIR CENTER IN'' by
-  default and provides the best results for straight forward situations.
-  Other options are provided for other situations.
+  String Value List)} - How do you want to limit the spatial join? By
+  default, this parameter is set to ``HAVE THEIR CENTER IN,'' in order
+  to only update target features that have their center in the source
+  features. This parameter may be changed to any of the following
+  values, as specified in the
+  \href{http://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/select-layer-by-location.htm}{SelectByLocation\_management
+  tool documentation}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{INTERSECT} ---The features in the input layer will be selected
+    if they intersect a selecting feature. This is the default.\\
+  \item
+    \emph{INTERSECT\_3D} ---The features in the input layer will be
+    selected if they intersect a selecting feature in three-dimensional
+    space (x, y, and z).\\
+  \item
+    \emph{WITHIN\_A\_DISTANCE} ---The features in the input layer will
+    be selected if they are within a specified distance of a selecting
+    feature. Specify a distance in the Search Distance parameter.\\
+  \item
+    \emph{WITHIN\_A\_DISTANCE\_3D} ---The features in the input layer
+    will be selected if they are within a specified distance of a
+    selecting feature in three-dimensional space. Specify a distance in
+    the Search Distance parameter.\\
+  \item
+    \emph{WITHIN\_A\_DISTANCE\_GEODESIC} ---The features in the input
+    layer will be selected if they are within a specified distance of a
+    selecting feature. Distance between features will be calculated
+    using a geodesic method which takes into account the curvature of
+    the earth and correctly deals with data near and across the dateline
+    and poles.\\
+  \item
+    \emph{CONTAINS} ---The features in the input layer will be selected
+    if they contain a selecting feature.\\
+  \item
+    \emph{COMPLETELY\_CONTAINS} ---The features in the input layer will
+    be selected if they completely contain a selecting feature.\\
+  \item
+    \emph{CONTAINS\_CLEMENTINI} ---This spatial relationship yields the
+    same results as COMPLETELY\_CONTAINS with the following exception:
+    if the selecting feature is entirely on the boundary of the input
+    feature (no part is properly inside or outside), the feature will
+    not be selected. Clementini defines the boundary polygon as the line
+    separating inside and outside, the boundary of a line is defined as
+    its end points, and the boundary of a point is always empty.\\
+  \item
+    \emph{WITHIN} ---The features in the input layer will be selected if
+    they are within a selecting feature.\\
+  \item
+    \emph{COMPLETELY\_WITHIN} --- The features in the input layer will
+    be selected if they are completely within or contained by a
+    selecting feature.\\
+  \item
+    \emph{WITHIN\_CLEMENTINI} --- The result will be identical to WITHIN
+    with the exception that if the entirety of the feature in the input
+    layer is on the boundary of the feature in the selecting layer, the
+    feature will not be selected. Clementini defines the boundary
+    polygon as the line separating inside and outside, the boundary of a
+    line is defined as its end points, and the boundary of a point is
+    always empty.\\
+  \item
+    \emph{ARE\_IDENTICAL\_TO} --- The features in the input layer will
+    be selected if they are identical (in geometry) to a selecting
+    feature.
+  \end{itemize}
 \end{enumerate}
 
 \section{How to Use}\label{how-to-use}
@@ -276,7 +371,7 @@ Next, fill out the parameters for the tool. Here, we want to select the
 Cadastre feature dataset for the geodatabase being processed. (Fig.
 \ref{fig:csdparams}). Last, we specify where we want to output the
 resulting tables, prefereably in an Installation Review geodatabase
-specifically for holding CIP processing results.
+specifically for holding CIP processing results.\\
 
 \begin{figure}[H]
 
@@ -319,9 +414,7 @@ Fig. \ref{fig:csdafter}).
 }
 
 \caption{Before running the tool}\label{fig:csdbefore}
-\end{figure}
-
-\begin{figure}[H]
+\end{figure}\begin{figure}[H]
 
 {\centering \includegraphics{figures/csd-after} 
 
@@ -387,6 +480,17 @@ The tool has 8 parameters:
   \textbf{Remove\_Leading\_Zeros (data type: Boolean)} - Do you want to
   remove leading zeros from the Source Join Field prior to `joining' the
   tables?
+\item
+  \textbf{Source RPSUID Field (data type: Field)} - Which field in the
+  source table holds the Real Property Site Unique ID values? This field
+  acts as a second join ``key'' to ensure that the correct Real Property
+  Unique IDs are joined for each unique Site (i.e.: RPSUID).
+\item
+  \textbf{Update RPSUID Field (data type: Field)} - Which field in the
+  Destination Feature holds the Real Property Site Unique ID values?
+  This field acts as a second join ``key'' to ensure that the correct
+  Real Property Unique IDs are joined for each unique Site (i.e.:
+  RPSUID).
 \end{enumerate}
 
 \section{How to Use}\label{how-to-use-1}
@@ -411,7 +515,7 @@ Fields and Calculate' script tool to open (Fig. \ref{fig:jcopen}).
 Next, fill out the parameters for the tool. Here, we want to transfer
 the RPUID attributes (source field) from the `RPSUID\_and\_RPUID.csv'
 table (transfer from) using the `FacilityNumber' join field
-(Using\_Join\_Field) to the Building\_A feature layer's (Destinate
+(Using\_Join\_Field) to the Building\_A feature layer's (Destination
 Feature) `realPropertyUniqueID' field (Destination\_Field) using the
 `buildingNumber' field (Destination\_Join\_Field) (Fig.
 \ref{fig:jcparams}).
@@ -423,7 +527,9 @@ will null values} (Fig. \ref{fig:jcparams}).
 
 We noticed that the `buildingNumber' field has some leading zeros that
 we want to remove the beginning of the values, so we click the ``Remove
-Leading Zeros'' toggle (Fig. \ref{fig:jcparams}).
+Leading Zeros'' toggle (Fig. \ref{fig:jcparams}). If you noticed that
+the `Destination Join Field' values have leading spaces, you can also
+check the `Remove\_Leading\_Zeros' parameter to remove these spaces.
 
 \begin{figure}[H]
 
@@ -473,8 +579,8 @@ values (Fig. \ref{fig:jcbefore}, Fig. \ref{fig:jcafter}).
 \caption{Attributes after running the tool, matching against both Building Number and RPSUID to update RPUID values}\label{fig:jcafter}
 \end{figure}
 
-\hypertarget{spatjoinCalc}{\chapter{Calculate Feature RPSUIDs from
-Overlapping Polygons}\label{spatjoinCalc}}
+\hypertarget{spatjoinCalc}{\chapter{Spatial Join and
+Calculate}\label{spatjoinCalc}}
 
 \section{Overview}\label{overview-2}
 
@@ -496,8 +602,8 @@ The tool has 8 parameters:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{Geodatabase (data type: Workspace/File Geodatabase)} - The
-  path to the input geodatabase to update Feature Classes in.
+  \textbf{Update Geodatabase (data type: Workspace/File Geodatabase)} -
+  The path to the input geodatabase to update Feature Classes in.
 \item
   \textbf{Source Feature (data type: Feature Class)} - The path to the
   source Feature Class, which will be used to update Feature Class
@@ -657,7 +763,7 @@ features that contain Site\_P features \ref{fig:sjcbefore}).
 
 }
 
-\caption{Missing RPSUID attributes for Site Point featuresl}\label{fig:sjcbefore}
+\caption{Missing RPSUID attributes for Site Point features}\label{fig:sjcbefore}
 \end{figure}
 
 Next, fill out the parameters for the tool. Here, we want to transfer
@@ -945,7 +1051,7 @@ lenient.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.8\linewidth]{figures/delF-params} 
+{\centering \includegraphics[width=0.8\linewidth,]{figures/delF-params} 
 
 }
 
@@ -1005,10 +1111,17 @@ The tool has 2 parameters:
   must be the path of the input geodatabase to search Feature Datasets'
   Feature Class features for duplicate features.
 \item
-  \textbf{Installation\_Review\_Geodatabase (data type: Workspace)} -
-  This parameter should be the path of the Installation Review
-  Geodatabase to compile all CIP processing outputs in a single
-  location.
+  \textbf{Output\_Geodatabase (data type: Workspace)} - This parameter
+  should be the path of the Installation Review Geodatabase to compile
+  all CIP processing outputs in a single location.
+\item
+  \textbf{Output\_Geodatabase (data type: Workspace)} - This parameter
+  should be the path of the Installation Review Geodatabase to compile
+  all CIP processing outputs in a single location.
+\item
+  \textbf{Output\_Geodatabase (data type: Workspace)} - This parameter
+  should be the path of the Installation Review Geodatabase to compile
+  all CIP processing outputs in a single location.
 \end{enumerate}
 
 \section{How to Use}\label{how-to-use-5}
@@ -1357,6 +1470,13 @@ The tool has 2 parameters:
   will be compared against.
 \end{enumerate}
 
+\BeginKnitrBlock{warnh1}
+Disclaimer!
+\EndKnitrBlock{warnh1} \BeginKnitrBlock{warnp}
+
+This script tool currently requires an Advanced ArcGIS License!
+\EndKnitrBlock{warnp}
+
 \section{How to Use}\label{how-to-use-8}
 
 \subsection{Begin by opening the
@@ -1704,23 +1824,25 @@ This tool provides an automated method to export metadata for each
 Feature Dataset and Feature Class (within Feature Datasets) in the input
 geodatabase, by exporting each item's metadata to an .xml file to an
 output directory, as specified. This tool allows you to specify a
-metadata translator, by defaulting using one of ArcGIS standard
-translators ``ARCGIS2FGDC.xml'' (typically located at ``C:/Program Files
-(x86)/ArcGIS/Desktop10.6/Metadata/Translator'', but you may specify any
-translator. In particular, it is recommended that you download and
+metadata translator. Within the scope of the Department of Defense
+Instruction (DoDI) 8130.01, it is recommended that you download and
 install the SDSFIE-M Metadata Style for ArcGIS from
 \href{https://www.sdsfieonline.org/Standards/Metadata}{The Spatial Data
 Standards for Facilities, Infrastructure, and Environment (SDSFIE)
-Metadata standard}. In this case, you would change the default .xml
-translator to the ARCGIS2SDSFIE-M.xml provided with the SDSFIE-M
-Metadata Style for ArcGIS software.\footnote{Be sure to install the
-  software to the software path for your ArcGIS distribution currently
-  installed to view this metadata style within ArcCatalog, for example:
-  ``C:/Program Files (x86)/ArcGIS/Desktop10.6/''}. If the source
-metadata is a Feature Dataset, the output .xml file is named after the
-Feature Dataset. Alternatively, the output .xml metadata for Feature
-Classes are exported with the Feature Dataset name prepended before the
-Feature Class name.
+Metadata standard}. In this case, you would change the input the
+metadata translator to the ARCGIS2SDSFIE-M.xml\footnote{Under standard
+  Windows installations, this should be located at ``C:/Program Files
+  (x86)/ArcGIS/Desktop10.6/Metadata/Translator/ARCGIS2SDSFIE-M.xml''.}
+provided with the SDSFIE-M Metadata Style for ArcGIS software.\footnote{Be
+  sure to install the software to the software path for your ArcGIS
+  distribution currently installed to view this metadata style within
+  ArcCatalog, for example: ``C:/Program Files
+  (x86)/ArcGIS/Desktop10.6/''}.
+
+If the source metadata is a Feature Dataset, the output .xml file is
+named after the Feature Dataset. Alternatively, the output .xml metadata
+for Feature Classes are exported with the Feature Dataset name prepended
+before the Feature Class name.
 
 These output .xml files can more easily be edited in batch using the
 \href{http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html}{Batch
@@ -1734,12 +1856,13 @@ The tool has 3 parameters:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   \textbf{Input Geodatabase (data type: Workspace/File Geodatabase)} -
   The input geodatabase to export Feature Dataset/Feature Class metadata
   from.
 \item
-  \textbf{Metadata Translator (data type: .xml file)} - The metadata
+  \textbf{Metadata Translator (data type: .XML file)} - The metadata
   translator to be used to create output .xml metadata files.
 \item
   \textbf{Output Directory (data type: Folder)} - The folder within
@@ -1820,12 +1943,16 @@ Style for ArcGIS}\footnote{When installing this tool, be sure to install
   (x86)/ArcGIS/Desktop10.6/, replacing with the approproate ArcGIS
   version}.
 
+Alternatively, if you wish to import metadata from Feature Classes in a
+Esri geodatabase, you should use the \protect\hyperlink{imMetaGDB}{Batch
+Import Metadata from GDB} tool.
+
 \section{Parameters}\label{parameters-11}
 
-The tool has 3 parameters\footnote{More information of the Import Type
-  and Auto Update parameters may be found at the help page for ArcMap's
-  \href{http://desktop.arcgis.com/en/arcmap/latest/tools/conversion-toolbox/import-metadata.htm}{Import
-  Metadata Tool}.}:
+The tool has 2 parameters\footnote{More information may be found on the
+  help page for ArcMap's
+  \href{http://desktop.arcgis.com/en/arcmap/latest/tools/conversion-toolbox/metadata-importer.htm}{Metadata
+  Importer}.}:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1836,53 +1963,7 @@ The tool has 3 parameters\footnote{More information of the Import Type
   from.
 \item
   \textbf{Input Metadata Directory (data type: Folder)} - The folder
-  within which to write output .xml metadata files.
-\item
-  \textbf{Import Type (data type: String)} - The folder within which to
-  write output .xml metadata files. These include:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    FROM\_ESRIISO ---The source metadata contains ESRI-ISO-formatted
-    metadata; that is, it was created using the ISO metadata editor
-    provided with ArcGIS Desktop 9.3.1 and earlier releases. The source
-    metadata will be converted to ArcGIS metadata when you run the tool.
-  \item
-    FROM\_FGDC ---The source metadata is stored in the FGDC CSDGM
-    metadata standard's XML format. The source metadata will be
-    converted to ArcGIS metadata when you run the tool.
-  \item
-    FROM\_ISO\_19139 ---The source metadata is formatted according to
-    the ISO 19139 metadata standard. The source metadata will be
-    converted to ArcGIS metadata when you run the tool.
-  \end{itemize}
-\item
-  \textbf{Auto Update? (data type: String)} - Whether to ENABLED or
-  DISABLE metadata autoupdates. This parameter requires one of the two
-  following options:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    ENABLED ---Information in the imported metadata describing the
-    item's properties will be modified to contain the actual item
-    properties. For example, if the imported metadata includes the
-    number of features contained by a feature class, this number will be
-    updated in the item's metadata by the metadata synchronization
-    process after the features have been edited in ArcGIS. Also,
-    additional properties that were not present in the imported metadata
-    and that can be synchronized for the item will be added. This is the
-    default.
-  \item
-    DISABLED --- Imported information won't be modified. For example,
-    the number of features contained by a feature class won't be updated
-    in the item's metadata by the metadata synchronization process after
-    the features have been edited in ArcGIS; the metadata will always
-    contain the old, out-of-date number. Additional properties of the
-    item that were not present in the imported metadata and that can be
-    synchronized for the item will be added.
-  \end{itemize}
+  with the .xml files to import into the geodatabase features.
 \end{enumerate}
 
 \section{How to Use}\label{how-to-use-11}
@@ -1891,8 +1972,7 @@ The tool has 3 parameters\footnote{More information of the Import Type
 toolbox}\label{begin-by-opening-the-toolbox-11}
 
 Navigate to the location of the script toolbox, then right-click the
-`Batch Export Metadata to Directory' script tool to open (Fig.
-\ref{fig:imMetaopen}).
+`Batch Import Metadata' script tool to open (Fig. \ref{fig:imMetaopen}).
 
 \begin{figure}[H]
 
@@ -1954,6 +2034,152 @@ Desecription Help Page}.
 }
 
 \caption{Opening the Item Description to view updated Metadata}\label{fig:imMetaafter}
+\end{figure}
+
+\hypertarget{imMetaGDB}{\chapter{Batch Import Metadata from
+GDB}\label{imMetaGDB}}
+
+\section{Overview}\label{overview-12}
+
+This tool provides an automated method to import metadata for each
+Feature Dataset and Feature Class (within Feature Datasets) in the input
+geodatabase from a source geodatabase. This tool different from the
+\protect\hyperlink{imMeta}{Batch Import Metadata} tool because it
+imports metadata from a source geodatabase and not from a directory of
+metadata .xml files.
+
+\section{Parameters}\label{parameters-12}
+
+The tool has 3 parameters\footnote{More information of the Import Type
+  and Auto Update parameters may be found at the help page for ArcMap's
+  \href{http://desktop.arcgis.com/en/arcmap/latest/tools/conversion-toolbox/import-metadata.htm}{Import
+  Metadata Tool}.}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Source Geodatabase (data type: Workspace/File Geodatabase)} -
+  The input geodatabase to export Feature Dataset/Feature Class metadata
+  from.
+\item
+  \textbf{Target Geodatabase (data type: Workspace/File Geodatabase)} -
+  The geodatabase to input metadata from the Source Geodatabase from.
+\item
+  \textbf{Sync Type (data type: String)} - How would you like the
+  metadata items to be Syncronized upon import?\footnote{More
+    information on Sync Type paramters may be found at the help file for
+    the
+    \href{http://desktop.arcgis.com/en/arcmap/latest/tools/conversion-toolbox/synchronize-metadata.htm}{Synchronize
+    Metadata function}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{ALWAYS} --- Properties of the source item are always added to
+    or updated in its metadata. Metadata will be created if it doesn't
+    already exist. This is the deault.
+  \item
+    \emph{ACCESSED} --- Properties of the source item are added to or
+    updated in its metadata when it is accessed. Metadata will be
+    created if it doesn't already exist.
+  \item
+    \emph{CREATED} --- Metadata will be created and properties of the
+    source item will be added to it if the item doesn't already have
+    metadata.
+  \item
+    \emph{NOT\_CREATED} --- Properties of the source item are added to
+    or updated in existing metadata.
+  \item
+    \emph{OVERWRITE} --- The same as ``ALWAYS'' except all information
+    that can be recorded automatically in the metadata will be recorded.
+    Any properties typed in by a person will be replaced with the item's
+    actual properties.
+  \item
+    \emph{SELECTIVE} --- The same as ``OVERWRITE'' except the title and
+    the content type will not be overwritten with default values for the
+    item. Used when metadata is upgraded to the ArcGIS 10.x metadata
+    format.
+  \end{itemize}
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-12}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-12}
+
+Navigate to the location of the script toolbox, then right-click the
+`Batch Import Metadata to Geodatabase from GDB' script tool to open
+(Fig. \ref{fig:imMetaopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/imMetaArc-open} 
+
+}
+
+\caption{Opening the Batch Import Metadata tool}\label{fig:imMetaArcopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-12}
+
+Next, fill out the parameters for the tool. Here, we want to import
+metadata from the geodatabas with metadata to the geodatabase without
+metadata.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/imMetaArc-params} 
+
+}
+
+\caption{Batch Import Metadata tool parameters}\label{fig:imMetaArcparams}
+\end{figure}
+
+\section{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-12}
+
+While the tool runs, we can see which geodatabase Feature
+Datasets/Feature Classes are being imported to each Feature
+Dataset's/Feature Class' metadata, as well as which Feature
+Datasets/Feature Classes do not have matching .xml files in the source
+geodatabase (Fig. \ref{fig:imMetaArcmessages}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/imMetaArc-messages} 
+
+}
+
+\caption{Batch Import Metadata tool messages}\label{fig:imMetaArcmessages}
+\end{figure}
+
+After running the tool, we can view the update Item Descriptions for the
+Feature Classes and Feature Datasets imported from the source
+geodatabase (Fig. \ref{fig:imMetaArcafter}). If importing SDSFIE-M
+metadata, it is recommended that you alter the way ArcMap displays the
+metadata by going to Customize \textgreater{} ArcMap Options in ArcMap,
+then clicking the Metadata tab and changing the Metadata Style in the
+drop-down menu. To do this, you must view this metadata using the
+\href{https://www.sdsfieonline.org/Standards/Metadata}{SDSFIE-M Metadata
+Style for ArcGIS}\footnote{When installing this tool, be sure to install
+  it to the location of your current ArcGIS distribution on your
+  computer, typically located at C:/Program Files
+  (x86)/ArcGIS/Desktop10.6/, replacing with the approproate ArcGIS
+  version}. After doing this, we can view the SDSFIE-M metadata style
+within ArcCatalog.
+
+You can find more information on Item Descriptions on Esri's
+\href{http://desktop.arcgis.com/en/arcmap/latest/map/working-with-arcmap/documenting-items-in-the-catalog-window.htm}{Item
+Desecription Help Page}.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{figures/imMetaArc-after} 
+
+}
+
+\caption{Opening the Item Description to view updated Metadata}\label{fig:imMetaArcafter}
 \end{figure}
 
 \bibliography{packages.bib}

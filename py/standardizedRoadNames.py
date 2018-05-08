@@ -616,7 +616,27 @@ prefixes = [["NORTH","N"],
             ["East","E"],
             ["East ","E"],
             ["E","E"],
-            ["E.","E"]]
+            ["E.","E"],
+            ["Northeast","NE"],
+            ["North East","NE"],
+            ["north east","NE"],
+            ["northeast","NE"],
+            ["ne","NE"],
+            ["Northwest","NW"],
+            ["North West","NW"],
+            ["north west","NW"],
+            ["northwest","NW"],
+            ["nw","NW"],
+            ["Southwest","SW"],
+            ["South West","SW"],
+            ["south west","SW"],
+            ["southwest","SW"],
+            ["sw","SW"],
+            ["Southeast","SE"],
+            ["South East","SE"],
+            ["south east","SE"],
+            ["southeast","SE"],
+            ["se","SE"]]
 
 commonPrefixes = [el[0] for el in prefixes]
 #commonPrefixes =[item for sublist in commonPrefixes for item in sublist]

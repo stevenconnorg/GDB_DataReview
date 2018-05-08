@@ -21,13 +21,16 @@
 \usepackage[framemethod=default]{mdframed}
 \usepackage{fontspec}
 \usepackage[normalem]{ulem}
+\raggedbottom 
+\usepackage{makeidx}
+\makeindex
 \frontmatter
 
 \definecolor{shadecolor}{RGB}{248,248,248}
 
 \newenvironment{changemargin}[2]{%
 \begin{list}{}{%
-\setlength{\topsep}{0pt}%
+\setlength{\topsep}{10pt}%
 \setlength{\leftmargin}{#1}%
 \setlength{\rightmargin}{#2}%
 \setlength{\listparindent}{\parindent}%

@@ -20,6 +20,13 @@ The tool has 2 parameters:
 1. **Source Geodatabase (data type: Workspace/File Geodatabase)** - The path to the file geodatabase to be searched for indeterminant/missing data.
 2. **Target Geodatabase  (data type: Workspace/File Geodatabase)** - The path to the file geodatabase with which the source geodatabase will be compared against.
 
+```{block2, type='warnh1'}
+Disclaimer!
+```
+```{block2, type='warnp'}
+This script tool currently requires an Advanced ArcGIS License!
+```
+
 ## How to Use
 ### Begin by opening the toolbox  
 Navigate to the location of the script toolbox, then right-click the 'Search for Indeterminant Data' script tool to open (Fig. \@ref(fig:indtSearchopen)).

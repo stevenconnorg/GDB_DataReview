@@ -4,24 +4,18 @@
 This tool provides an automated method to import metadata for each Feature Dataset and Feature Class (within Feature Datasets) in the input geodatabase, following the output .xml file naming convention created with the [Batch Export Metadata] tool, and potentially updated using the [Batch Metadata Modifier Tool](http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html) developed out of the University of Idaho's Interactive Numeric & Spatial Information Data Engine (INSIDE) geospatial data clearinghouse.
 As per SDSFIE standards, it is recommended that you view this metadata using the [SDSFIE-M Metadata Style for ArcGIS](https://www.sdsfieonline.org/Standards/Metadata)^[When installing this tool, be sure to install it to the location of your current ArcGIS distribution on your computer, typically located at C:/Program Files (x86)/ArcGIS/Desktop10.6/, replacing with the approproate ArcGIS version].
 
+Alternatively, if you wish to import metadata from Feature Classes in a Esri geodatabase, you should use the [Batch Import Metadata from GDB] tool.
 
 ## Parameters
-The tool has 3 parameters^[More information of the Import Type and Auto Update parameters may be found at the help page for ArcMap's [Import Metadata Tool](http://desktop.arcgis.com/en/arcmap/latest/tools/conversion-toolbox/import-metadata.htm).]:  
+The tool has 2 parameters^[More information may be found on the help page for ArcMap's [Metadata Importer](http://desktop.arcgis.com/en/arcmap/latest/tools/conversion-toolbox/metadata-importer.htm).]:  
 
 1. **Input Geodatabase (data type: Workspace/File Geodatabase)** - The input geodatabase to export Feature Dataset/Feature Class metadata from.
-2. **Input Metadata Directory (data type: Folder)** - The folder within which to write output .xml metadata files.
-3. **Import Type (data type: String)** - The folder within which to write output .xml metadata files. These include:
-    * FROM_ESRIISO —The source metadata contains ESRI-ISO-formatted metadata; that is, it was created using the ISO metadata editor provided with ArcGIS Desktop 9.3.1 and earlier releases. The source metadata will be converted to ArcGIS metadata when you run the tool.
-    * FROM_FGDC —The source metadata is stored in the FGDC CSDGM metadata standard's XML format. The source metadata will be converted to ArcGIS metadata when you run the tool.
-    * FROM_ISO_19139 —The source metadata is formatted according to the ISO 19139 metadata standard. The source metadata will be converted to ArcGIS metadata when you run the tool.
-4. **Auto Update? (data type: String)** - Whether to ENABLED or DISABLE metadata autoupdates. This parameter requires one of the two following options:
-    * ENABLED —Information in the imported metadata describing the item's properties will be modified to contain the actual item properties. For example, if the imported metadata includes the number of features contained by a feature class, this number will be updated in the item's metadata by the metadata synchronization process after the features have been edited in ArcGIS. Also, additional properties that were not present in the imported metadata and that can be synchronized for the item will be added. This is the default.
-    * DISABLED — Imported information won't be modified. For example, the number of features contained by a feature class won't be updated in the item's metadata by the metadata synchronization process after the features have been edited in ArcGIS; the metadata will always contain the old, out-of-date number. Additional properties of the item that were not present in the imported metadata and that can be synchronized for the item will be added.
+2. **Input Metadata Directory (data type: Folder)** - The folder with the .xml files to import into the geodatabase features.
 
 
 ## How to Use
 ### Begin by opening the toolbox  
-Navigate to the location of the script toolbox, then right-click the 'Batch Export Metadata to Directory' script tool to open (Fig. \@ref(fig:imMetaopen)).
+Navigate to the location of the script toolbox, then right-click the 'Batch Import Metadata' script tool to open (Fig. \@ref(fig:imMetaopen)).
 ```{r imMetaopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Batch Import Metadata tool",fig.align = 'center'}
 knitr::include_graphics("figures/imMeta-open.jpg",auto_pdf = TRUE)
 ```
@@ -41,3 +35,5 @@ After running the tool, we can view the update Item Descriptions for the Feature
 ```{r imMetaafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Item Description to view updated Metadata",fig.align = 'center'}
 knitr::include_graphics("figures/imMeta-after.jpg",auto_pdf = TRUE)
 ```
+
+

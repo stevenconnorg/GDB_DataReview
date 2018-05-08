@@ -1,11 +1,11 @@
-# Calculate Feature RPSUIDs from Overlapping Polygons {#spatjoinCalc}
+# Spatial Join and Calculate {#spatjoinCalc}
 ## Overview
 This tool utilizes spatial joins to update field values in the target Feature Classes field to equal the source Feature Class fields in a source geodatabase. Using 'wildcard' fitlers, this tool allows users to update particular target Feature Datasets, Feature Classes, and Fields. For the purposes of this tool within the scope of the CIP Data Review task, target Fields are, by default, any fields that begin with "realPropertySiteUnique," in order to udpate RPSUID fields called either "realPropertySiteUniqueIdentifier" or "realPropertySiteUniqueID"; however, this tool could be extended to any number of source/target Feature Class/Field values.
 
 ## Parameters
 The tool has 8 parameters:  
 
-1. **Geodatabase (data type: Workspace/File Geodatabase)** - The path to the input geodatabase to update Feature Classes in.
+1. **Update Geodatabase (data type: Workspace/File Geodatabase)** - The path to the input geodatabase to update Feature Classes in.
 
 2. **Source Feature  (data type: Feature Class)** - The path to the source Feature Class, which will be used to update Feature Class fields in target Feature Classes.
 
@@ -34,7 +34,7 @@ The tool has 8 parameters:
     + *SHARE_A_LINE_SEGMENT_WITH* — The features in the input layer will be selected if they share a line segment with a selecting feature. The input and selecting features must be line or polygon.  
     + *CROSSED_BY_THE_OUTLINE_OF* — The features in the input layer will be selected if they are crossed by the outline of a selecting feature. The input and selecting features must be lines or polygons. If polygons are used for the input or selecting layer, the polygon's boundary (line) will be used. Lines that cross at a point will be selected, not lines that share a line segment.  
     + *HAVE_THEIR_CENTER_IN* — The features in the input layer will be selected if their center falls within a selecting feature. The center of the feature is calculated as follows: for polygon and multipoint, the geometry's centroid is used, and for line input, the geometry's midpoint is used.  
- 
+7. **Search Distance (data type: String)** - If the overlap type parameter is equal to "WITHIN_A_DISTANCE_GEODESIC", "WITHIN_A_DISTANCE", "WITHIN_A_DISTANCE_3D", "INTERSECT", "INTERSECT_3D", "HAVE_THEIR_CENTER_IN", "CONTAINS", or "WITHIN", you must provide a search distance.
 
 ## How to Use
 ### Begin by opening the toolbox  
@@ -47,7 +47,7 @@ knitr::include_graphics("figures/spatjoinCalcopentool.jpg",auto_pdf = TRUE)
 
 ###  Fill out the parameters 
 For this demostration, we want to update missing RPSUID values for 2 features in the Site_P Feature Class using RPSUID values from Site_A features that contain Site_P features \@ref(fig:sjcbefore)).
-```{r sjcbefore, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Missing RPSUID attributes for Site Point featuresl",fig.align='center'}
+```{r sjcbefore, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Missing RPSUID attributes for Site Point features",fig.align='center'}
 knitr::include_graphics("figures/spatjoinCalc-before.jpg",auto_pdf = TRUE)
 ```
 Next, fill out the parameters for the tool. Here, we want to transfer the RPSUID attributes (Source Field) from the Site_A Feature Class in the Cadastre Feature Dataset (Fig. \@ref(fig:sjcparams)).

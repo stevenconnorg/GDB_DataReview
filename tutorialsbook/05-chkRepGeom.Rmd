@@ -10,7 +10,9 @@ After the repair is conducted, the subset of feature classes with repaired geome
 The tool has 2 parameters:  
 
 1. **Input_Geodatabase (data type: Workspace)** - This parameter must be the path of the input geodatabase to search Feature Datasets' Feature Class features for duplicate features.
-2. **Installation_Review_Geodatabase  (data type: Workspace)** - This parameter should be the path of the Installation Review Geodatabase to compile all CIP processing outputs in a single location.
+2. **Output_Geodatabase  (data type: Workspace)** - This parameter should be the path of the Installation Review Geodatabase to compile all CIP processing outputs in a single location.
+3. **Output_Geodatabase  (data type: Workspace)** - This parameter should be the path of the Installation Review Geodatabase to compile all CIP processing outputs in a single location.
+4. **Output_Geodatabase  (data type: Workspace)** - This parameter should be the path of the Installation Review Geodatabase to compile all CIP processing outputs in a single location.
 
 ## How to Use
 ### Begin by opening the toolbox  
