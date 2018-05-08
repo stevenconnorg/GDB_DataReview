@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- #################
 """
 Created on Mon Apr 23 12:59:28 2018
 
@@ -9,10 +9,8 @@ import arcpy, os
 from arcpy import env
 env.overwriteOutput = True
 
-# input geodatabase
-gdb =arcpy.GetParameterAsText(0)
-
 # source feature
+gdb =arcpy.GetParameterAsText(0)
 siteA =arcpy.GetParameterAsText(1)
 # source RPSUID field
 sourceRPSUID =arcpy.GetParameterAsText(2)
@@ -24,7 +22,6 @@ targetFCWildcard =arcpy.GetParameterAsText(4)
 targetFieldWildcard =arcpy.GetParameterAsText(5)
 
 overlap_type=arcpy.GetParameterAsText(6)
-
 
 def unique_values(table , field):
     with arcpy.da.SearchCursor(table, [field]) as cursor:
@@ -70,3 +67,5 @@ for fds in theFDSs:
                         del sourceLayer
                     arcpy.Delete_management(targetLayer)
                     del targetLayer
+
+
