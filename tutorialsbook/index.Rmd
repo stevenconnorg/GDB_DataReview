@@ -1,7 +1,7 @@
 --- 
 title: "GDB_DataReview ArcMap Toolbox Tutorials"
 author:  
-- Steven C. Gonzalez & Marie Cline 
+- Steven C. Gonzalez & Marie C. Cline 
 - Air Force Civil Engineering Center (AFCEC)
 - Geospatial Integration Office (GIO)
 date: "`r Sys.Date()`"

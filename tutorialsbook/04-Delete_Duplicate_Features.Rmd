@@ -1,8 +1,14 @@
 # Delete Duplicate Features {#delFeats}
 ## Overview
-The Find Duplicate Features tool allows users to search an entire geodatabase's Feature Classes for duplicated features This tool loops through each Feature Dataset's Feature Class features and searches for duplicate features, **not including geometry.**
+The Find Duplicate Features tool allows users to search an entire geodatabase's Feature Classes for duplicated features This tool loops through each Feature Dataset's Feature Class features and searches for duplicate features, **not including geometry.** That is, this tool searches for features within each feature class that have the same attributes across all fields in the attribute table, not including the fields listed below in the 'Note' section.
 
-*By default, this tool does not consider compare attributes in across any fields that are 'OID', 'Guid', 'GlobalID', 'Blob', or 'Raster' field types. Furthmore, the following fields are ignored in searching for duplicate features, by default (not case sensitive): 'LAST_EDITED_DATE', 'LAST_EDITED_USER', 'CREATED_USER', 'CREATED_DATE'.*
+```{block2, type='warnh1'}
+Note
+```
+```{block2, type='warnp'}
+By default, this tool does not consider compare attributes in across any fields that are 'OID', 'Guid', 'GlobalID', 'Blob', or 'Raster' field types. Furthmore, the following fields are ignored in searching for duplicate features, by default (not case sensitive): 'LAST_EDITED_DATE', 'LAST_EDITED_USER', 'CREATED_USER', 'CREATED_DATE'. As stated previously, this tool does not include geometries in the feature comparisons by default.
+
+```
 
 ## Parameters
 The tool has 3 parameters:  

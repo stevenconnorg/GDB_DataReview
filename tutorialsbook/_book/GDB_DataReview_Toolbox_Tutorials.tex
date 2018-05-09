@@ -27,7 +27,7 @@
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={GDB\_DataReview ArcMap Toolbox Tutorials},
-            pdfauthor={Steven C. Gonzalez \& Marie Cline; Air Force Civil Engineering Center (AFCEC); Geospatial Integration Office (GIO)},
+            pdfauthor={Steven C. Gonzalez \& Marie C. Cline; Air Force Civil Engineering Center (AFCEC); Geospatial Integration Office (GIO)},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -81,12 +81,12 @@
   \title{GDB\_DataReview ArcMap Toolbox Tutorials}
   \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
-  \author{Steven C. Gonzalez \& Marie Cline \\ Air Force Civil Engineering Center (AFCEC) \\ Geospatial Integration Office (GIO)}
+  \author{Steven C. Gonzalez \& Marie C. Cline \\ Air Force Civil Engineering Center (AFCEC) \\ Geospatial Integration Office (GIO)}
   \preauthor{\centering\large\emph}
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2018-05-08}
+  \date{2018-05-09}
 
 \usepackage{booktabs}
 \usepackage{graphics}
@@ -170,9 +170,6 @@
 \tableofcontents
 }
 \mainmatter
-author:\\
-- Steven C. Gonzalez \& Marie Cline - Air Force Civil Engineering Center
-(AFCEC) - Geospatial Integration Office (GIO)
 
 \chapter{Toolbox Overview}\label{overview}
 
@@ -233,7 +230,7 @@ tools within it (Fig. \ref{fig:opentoolbox}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/opentoolbox} 
+{\centering \includegraphics[width=2.57in,]{figures/opentoolbox} 
 
 }
 
@@ -358,7 +355,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/csd-open} 
+{\centering \includegraphics[width=1.67in,]{figures/csd-open} 
 
 }
 
@@ -375,7 +372,7 @@ specifically for holding CIP processing results.\\
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/csd-params} 
+{\centering \includegraphics[width=3.67in,]{figures/csd-params} 
 
 }
 
@@ -396,7 +393,7 @@ Then, 8 site points were created for the empty Site\_P feature class.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/csd-messages} 
+{\centering \includegraphics[width=5.07in,]{figures/csd-messages} 
 
 }
 
@@ -409,14 +406,14 @@ Fig. \ref{fig:csdafter}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/csd-before} 
+{\centering \includegraphics[width=4.74in,]{figures/csd-before} 
 
 }
 
 \caption{Before running the tool}\label{fig:csdbefore}
 \end{figure}\begin{figure}[H]
 
-{\centering \includegraphics{figures/csd-after} 
+{\centering \includegraphics[width=4.9in,]{figures/csd-after} 
 
 }
 
@@ -503,7 +500,7 @@ Fields and Calculate' script tool to open (Fig. \ref{fig:jcopen}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/joinCalcopentool} 
+{\centering \includegraphics[width=2.3in,]{figures/joinCalcopentool} 
 
 }
 
@@ -533,7 +530,7 @@ check the `Remove\_Leading\_Zeros' parameter to remove these spaces.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/joinCalc-toolparams} 
+{\centering \includegraphics[width=5.18in,]{figures/joinCalc-toolparams} 
 
 }
 
@@ -545,7 +542,7 @@ features in a geodatabase or geodatabases (Fig. \ref{fig:batch}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/joinCalc-batch} 
+{\centering \includegraphics[width=2.47in,]{figures/joinCalc-batch} 
 
 }
 
@@ -563,7 +560,7 @@ values (Fig. \ref{fig:jcbefore}, Fig. \ref{fig:jcafter}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/joinCalc-before} 
+{\centering \includegraphics[width=3.3in,]{figures/joinCalc-before} 
 
 }
 
@@ -572,7 +569,7 @@ values (Fig. \ref{fig:jcbefore}, Fig. \ref{fig:jcafter}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/joinCalc-results} 
+{\centering \includegraphics[width=3.44in,]{figures/joinCalc-results} 
 
 }
 
@@ -731,8 +728,14 @@ The tool has 8 parameters:
     will be selected if their center falls within a selecting feature.
     The center of the feature is calculated as follows: for polygon and
     multipoint, the geometry's centroid is used, and for line input, the
-    geometry's midpoint is used.
+    geometry's midpoint is used.\\
   \end{itemize}
+\item
+  \textbf{Search Distance (data type: String)} - If the overlap type
+  parameter is equal to ``WITHIN\_A\_DISTANCE\_GEODESIC'',
+  ``WITHIN\_A\_DISTANCE'', ``WITHIN\_A\_DISTANCE\_3D'', ``INTERSECT'',
+  ``INTERSECT\_3D'', ``HAVE\_THEIR\_CENTER\_IN'', ``CONTAINS'', or
+  ``WITHIN'', you must provide a search distance.
 \end{enumerate}
 
 \section{How to Use}\label{how-to-use-2}
@@ -746,7 +749,7 @@ Navigate to the location of the script tool, then right-click the
 
 \begin{figure}[H]
 
-\hfill{}\includegraphics{figures/spatjoinCalcopentool} 
+\hfill{}\includegraphics[width=2.1in,]{figures/spatjoinCalcopentool} 
 
 \caption{Opening the toolbox}\label{fig:sjcopentool}
 \end{figure}
@@ -759,7 +762,7 @@ features that contain Site\_P features \ref{fig:sjcbefore}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/spatjoinCalc-before} 
+{\centering \includegraphics[width=3.72in,]{figures/spatjoinCalc-before} 
 
 }
 
@@ -772,7 +775,7 @@ the Cadastre Feature Dataset (Fig. \ref{fig:sjcparams}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/spatjoinCalc-toolparams} 
+{\centering \includegraphics[width=4.09in,]{figures/spatjoinCalc-toolparams} 
 
 }
 
@@ -805,7 +808,7 @@ which RPSUIDs are being updated (Fig. \ref{fig:sjcmessages}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/spatjoinCalc-toolmessages} 
+{\centering \includegraphics[width=4.02in,]{figures/spatjoinCalc-toolmessages} 
 
 }
 
@@ -817,7 +820,7 @@ RPSUID values are updated accordingly \ref{fig:sjcafter}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/spatjoinCalc-after} 
+{\centering \includegraphics[width=2.32in,]{figures/spatjoinCalc-after} 
 
 }
 
@@ -831,11 +834,12 @@ RPSUID values are updated accordingly \ref{fig:sjcafter}).
 The Find Duplicate Geometry tool allows users to search an entire
 geodatabase's Feature Classes within Feature Datasets for features with
 duplicate geometries. This tool loops through each Feature Dataset's
-Feature Class features and searches for duplicate geometries. All
-features with duplicate geometries are written to the output .csv file,
-as specified, and describes the Feature Dataset and Feature Class with
-duplicate geometries, the OBJECTIDs of the duplicate geometries, and a
-summary, which gives the count of duplicate geometries spread over
+Feature Class features and searches for duplicate geometries.
+
+All features with duplicate geometries are written to the output .csv
+file, as specified, and describes the Feature Dataset and Feature Class
+with duplicate geometries, the OBJECTIDs of the duplicate geometries,
+and a summary, which gives the count of duplicate geometries spread over
 unique geometries, Further, this tool creates layer files for each
 Feature Class' duplicate features, allowing users to edit their
 geodatabase directory from a temporary, filtered layer of only duplicate
@@ -882,7 +886,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/dupG-opentool} 
+{\centering \includegraphics[width=2.03in,]{figures/dupG-opentool} 
 
 }
 
@@ -902,7 +906,7 @@ Feature Class feature layers to be saved to the Output Layers Directory
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/dupG-params} 
+{\centering \includegraphics[width=4.11in,]{figures/dupG-params} 
 
 }
 
@@ -918,7 +922,7 @@ found for each Feature Class (Fig. \ref{fig:dupGmessages}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/dupG-messages} 
+{\centering \includegraphics[width=3.92in,]{figures/dupG-messages} 
 
 }
 
@@ -933,7 +937,7 @@ duplicates spread across 7 unique geometries (Fig. \ref{fig:dupGcsv}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/dupG-csv} 
+{\centering \includegraphics[width=4.8in,]{figures/dupG-csv} 
 
 }
 
@@ -946,7 +950,7 @@ find layer files with duplicate features for each Feature Class (Fig.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/dupG-lays} 
+{\centering \includegraphics[width=1.79in,]{figures/dupG-lays} 
 
 }
 
@@ -959,7 +963,7 @@ the duplicate features at that location (Fig. \ref{fig:layFeats}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/dupG-layFeats} 
+{\centering \includegraphics[width=4.58in,]{figures/dupG-layFeats} 
 
 }
 
@@ -975,7 +979,7 @@ associated Feature Classes in the original geodatabase.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/dupG-layAtts} 
+{\centering \includegraphics[width=4.79in,]{figures/dupG-layAtts} 
 
 }
 
@@ -989,14 +993,23 @@ associated Feature Classes in the original geodatabase.
 The Find Duplicate Features tool allows users to search an entire
 geodatabase's Feature Classes for duplicated features This tool loops
 through each Feature Dataset's Feature Class features and searches for
-duplicate features, not including geometry.
+duplicate features, \textbf{not including geometry.} That is, this tool
+searches for features within each feature class that have the same
+attributes across all fields in the attribute table, not including the
+fields listed below in the `Note' section.
+
+\BeginKnitrBlock{warnh1}
+Note
+\EndKnitrBlock{warnh1} \BeginKnitrBlock{warnp}
 
 By default, this tool does not consider compare attributes in across any
 fields that are `OID', `Guid', `GlobalID', `Blob', or `Raster' field
 types. Furthmore, the following fields are ignored in searching for
 duplicate features, by default (not case sensitive):
 `LAST\_EDITED\_DATE', `LAST\_EDITED\_USER', `CREATED\_USER',
-`CREATED\_DATE'.
+`CREATED\_DATE'. As stated previously, this tool does not include
+geometries in the feature comparison by default.
+\EndKnitrBlock{warnp}
 
 \section{Parameters}\label{parameters-4}
 
@@ -1029,11 +1042,12 @@ The tool has 3 parameters:
 toolbox}\label{begin-by-opening-the-toolbox-4}
 
 Navigate to the location of the script toolbox, then right-click the
-`Find Duplicate Features' script tool to open (Fig. \ref{fig:delFopen}).
+`Delete Duplicate Features' script tool to open (Fig.
+\ref{fig:delFopen}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/delF-opentool} 
+{\centering \includegraphics[width=2.09in,]{figures/delF-opentool} 
 
 }
 
@@ -1071,7 +1085,7 @@ indicating that each of the 51 features may have been duplicated once
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/delF-messages} 
+{\centering \includegraphics[width=3.86in,]{figures/delF-messages} 
 
 }
 
@@ -1135,7 +1149,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/chkG-open} 
+{\centering \includegraphics[width=1.68in,]{figures/chkG-open} 
 
 }
 
@@ -1152,7 +1166,7 @@ geodatabase specifically for holding CIP processing results.\\
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/chkG-params} 
+{\centering \includegraphics[width=5.18in,]{figures/chkG-params} 
 
 }
 
@@ -1173,7 +1187,7 @@ errors, and how many geometry problems were found after the re-check
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/chkG-messages} 
+{\centering \includegraphics[width=5.07in,]{figures/chkG-messages} 
 
 }
 
@@ -1187,7 +1201,7 @@ problems were found (Fig. \ref{fig:chkGafter}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/chkG-after} 
+{\centering \includegraphics[width=4.76in,]{figures/chkG-after} 
 
 }
 
@@ -1233,7 +1247,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/std1-opentool} 
+{\centering \includegraphics[width=2.04in,]{figures/std1-opentool} 
 
 }
 
@@ -1249,14 +1263,14 @@ standardized addresses in the field (Fig. \ref{fig:std1before}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/std1-toolparams} 
+{\centering \includegraphics[width=2.48in,]{figures/std1-toolparams} 
 
 }
 
 \caption{Tool parameters to run}\label{fig:std1params}
 \end{figure}\begin{figure}[H]
 
-{\centering \includegraphics{figures/std1-before} 
+{\centering \includegraphics[width=1.06in,]{figures/std1-before} 
 
 }
 
@@ -1271,7 +1285,7 @@ been appropriately standardized (Fig. \ref{fig:std1after}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/std1-after} 
+{\centering \includegraphics[width=0.77in,]{figures/std1-after} 
 
 }
 
@@ -1326,7 +1340,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/std3-open} 
+{\centering \includegraphics[width=1.9in,]{figures/std3-open} 
 
 }
 
@@ -1342,7 +1356,7 @@ directly from the Feature Class by using the drop-down menu.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/std3-toolparams} 
+{\centering \includegraphics[width=3.26in,]{figures/std3-toolparams} 
 
 }
 
@@ -1359,7 +1373,7 @@ destinate Feature Class and view the update destination field values
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/std3-before} 
+{\centering \includegraphics[width=1.68in,]{figures/std3-before} 
 
 }
 
@@ -1372,7 +1386,7 @@ match USPS standards (Fig. \ref{fig:std3after}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/std3-after} 
+{\centering \includegraphics[width=1.5in,]{figures/std3-after} 
 
 }
 
@@ -1488,7 +1502,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/indtSearch-open} 
+{\centering \includegraphics[width=2.39in,]{figures/indtSearch-open} 
 
 }
 
@@ -1504,7 +1518,7 @@ drop-down menu.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/indtSearch-params} 
+{\centering \includegraphics[width=4.31in,]{figures/indtSearch-params} 
 
 }
 
@@ -1520,7 +1534,7 @@ counts of indeterminant values (Fig. \ref{fig:indtSearchmessages}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/indtSearch-messages} 
+{\centering \includegraphics[width=3.9in,]{figures/indtSearch-messages} 
 
 }
 
@@ -1534,14 +1548,14 @@ missing Feature Datasets \ref{fig:indtSearchmissingFDS}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/indtSearch-tables} 
+{\centering \includegraphics[width=1.1in,]{figures/indtSearch-tables} 
 
 }
 
 \caption{Search for Missing and Indeterminant Data output tables}\label{fig:indtSearchtables}
 \end{figure}\begin{figure}[H]
 
-{\centering \includegraphics{figures/indtSearch-missingFDS} 
+{\centering \includegraphics[width=3.92in,]{figures/indtSearch-missingFDS} 
 
 }
 
@@ -1555,7 +1569,7 @@ missing when compared with the CIP geodatabase
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/indtSearch-missingFCs} 
+{\centering \includegraphics[width=3.47in,]{figures/indtSearch-missingFCs} 
 
 }
 
@@ -1568,7 +1582,7 @@ source geodatabase \ref{fig:indtSearchmissingFLDs}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/indtSearch-missingFLDs} 
+{\centering \includegraphics[width=5.26in,]{figures/indtSearch-missingFLDs} 
 
 }
 
@@ -1580,7 +1594,7 @@ MissingData table \ref{fig:indtSearchmissingData}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/indtSearch-missingData} 
+{\centering \includegraphics[width=6.25in,]{figures/indtSearch-missingData} 
 
 }
 
@@ -1712,7 +1726,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/summIndt-open} 
+{\centering \includegraphics[width=2.29in,]{figures/summIndt-open} 
 
 }
 
@@ -1728,7 +1742,7 @@ these input tables all derive from the same target geodatabase!
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/summIndt-toolparams} 
+{\centering \includegraphics[width=4.48in,]{figures/summIndt-toolparams} 
 
 }
 
@@ -1743,7 +1757,7 @@ While we run the tool, we can see view the messages of the tool (Fig.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/summIndt-messages} 
+{\centering \includegraphics[width=3.89in,]{figures/summIndt-messages} 
 
 }
 
@@ -1757,7 +1771,7 @@ Summary\_by\_Field, Empty Feature Classes, and Indeterminate\_Overview
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/summIndt-sheets} 
+{\centering \includegraphics[width=3.77in,]{figures/summIndt-sheets} 
 
 }
 
@@ -1771,7 +1785,7 @@ indeterminant data type (i.e.: Null, TBD, and Other) (Fig.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/summIndt-sheet1} 
+{\centering \includegraphics[width=9.41in,]{figures/summIndt-sheet1} 
 
 }
 
@@ -1783,7 +1797,7 @@ Summary\_by\_FC table by field (Fig. \ref{fig:summIndtsheet2}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/summIndt-sheet2} 
+{\centering \includegraphics[width=8.36in,]{figures/summIndt-sheet2} 
 
 }
 
@@ -1796,7 +1810,7 @@ fields from those empty feature classes (Fig. \ref{fig:summIndtsheet3}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/summIndt-sheet3} 
+{\centering \includegraphics[width=3.67in,]{figures/summIndt-sheet3} 
 
 }
 
@@ -1809,7 +1823,7 @@ missing and indeterminant data at a geodatabase level (Fig.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/summIndt-sheet4} 
+{\centering \includegraphics[width=5.67in,]{figures/summIndt-sheet4} 
 
 }
 
@@ -1880,7 +1894,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/exMeta-open} 
+{\centering \includegraphics[width=2.23in,]{figures/exMeta-open} 
 
 }
 
@@ -1897,7 +1911,7 @@ directory called `metadata' (Fig. \ref{fig:exMetaparams}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/exMeta-params} 
+{\centering \includegraphics[width=4.49in,]{figures/exMeta-params} 
 
 }
 
@@ -1915,7 +1929,7 @@ the name of the Feature Dataset.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/exMeta-after} 
+{\centering \includegraphics[width=3.93in,]{figures/exMeta-after} 
 
 }
 
@@ -1976,7 +1990,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/imMeta-open} 
+{\centering \includegraphics[width=2.74in,]{figures/imMeta-open} 
 
 }
 
@@ -1993,7 +2007,7 @@ directory called `metadata' (Fig. \ref{fig:imMetaparams}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/imMeta-params} 
+{\centering \includegraphics[width=3.84in,]{figures/imMeta-params} 
 
 }
 
@@ -2010,7 +2024,7 @@ directory (Fig. \ref{fig:imMetamessages}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/imMeta-messages} 
+{\centering \includegraphics[width=3.89in,]{figures/imMeta-messages} 
 
 }
 
@@ -2029,7 +2043,7 @@ Desecription Help Page}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/imMeta-after} 
+{\centering \includegraphics[width=2.27in,]{figures/imMeta-after} 
 
 }
 
@@ -2114,7 +2128,7 @@ Navigate to the location of the script toolbox, then right-click the
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/imMetaArc-open} 
+{\centering \includegraphics[width=2.69in,]{figures/imMetaArc-open} 
 
 }
 
@@ -2129,7 +2143,7 @@ metadata.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/imMetaArc-params} 
+{\centering \includegraphics[width=4.79in,]{figures/imMetaArc-params} 
 
 }
 
@@ -2147,7 +2161,7 @@ geodatabase (Fig. \ref{fig:imMetaArcmessages}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/imMetaArc-messages} 
+{\centering \includegraphics[width=3.89in,]{figures/imMetaArc-messages} 
 
 }
 
@@ -2175,7 +2189,7 @@ Desecription Help Page}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figures/imMetaArc-after} 
+{\centering \includegraphics[width=7.86in,]{figures/imMetaArc-after} 
 
 }
 
