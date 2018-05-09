@@ -17,10 +17,7 @@ geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
 description: "How to use the ArcMap GDB_DataReview Toolbox."
 ---
 \mainmatter
-author:  
-- Steven C. Gonzalez & Marie Cline
-- Air Force Civil Engineering Center (AFCEC)
-- Geospatial Integration Office (GIO)
+
 ```{r include=FALSE}
 library(bookdown)
 library(rmarkdown)
