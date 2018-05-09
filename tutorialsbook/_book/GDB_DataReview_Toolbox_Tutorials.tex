@@ -840,10 +840,11 @@ All features with duplicate geometries are written to the output .csv
 file, as specified, and describes the Feature Dataset and Feature Class
 with duplicate geometries, the OBJECTIDs of the duplicate geometries,
 and a summary, which gives the count of duplicate geometries spread over
-unique geometries, Further, this tool creates layer files for each
-Feature Class' duplicate features, allowing users to edit their
+unique geometries. Further, this tool creates layer files for each
+Feature Class' duplicate features, \emph{allowing users to edit their
 geodatabase directory from a temporary, filtered layer of only duplicate
-features to be evaluated further.
+features to be evaluated further, instead of arbitrarily deleting
+duplicated features without further consideration.}
 
 \section{Parameters}\label{parameters-3}
 
@@ -1008,7 +1009,7 @@ types. Furthmore, the following fields are ignored in searching for
 duplicate features, by default (not case sensitive):
 `LAST\_EDITED\_DATE', `LAST\_EDITED\_USER', `CREATED\_USER',
 `CREATED\_DATE'. As stated previously, this tool does not include
-geometries in the feature comparison by default.
+geometries in the feature comparisons by default.
 \EndKnitrBlock{warnp}
 
 \section{Parameters}\label{parameters-4}
