@@ -16,6 +16,7 @@ env.overwriteOutput = True
 fc =  arcpy.GetParameterAsText(0)
 fld =  arcpy.GetParameterAsText(1)
 
+
 def get_geodatabase_path(input_table):
   '''Return the Geodatabase path from the input table or feature class.
   :param input_table: path to the input table or feature class 
@@ -646,21 +647,18 @@ with arcpy.da.UpdateCursor(fc, streetFields) as cursor:
                     roadNameVals[n] = new
                 
                 for roadNameVal in roadNameVals:
-                    roadNameVal = roadNameVal.upper()
-                    if roadNameVal in commonSuffixes:
-                        idx1 = commonSuffixes.index(roadNameVal)
+                    if roadNameVal.upper() in commonSuffixes:
+                        idx1 = commonSuffixes.index(roadNameVal.upper())
                         newSuffix= standardSuffixes[idx1]
                         idx2 =   roadNameVals.index(roadNameVal)
                         roadNameVals[idx2] = newSuffix
-                        
-                    if roadNameVal in commonPrefixes:
-                        idx1 = commonPrefixes.index(roadNameVal)
+                    if roadNameVal.upper() in commonPrefixes:
+                        idx1 = commonPrefixes.index(roadNameVal.upper())
                         newPrefix= standardPrefixes[idx1]
                         idx2 =   roadNameVals.index(roadNameVal)
                         roadNameVals[idx2] = newPrefix
                     else:
                         pass
-    
                 newName = ' '.join(roadNameVals)
                 newRow= [newName]
                 print "old row = "+str(row)

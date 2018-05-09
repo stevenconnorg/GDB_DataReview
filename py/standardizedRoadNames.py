@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Apr 25 07:53:08 2018
-
 @author: stevenconnorg
 """
 
@@ -19,11 +18,16 @@ nameFld =  arcpy.GetParameterAsText(2)
 suffixFld =  arcpy.GetParameterAsText(3)
 
 # =============================================================================
-# fc =  r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\GDB_DataReview\GDB_DataReview\dat\gdbs-complete\Example.gdb\Transportation\RoadCenterline_L"
+# =============================================================================
+# =============================================================================
+# =============================================================================
+# fc =  r"C:\Users\stevenconnorg\Documents\knight-federal-solutions\GDB_DataReview\GDB_DataReview\dat\gdbs-cleaned\Example.gdb\Transportation\RoadCenterline_L"
 # prefixFld =  "roadPrefix"
 # nameFld =  "roadName"
 # suffixFld =  "roadSuffix"
-# 
+# =============================================================================
+# =============================================================================
+# =============================================================================
 # =============================================================================
 
 
@@ -616,27 +620,7 @@ prefixes = [["NORTH","N"],
             ["East","E"],
             ["East ","E"],
             ["E","E"],
-            ["E.","E"],
-            ["Northeast","NE"],
-            ["North East","NE"],
-            ["north east","NE"],
-            ["northeast","NE"],
-            ["ne","NE"],
-            ["Northwest","NW"],
-            ["North West","NW"],
-            ["north west","NW"],
-            ["northwest","NW"],
-            ["nw","NW"],
-            ["Southwest","SW"],
-            ["South West","SW"],
-            ["south west","SW"],
-            ["southwest","SW"],
-            ["sw","SW"],
-            ["Southeast","SE"],
-            ["South East","SE"],
-            ["south east","SE"],
-            ["southeast","SE"],
-            ["se","SE"]]
+            ["E.","E"]]
 
 commonPrefixes = [el[0] for el in prefixes]
 #commonPrefixes =[item for sublist in commonPrefixes for item in sublist]
@@ -655,56 +639,105 @@ with arcpy.da.UpdateCursor(fc, streetFields) as cursor:
                 new = str(i)
                 roadNameVals[n] = new
             
-            if roadNameVals > 1:
+            if len(roadNameVals) > 1:
                 for roadNameVal in roadNameVals:
                     roadNameVal = str(roadNameVal)
-        
+                    
                     if roadNameVal.upper() in commonSuffixes:
-                        idx = commonSuffixes.index(roadNameVal.upper())
-                        newSuffix= standardSuffixes[idx] 
-                        roadNameVals.remove(roadNameVals[-1])
-    
+                        if roadNameVals.index(roadNameVal) == len(roadNameVals)-1:
+                            idx = commonSuffixes.index(roadNameVal.upper())
+                            newSuffix= standardSuffixes[idx] 
+                            idx2 =   roadNameVals.index(roadNameVal)
+                            roadNameVals.remove(roadNameVals[idx2])
+                       
+                    elif roadNameVal.upper() in standardSuffixes:
+                        if roadNameVals.index(roadNameVal) == len(roadNameVals)-1:
+                            newSuffix= roadNameVal.upper()
+                            idx2 =   roadNameVals.index(roadNameVal)
+                            roadNameVals.remove(roadNameVals[idx2])
+                        
                     if roadNameVal.upper() in commonPrefixes:
-                        idx1 = commonPrefixes.index(roadNameVal.upper())
-                        newPrefix= standardPrefixes[idx1]
-                        roadNameVals.remove(roadNameVals[0])
+                        if roadNameVals.index(roadNameVal) == 0:
+                            idx1 = commonPrefixes.index(roadNameVal.upper())
+                            newPrefix= standardPrefixes[idx1]
+                            idx2 =   roadNameVals.index(roadNameVal)
+                            roadNameVals.remove(roadNameVals[idx2])
+                        
+                    elif roadNameVal.upper() in standardPrefixes:
+                        if roadNameVals.index(roadNameVal) == 0:
+                            newPrefix= roadNameVal.upper()
+                            idx2 =   roadNameVals.index(roadNameVal)
+                            roadNameVals.remove(roadNameVals[idx2])
+                        
                     if 'newPrefix' not in locals():
                         newPrefix = str(row[0])
+                        if newPrefix.upper() in commonPrefixes:
+                            idx1 = commonPrefixes.index(newPrefix.upper())
+                            newPrefix= standardPrefixes[idx1]
+                        elif newPrefix.upper() in standardPrefixes:
+                            newPrefix= newPrefix.upper()
+# =============================================================================
+#                             idx2 =   roadNameVals.index(roadNameVal)
+#                             roadNameVals.remove(roadNameVals[idx2])
+# =============================================================================
+                            
                     if 'newSuffix' not in locals():
                         newSuffix = str(row[2])
-                        
-        
+                        if newSuffix.upper() in commonSuffixes:
+                            idx1 = commonSuffixes.index(newSuffix.upper())
+                            newSuffix= standardSuffixes[idx1]
+                        elif newSuffix.upper() in standardSuffixes:
+                            newSuffix= newSuffix.upper()
+# =============================================================================
+#                             idx2 =   roadNameVals.index(roadNameVal)
+#                             roadNameVals.remove(roadNameVals[idx2])
+# =============================================================================
+
+                
+                
                 newName = ' '.join(roadNameVals)
                 newRow= [newPrefix,newName,newSuffix]
                 del newSuffix    
                 del newPrefix
                 del newName
-                print "old row = "+str(row)
-                print "new row = "+str(newRow)
-        
+                arcpy.AddMessage( "old row = "+str(row))
+                arcpy.AddMessage("new row = "+str(newRow))
+                
             else:
                 prefix = row[0]
-                if prefix.upper() in commonPrefixes:
-                    idx = commonPrefixes.index(prefix.upper())
-                    newPrefix= standardPrefixes[idx] 
+                if prefix is None:
+                    pass
                 else:
-                    newPrefix = prefix.upper()
-                    
+                    if prefix.upper() in commonPrefixes:
+                        idx1 = commonPrefixes.index(prefix.upper())
+                        newPrefix= standardPrefixes[idx1]
+                        
+                    elif prefix.upper() in standardPrefixes:
+                        newPrefix= prefix.upper()
+                    else:
+                        newPrefix = prefix.upper()
                 suffix = row[2]
-                if suffix.upper() in commonSuffixes:
-                    idx = commonSuffixes.index(suffix.upper())
-                    newSuffix= standardSuffixes[idx] 
+                if suffix is None:
+                    pass
                 else:
-                    newSuffix = suffix.upper()
-                
-                newName = row[1].upper()            
+                    if suffix.upper() in commonSuffixes:
+                        idx = commonSuffixes.index(suffix.upper())
+                        newSuffix= standardSuffixes[idx] 
+                    elif suffix.upper() in standardSuffixes:
+                        newSuffix= suffix.upper()
+                    else:
+                        newSuffix = suffix.upper()
+                    
+                newName = row[1]          
                 newRow= [newPrefix,newName,newSuffix]
                     
                 #print names
                 
-                print "old row = "+str(row)
-                print "new row = "+str(newRow)
-        
+                arcpy.AddMessage("old row = "+str(row))
+                arcpy.AddMessage("new row = "+str(newRow))
+                del newSuffix    
+                del newPrefix
+                del newName
         del row
         cursor.updateRow(newRow)
-                    
+ 
