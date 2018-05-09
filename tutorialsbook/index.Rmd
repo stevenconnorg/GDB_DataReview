@@ -1,7 +1,7 @@
 --- 
 title: "GDB_DataReview ArcMap Toolbox Tutorials"
 author:  
-- Steven C. Gonzalez & Marie C. Cline 
+- Steven C. Gonzalez & Marie C. Cline
 - Air Force Civil Engineering Center (AFCEC)
 - Geospatial Integration Office (GIO)
 date: "`r Sys.Date()`"
@@ -22,6 +22,8 @@ description: "How to use the ArcMap GDB_DataReview Toolbox."
 library(bookdown)
 library(rmarkdown)
 library(knitr)
+library(tinytex)
+
 knit_hooks$set(crop = hook_pdfcrop)
 options(tinytex.verbose = TRUE)
 options(knitr.graphics.auto_pdf = TRUE)

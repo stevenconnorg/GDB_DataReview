@@ -1,4 +1,4 @@
-# Standardized Address Field {#stdAdd1}
+# Standardize 1 Address Field {#stdAdd1}
 ## Overview
 The Standardize Address Field tool allows users to standardize 1 address field in a feature class. This tool works by searching the address field within the input feature class, then replaces any street prefixes (e.g.: North, north, East, West) with a standard prefix abbreviation (i.e.: "N", "S", "E", and "W"), while all suffixes (e.g.: AVE, Avenue, Street) are reformatted to [standard USPS suffixes](https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv).
 
@@ -10,7 +10,7 @@ The tool has 2 parameters:
 
 ## How to Use
 ### Begin by opening the toolbox  
-Navigate to the location of the script toolbox, then right-click the 'Find Duplicate Features' script tool to open (Fig. \@ref(fig:std1open)).
+Navigate to the location of the script toolbox, then right-click the 'Standardize 1 Address Field' script tool to open (Fig. \@ref(fig:std1open)).
 ```{r std1open, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Standardize Address Field tool",fig.align='center'}
 knitr::include_graphics("figures/std1-opentool.jpg",auto_pdf = TRUE)
 ```
