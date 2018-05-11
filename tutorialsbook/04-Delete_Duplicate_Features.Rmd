@@ -1,6 +1,6 @@
 # Delete Duplicate Features {#delFeats}
 ## Overview
-The Find Duplicate Features tool allows users to search an entire geodatabase's Feature Classes for duplicated features This tool loops through each Feature Dataset's Feature Class features and searches for duplicate features, **not including geometry.** That is, this tool searches for features within each feature class that have the same attributes across all fields in the attribute table, not including the fields listed below in the 'Note' section.
+The Delete Duplicate Features tool allows users to search an entire geodatabase's Feature Classes for duplicated features This tool loops through each Feature Dataset's Feature Class features and searches for duplicate features, **not including geometry.** That is, this tool searches for features within each feature class that have the same attributes across all fields in the attribute table, not including the fields listed below in the 'Note' section.
 
 ```{block2, type='warnh1'}
 Note

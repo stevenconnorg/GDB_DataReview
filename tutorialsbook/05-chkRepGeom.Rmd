@@ -11,8 +11,8 @@ The tool has 2 parameters:
 
 1. **Input_Geodatabase (data type: Workspace)** - This parameter must be the path of the input geodatabase to search Feature Datasets' Feature Class features for duplicate features.
 2. **Output_Geodatabase  (data type: Workspace)** - This parameter should be the path of the Installation Review Geodatabase to compile all CIP processing outputs in a single location.
-3. **Output_Geodatabase  (data type: Workspace)** - This parameter should be the path of the Installation Review Geodatabase to compile all CIP processing outputs in a single location.
-4. **Output_Geodatabase  (data type: Workspace)** - This parameter should be the path of the Installation Review Geodatabase to compile all CIP processing outputs in a single location.
+3. **Repair Geometries?  (data type: Boolean)** - Do you want to automatically repair geometries, where possible?
+4. **Delete Null Geometries?  (data type: Boolean)** - Do you want to automatically delete features that have null/empty geometries?
 
 ## How to Use
 ### Begin by opening the toolbox  
@@ -21,7 +21,7 @@ Navigate to the location of the script toolbox, then right-click the 'Check and/
 knitr::include_graphics("figures/chkG-open.jpg",auto_pdf = TRUE)
 ```
 ###  Fill out the parameters 
-Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate features  (Fig. \@ref(fig:chkGparams)). Last, we specify where we want to output the resulting tables, prefereably in an Installation Review geodatabase specifically for holding CIP processing results.  
+Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate features  (Fig. \@ref(fig:chkGparams)). Lastly, we specify where we want to output the resulting tables, prefereably in an Installation Review geodatabase specifically for holding CIP processing results.  
 ```{r chkGparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Check and/or Repair Geometries tool parameters",fig.align='center'}
 knitr::include_graphics("figures/chkG-params.jpg",auto_pdf = TRUE)
 ```

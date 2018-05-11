@@ -2,7 +2,7 @@
 
 
 ## Overview
-This tool provides an automated method to export metadata for each Feature Dataset and Feature Class (within Feature Datasets) in the input geodatabase, by exporting each item's metadata to an .xml file to an output directory, as specified. This tool allows you to specify a metadata translator. Within the scope of the Department of Defense Instruction (DoDI) 8130.01, it is recommended that you download and install the SDSFIE-M Metadata Style for ArcGIS from [The Spatial Data Standards for Facilities, Infrastructure, and Environment (SDSFIE) Metadata standard](https://www.sdsfieonline.org/Standards/Metadata). In this case, you would change the input the metadata translator to the ARCGIS2SDSFIE-M.xml^[Under standard Windows installations, this should be located at "C:/Program Files (x86)/ArcGIS/Desktop10.6/Metadata/Translator/ARCGIS2SDSFIE-M.xml".] provided with the SDSFIE-M Metadata Style for ArcGIS software.^[Be sure to install the software to the software path for your ArcGIS distribution currently installed to view this metadata style within ArcCatalog, for example: "C:/Program Files (x86)/ArcGIS/Desktop10.6/"]. 
+This tool provides an automated method to export metadata for each Feature Dataset and Feature Class (within Feature Datasets) in the input geodatabase, by exporting each item's metadata to an .xml file to an output directory, as specified. This tool allows you to specify a metadata translator. Within the scope of the Department of Defense Instruction (DoDI) 8130.01, it is recommended that you download and install the SDSFIE-M Metadata Style for ArcGIS from [The Spatial Data Standards for Facilities, Infrastructure, and Environment (SDSFIE) Metadata standard](https://www.sdsfieonline.org/Standards/Metadata). In this case, you would change the input the metadata translator to the ARCGIS2SDSFIE-M.xml^[Under standard Windows installations, this should be located at "C:/Program Files (x86)/ArcGIS/Desktop10.6/Metadata/Translator/ARCGIS2SDSFIE-M.xml".] provided with the SDSFIE-M Metadata Style for ArcGIS software.^[Be sure to install the software to the software path for your ArcGIS distribution currently installed to view this metadata style within ArcCatalog, for example: "C:/Program Files (x86)/ArcGIS/Desktop10.X/" 
 
 If the source metadata is a Feature Dataset, the output .xml file is named after the Feature Dataset. Alternatively, the output .xml metadata for Feature Classes are exported with the Feature Dataset name prepended before the Feature Class name.
 
@@ -12,7 +12,7 @@ These output .xml files can more easily be edited in batch using the [Batch Meta
 The tool has 3 parameters:  
 
 1. **Input Geodatabase (data type: Workspace/File Geodatabase)** - The input geodatabase to export Feature Dataset/Feature Class metadata from.
-2. **Metadata Translator  (data type: .XML file)** - The metadata translator to be used to create output .xml metadata files.
+2. **Metadata Translator  (data type: .XML file)** - The metadata translator to be used to create output .xml metadata files. These files are typically located at "C:/Program Files (x86)/ArcGIS/[Desktop10.x]/Metadata/Translator/. Please change according to your ArcGIS installation file path. 
 3. **Output Directory (data type: Folder)** - The folder within which to write output .xml metadata files.
 
 ## How to Use
