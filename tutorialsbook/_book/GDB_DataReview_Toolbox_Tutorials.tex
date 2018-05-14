@@ -23,7 +23,7 @@
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[left=4cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={GDB\_DataReview ArcMap Toolbox Tutorials},
@@ -86,14 +86,14 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2018-05-10}
+  \date{2018-05-14}
 
 \usepackage{booktabs}
 \usepackage{graphics}
 \usepackage{graphicx}
 \usepackage {hyperref}
 \hypersetup{linktocpage}
-\hypersetup {colorlinks = true,linkcolor = blue, urlcolor = blue}
+\hypersetup {colorlinks = true,linkcolor = blue, urlcolor = blue,citecolor=blue}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -111,10 +111,33 @@
 \usepackage[framemethod=default]{mdframed}
 \usepackage{fontspec}
 \usepackage[normalem]{ulem}
+
 \raggedbottom 
 \usepackage{makeidx}
 \makeindex
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[L]{Air Force Civil Engineering Center}
+\fancyfoot[R]{Geospatial Integration Office}
+\fancyhead[L]{}
+\renewcommand{\footrulewidth}{0.4pt}\usepackage{fancyhdr}
+
+
+
 \frontmatter
+
+
+\mainmatter
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[L]{Air Force Civil Engineering Center}
+\fancyfoot[R]{Geospatial Integration Office}
+\fancyhead[L]{}
+\renewcommand{\footrulewidth}{0.4pt}\usepackage{fancyhdr}
+
+
 
 \definecolor{shadecolor}{RGB}{248,248,248}
 
@@ -169,8 +192,6 @@
 \setcounter{tocdepth}{0}
 \tableofcontents
 }
-\mainmatter
-
 \chapter{Toolbox Overview}\label{overview}
 
 This document gives an overview of how to use the GDB\_DataReview ArcMap
@@ -991,7 +1012,7 @@ associated Feature Classes in the original geodatabase.
 
 \section{Overview}\label{overview-4}
 
-The Find Duplicate Features tool allows users to search an entire
+The Delete Duplicate Features tool allows users to search an entire
 geodatabase's Feature Classes for duplicated features This tool loops
 through each Feature Dataset's Feature Class features and searches for
 duplicate features, \textbf{not including geometry.} That is, this tool
@@ -1130,13 +1151,11 @@ The tool has 2 parameters:
   should be the path of the Installation Review Geodatabase to compile
   all CIP processing outputs in a single location.
 \item
-  \textbf{Output\_Geodatabase (data type: Workspace)} - This parameter
-  should be the path of the Installation Review Geodatabase to compile
-  all CIP processing outputs in a single location.
+  \textbf{Repair Geometries? (data type: Boolean)} - Do you want to
+  automatically repair geometries, where possible?
 \item
-  \textbf{Output\_Geodatabase (data type: Workspace)} - This parameter
-  should be the path of the Installation Review Geodatabase to compile
-  all CIP processing outputs in a single location.
+  \textbf{Delete Null Geometries? (data type: Boolean)} - Do you want to
+  automatically delete features that have null/empty geometries?
 \end{enumerate}
 
 \section{How to Use}\label{how-to-use-5}
@@ -1161,8 +1180,8 @@ Navigate to the location of the script toolbox, then right-click the
 
 Next, fill out the parameters for the tool. Here, we want to search all
 Feature Classes within Feature Datasets in the Example.gdb for duplicate
-features (Fig. \ref{fig:chkGparams}). Last, we specify where we want to
-output the resulting tables, prefereably in an Installation Review
+features (Fig. \ref{fig:chkGparams}). Lastly, we specify where we want
+to output the resulting tables, prefereably in an Installation Review
 geodatabase specifically for holding CIP processing results.\\
 
 \begin{figure}[H]
@@ -1849,11 +1868,10 @@ Metadata standard}. In this case, you would change the input the
 metadata translator to the ARCGIS2SDSFIE-M.xml\footnote{Under standard
   Windows installations, this should be located at ``C:/Program Files
   (x86)/ArcGIS/Desktop10.6/Metadata/Translator/ARCGIS2SDSFIE-M.xml''.}
-provided with the SDSFIE-M Metadata Style for ArcGIS software.\footnote{Be
-  sure to install the software to the software path for your ArcGIS
-  distribution currently installed to view this metadata style within
-  ArcCatalog, for example: ``C:/Program Files
-  (x86)/ArcGIS/Desktop10.6/''}.
+provided with the SDSFIE-M Metadata Style for ArcGIS software.\^{}{[}Be
+sure to install the software to the software path for your ArcGIS
+distribution currently installed to view this metadata style within
+ArcCatalog, for example: ``C:/Program Files (x86)/ArcGIS/Desktop10.X/''
 
 If the source metadata is a Feature Dataset, the output .xml file is
 named after the Feature Dataset. Alternatively, the output .xml metadata
@@ -1879,7 +1897,10 @@ The tool has 3 parameters:
   from.
 \item
   \textbf{Metadata Translator (data type: .XML file)} - The metadata
-  translator to be used to create output .xml metadata files.
+  translator to be used to create output .xml metadata files. These
+  files are typically located at ``C:/Program Files
+  (x86)/ArcGIS/{[}Desktop10.x{]}/Metadata/Translator/. Please change
+  according to your ArcGIS installation file path.
 \item
   \textbf{Output Directory (data type: Folder)} - The folder within
   which to write output .xml metadata files.
@@ -2197,6 +2218,40 @@ Desecription Help Page}.
 
 \caption{Opening the Item Description to view updated Metadata}\label{fig:imMetaArcafter}
 \end{figure}
+
+\chapter{Production Information}\label{prodInfo}
+
+This report was created using R \citep{R-base} with the following
+packages: bookdown \citep{R-bookdown}, knitr \citep{R-knitr}, rmarkdown
+\citep{R-rmarkdown}, and tinytex \citep{R-tinytex}. For posterity,
+package information is listed below:
+
+\begin{verbatim}
+## R version 3.4.1 (2017-06-30)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 16299)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252 
+## [2] LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252
+## [4] LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] tinytex_0.5    knitr_1.20     rmarkdown_1.8  bookdown_0.7.8
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.16    digest_0.6.15   rprojroot_1.3-2 backports_1.1.2
+##  [5] magrittr_1.5    evaluate_0.10.1 stringi_1.1.7   rstudioapi_0.7 
+##  [9] tools_3.4.1     stringr_1.3.0   jpeg_0.1-8      xfun_0.1       
+## [13] yaml_2.1.18     compiler_3.4.1  htmltools_0.3.6
+\end{verbatim}
 
 \bibliography{packages.bib}
 

@@ -13,11 +13,8 @@ link-citations: yes
 graphics: yes
 linestretch: 1.25
 classoption: openany
-geometry: "left=4cm, right=3cm, top=2.5cm, bottom=2.5cm"
 description: "How to use the ArcMap GDB_DataReview Toolbox."
 ---
-\mainmatter
-
 ```{r include=FALSE}
 library(bookdown)
 library(rmarkdown)
@@ -56,5 +53,6 @@ In order to access this toolbox, open ArcCatalog (or the ArcCatalog window withi
 ```{r opentoolbox, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Create Site Data tool",fig.align='center'}
 knitr::include_graphics("figures/opentoolbox.jpg",auto_pdf = TRUE)
 ```
+
 \pagebreak
 \printindex

@@ -34,7 +34,8 @@ The tool has 8 parameters:
     + *SHARE_A_LINE_SEGMENT_WITH* — The features in the input layer will be selected if they share a line segment with a selecting feature. The input and selecting features must be line or polygon.  
     + *CROSSED_BY_THE_OUTLINE_OF* — The features in the input layer will be selected if they are crossed by the outline of a selecting feature. The input and selecting features must be lines or polygons. If polygons are used for the input or selecting layer, the polygon's boundary (line) will be used. Lines that cross at a point will be selected, not lines that share a line segment.  
     + *HAVE_THEIR_CENTER_IN* — The features in the input layer will be selected if their center falls within a selecting feature. The center of the feature is calculated as follows: for polygon and multipoint, the geometry's centroid is used, and for line input, the geometry's midpoint is used.  
-7. **Search Distance (data type: String)** - If the overlap type parameter is equal to "WITHIN_A_DISTANCE_GEODESIC", "WITHIN_A_DISTANCE", "WITHIN_A_DISTANCE_3D", "INTERSECT", "INTERSECT_3D", "HAVE_THEIR_CENTER_IN", "CONTAINS", or "WITHIN", you must provide a search distance.
+7. **Search Distance (data type: String)** - You must provide a numeric value for the Search Distance parameter if f the overlap type parameter is equal to:
+"WITHIN_A_DISTANCE_GEODESIC", "WITHIN_A_DISTANCE", "WITHIN_A_DISTANCE_3D", "INTERSECT", "INTERSECT_3D", "HAVE_THEIR_CENTER_IN", "CONTAINS", or "WITHIN". 
 
 ## How to Use
 ### Begin by opening the toolbox  

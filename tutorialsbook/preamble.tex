@@ -3,7 +3,7 @@
 \usepackage{graphicx}
 \usepackage {hyperref}
 \hypersetup{linktocpage}
-\hypersetup {colorlinks = true,linkcolor = blue, urlcolor = blue}
+\hypersetup {colorlinks = true,linkcolor = blue, urlcolor = blue,citecolor=blue}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -21,10 +21,33 @@
 \usepackage[framemethod=default]{mdframed}
 \usepackage{fontspec}
 \usepackage[normalem]{ulem}
+
 \raggedbottom 
 \usepackage{makeidx}
 \makeindex
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[L]{Air Force Civil Engineering Center}
+\fancyfoot[R]{Geospatial Integration Office}
+\fancyhead[L]{}
+\renewcommand{\footrulewidth}{0.4pt}\usepackage{fancyhdr}
+
+
+
 \frontmatter
+
+
+\mainmatter
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[L]{Air Force Civil Engineering Center}
+\fancyfoot[R]{Geospatial Integration Office}
+\fancyhead[L]{}
+\renewcommand{\footrulewidth}{0.4pt}\usepackage{fancyhdr}
+
+
 
 \definecolor{shadecolor}{RGB}{248,248,248}
 
@@ -55,4 +78,3 @@
 \end{center}
 
 }
-

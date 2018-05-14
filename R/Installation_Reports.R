@@ -10,11 +10,12 @@ source("R/init.R")
 installationGDBs <- list.files(paste0(getwd(),"/gdbs-complete"),full.names = T,pattern=".gdb")
 targetGDBs <- list.files(paste0(getwd(),"/gdbs-target"),full.names = T)
 
-#installationGDBs <-installationGDBs[66:100]
+installationGDBs <-installationGDBs
 # then knit pdf reports in a loop with bookdown::pdf_document2
 
 library(bookdown)
 library(tinytex)
+library(yaml)
 for (installationGDB in installationGDBs){
   for (targetGDB in targetGDBs){
 
@@ -71,3 +72,6 @@ for (installationGDB in installationGDBs){
       
       }
 }
+
+
+

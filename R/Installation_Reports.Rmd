@@ -9,7 +9,10 @@ output:
     keep_md: true
     documentclass: report
     self_contained: true
-author: "Air Force Civic Engineering Center (AFCEC)"
+author:  
+- Air Force Civil Engineering Center (AFCEC)
+- Geospatial Integration Office (GIO)
+- Installation Geospatial Support (IGS)
 params: 
     set_title: "My Title!"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -119,7 +122,8 @@ The data utilized to produce this report may be found within `r installationName
 3. **`r Overview$InclFeatsEmpty` **: Total Number of Empty Feature Classes within included Feature Datasets  
 4. **`r Overview$TotalEmptyFieldsfromEmptyFC`** : Total Number of Empty Fields from Empty Feature Classes  
 5. **`r Overview$TotalEmptyFields`** : Total Number of Empty Fields from non-Empty Feature Classes   
-6. **`r round(mean(Summary_Pct_by_FC$DETERMINED_PCT[!is.na(Summary_Pct_by_FC$DETERMINED_PCT)])*100,digits=1)`%** : Average Percent of Determinant Data across included standard Feature Classes  
+6. `r formatC(sum(MissingData$TOTAL_DET_COUNT), format="d", big.mark=",")`/`r formatC(sum(MissingData$POP_VALS_COUNT), format="d", big.mark=",")` **(`r round(sum(MissingData$TOTAL_DET_COUNT) / (sum(MissingData$POP_VALS_COUNT))*100,digits=2)`%)**: Total number of cells are populated with determinant data (i.e.: **not** 'Null', 'TBD', or 'Other')
+
 7. `r formatC(sum(MissingData$TOTAL_INDT_COUNT), format="d", big.mark=",")`/`r formatC(sum(MissingData$POP_VALS_COUNT), format="d", big.mark=",")` **(`r round(sum(MissingData$TOTAL_INDT_COUNT) / (sum(MissingData$POP_VALS_COUNT))*100,digits=2)`%)**: Total number of cells are missing data (i.e.: 'Null', 'TBD', or 'Other')
 
     + `r formatC(sum(MissingData$NULL_FC_COUNT), format="d", big.mark=",")`/`r formatC(sum(MissingData$POP_VALS_COUNT), format="d", big.mark=",")` **(`r round(sum(MissingData$NULL_FC_COUNT) / (sum(MissingData$POP_VALS_COUNT))*100,digits=2)`%)**: Total number of cells are 'Null' data  
@@ -361,7 +365,7 @@ Determinant_Values_by_FC<-na.omit(Determinant_Values_by_FC)
 
 Within the standard Feature Dataset/Feature Class combinations included in `r installationName`'s geodatabase, the percentage of data populated with determinant values (i.e.: data **not** classified as 'Null', 'TBD', or 'Other') are recorded in Table \@ref(tab:cdetindtVal2) below by Feature Class.  
 
-The '`r Determinant_Values_by_FC[which.min(Determinant_Values_by_FC[,"PERCENT_DETERMINED_VALUES"]),"FC"]`' Feature class had the minimum data determined percentage of `r round(min(Determinant_Values_by_FC$PERCENT_DETERMINED_VALUES[!is.na(Determinant_Values_by_FC$PERCENT_DETERMINED_VALUES)])*100,digits=1)`%, while the '`r Determinant_Values_by_FC[which.max(Determinant_Values_by_FC[,"PERCENT_DETERMINED_VALUES"]),"FC"]`' Feature class had the maximum data determined percentage of `r round(max(Determinant_Values_by_FC$PERCENT_DETERMINED_VALUES[!is.na(Determinant_Values_by_FC$PERCENT_DETERMINED_VALUES)])*100,digits=1)`%. On average, not including empty, standard Feature Classes, `r round(mean(Summary_Pct_by_FC$DETERMINED_PCT[!is.na(Summary_Pct_by_FC$DETERMINED_PCT)])*100,digits=1)`% of values are populated with determinant data for `r installationName`'s geodatabase across standard Feature Classes included. This information is also found in `r installationName`'s geodatabase under the '`r compName`_Determinant_Values_by_FC' table. 
+The '`r Determinant_Values_by_FC[which.min(Determinant_Values_by_FC[,"PERCENT_DETERMINED_VALUES"]),"FC"]`' Feature class had the minimum data determined percentage of `r round(min(Determinant_Values_by_FC$PERCENT_DETERMINED_VALUES[!is.na(Determinant_Values_by_FC$PERCENT_DETERMINED_VALUES)])*100,digits=1)`%, while the '`r Determinant_Values_by_FC[which.max(Determinant_Values_by_FC[,"PERCENT_DETERMINED_VALUES"]),"FC"]`' Feature class had the maximum data determined percentage of `r round(max(Determinant_Values_by_FC$PERCENT_DETERMINED_VALUES[!is.na(Determinant_Values_by_FC$PERCENT_DETERMINED_VALUES)])*100,digits=1)`%. On average, not including empty, standard Feature Classes, `r round(mean(Summary_Pct_by_FC$DETERMINED_PCT[!is.na(Summary_Pct_by_FC$DETERMINED_PCT)])*100,digits=1)`% of values are populated with determinant data for `r installationName`'s geodatabase *when averaged across standard Feature Classes included*. This information is also found in `r installationName`'s geodatabase under the '`r compName`_Determinant_Values_by_FC' table. 
 
 
 
@@ -392,7 +396,13 @@ if (nrow(df) > 0 ){
 
 ```
 
+```{r cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE}
+# ggplot(data=df, aes(x=FDS, y=df[3])) +
+#   geom_bar(stat="identity", position="dodge") +
+#   theme(axis.text.x = element_text(angle = 90, hjust = 1))+ 
+#   labs(title="Percent of Determined Values by Feature Dataset",y="Values Determined (%)",x = "Feature Dataset")
 
+```
 
 ## Percent of Values 'Null', 'TBD' or 'Other' by Feature Class {#pctindtFC}
 
@@ -403,7 +413,7 @@ Within the standard Feature Dataset/Feature Class combinations included, the per
 
  
 
-For `r installationName`'s geodatabase, `r round(mean(Summary_Pct_by_FC$OTHER_PCT[!is.na(Summary_Pct_by_FC$OTHER_PCT)])*100,digits=1)`% of cells are populated with 'Other' values, `r round(mean(Summary_Pct_by_FC$TBD_PCT[!is.na(Summary_Pct_by_FC$TBD_PCT)])*100,digits=1)`% of cells are populated with values 'To be determined,' and `r round(mean(Summary_Pct_by_FC$NULL_PCT[!is.na(Summary_Pct_by_FC$NULL_PCT)])*100,digits=1)`% of cells are populated with 'Null' cells, when averaged across standard Feature Classes included in `r installationName`'s geodatabase.  This information is also found in `r installationName`'s geodatabase under the '`r compName`_Summary_Cell_Pct_by_FC' table. 
+For `r installationName`'s geodatabase, `r round(mean(Summary_Pct_by_FC$OTHER_PCT[!is.na(Summary_Pct_by_FC$OTHER_PCT)])*100,digits=1)`% of cells are populated with 'Other' values, `r round(mean(Summary_Pct_by_FC$TBD_PCT[!is.na(Summary_Pct_by_FC$TBD_PCT)])*100,digits=1)`% of cells are populated with values 'To be determined,' and `r round(mean(Summary_Pct_by_FC$NULL_PCT[!is.na(Summary_Pct_by_FC$NULL_PCT)])*100,digits=1)` of cells are populated with 'Null' cells, *when averaged across standard Feature Classes* included in `r installationName`'s geodatabase.  This information is also found in `r installationName`'s geodatabase under the '`r compName`_Summary_Cell_Pct_by_FC' table. 
 
 
 
@@ -433,9 +443,9 @@ if (nrow(df) > 0 ){
   kable_styling(latex_options = c( "hold_position"))  -> tb2
   tb2
 }
-
-
 ```
+
+
 
 
 ## 'Null' Value Counts {#nullCnt}

@@ -13,7 +13,7 @@ Install_And_Load <- function(Required_Packages)
   
   if(length(Remaining_Packages)) 
   {
-    install.packages(Remaining_Packages);
+    install.packages(Remaining_Packages,dependencies=TRUE);
   }
   for(package_name in Required_Packages)
   {
@@ -41,26 +41,45 @@ requiredPackages = c('packrat'
                      ,'digest'
                      ,'backports'
                      ,'devtools'
+                     ,'yaml'
 )
 
 Install_And_Load(requiredPackages)
 
 devtools::install_github('rstudio/rmarkdown')
-install_version("rmarkdown", version = 1.9)
-library(rmarkdown)
+#
+if (!require('rmarkdown', character.only=TRUE)) {
+  install_version("rmarkdown", version = 1.9)
+  library(rmarkdown)
+} else {
+  library(rmarkdown)
+}
 
-devtools::install_github('yihui/knitr',force=TRUE)
-library(knitr)
+if (!require('knitr', character.only=TRUE)) {
+  devtools::install_github("haozhu233/kableExtra")
+  library(knitr)
+} else {
+  library(knitr)
+}
 
-devtools::install_github("haozhu233/kableExtra")
-library(kableExtra)
+if (!require('kableExtra', character.only=TRUE)) {
+  install_version("kableExtra", version = 1.9)
+  library(kableExtra)
+} else {
+  library(kableExtra)
+}
 
-install_version("yaml", version = "2.1.14", repos = "http://cran.us.r-project.org")
-library(yaml)
+if (!require('rmarkdown', character.only=TRUE)) {
+  install_version("rmarkdown", version = 1.9)
+  library(rmarkdown)
+} else {
+  library(rmarkdown)
+}
 
-devtools::install_github('yihui/tinytex')
-library(tinytex)
-tinytex::install_tinytex()
-
-
+if (!require('tinytex', character.only=TRUE)) {
+  devtools::install_github('yihui/tinytex')
+  library(tinytex)
+} else {
+  library(tinytex)
+}
 
