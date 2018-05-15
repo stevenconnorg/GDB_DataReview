@@ -1,0 +1,83 @@
+# Summarise Indeterminant/Missing Data Tables {#summIndt}
+
+
+## Overview
+This tool takes the 4 tables created with the [Search for Missing and Indeterminant Data] tool and creates an outbook Excel Workbook which includes the following sheets:
+
+  1. **Summary_by_FC** - gives the counts and percentages of 'Other', 'Null', and 'TBD' cells by Feature Class, as well as the total counts and percentages of indeterminate (Other + Null + TBD) and determinate cells (not Other, Null, or TBD), 
+  2. **Summary_by_Field** - gives the same statistics as the Summary_by_FC sheet, but broken down further by Feature Class Fields,
+  3. **Empty Feature Classes** - gives the standard Feature Classes in the comparison geodatabase not included in the input geodatabase(i.e.: Feature Classes included in comparison geodatabases)
+  4. **Indeterminate_Overview**, gives :
+    * The total count of feature classes that are empty
+    * The total number of standard feature classes that are empty
+    * The source geodatabase installation name
+    * The total number of missing feature classes
+    * The total number of missing feature datasets
+    * The total number of empty fields from empty feature classes
+    * The total number of empty fields from non-empty feature classes. 
+
+
+## Parameters
+The inputs required for this tool to work are the 4 output tables created with the "Search for Indeterminate Data" script tool from one comparison geodatabase (**repeat:** ensure these are all from the same comparison geodatabase [i.e.: [comparison GDB] is the same across all four input tables]):
+
+1. **comparisonGDBname_MissingFDS Table (data type: GDB Table)** - The path to the MissingFDS table created with the [Search for Missing and Indeterminant Data] tool for one 'target' geodatabase.
+2. **comparisonGDBname_MissingFCs (data type: GDB Table)** - The path to the MissingFCs table created with the [Search for Missing and Indeterminant Data] tool for one 'target' geodatabase.
+3. **comparisonGDBname_MissingFields (data type: GDB Table)** - The path to the MissingFields table created with the [Search for Missing and Indeterminant Data] tool for one 'target' geodatabase.
+4. **comparisonGDBname_MissingData (data type: GDB Table)** - The path to the MissingData table created with the [Search for Missing and Indeterminant Data] tool for one 'target' geodatabase.
+5. **Output Excel File' (data type: .xlsx file)** - The path to the output Excel Workbook to save the summary sheets to.
+
+
+```{block2, type='warnh1'}
+Disclaimer!
+```
+```{block2, type='warnp'}
+This script tool requires a few non-standard ArcGIS 10.x Python modules: [numpy](http://www.numpy.org/) and  [pandas](https://pandas.pydata.org/). To install these modules for use in ArcGIS, you can download and install the modules using the commands "pip install pandas" and "pip install numpy." 
+
+To do this, follow these instructions:  
+
+1. Press the windows key on your keyboard
+2. Type "cmd" to open the command prompt window
+3. Set your working directory to the ArcGIS Python directory with the 'pip' command (e.g.: if you are running ArcMap10.6, input: "C:/Python27/ArcGIS10.6/Scripts")
+4. Type 'pip install numpy' and press enter, then type 'pip install pandas' and press enter. If all goes well, you will have these modules successfully installed for use in ArcGIS' Python distribution 
+
+```
+
+
+
+
+## How to Use
+### Begin by opening the toolbox  
+Navigate to the location of the script toolbox, then right-click the 'Summarise Indeterminant Data Tables' script tool to open (Fig. \@ref(fig:summIndtopen)).
+```{r summIndtopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Summarise Indeterminant Data Tables tool",fig.align = 'center'}
+knitr::include_graphics("figures/summIndt-open.jpg",auto_pdf = TRUE)
+```
+###  Fill out the parameters 
+Next, fill out the parameters for the tool. Here, we want to summarise the Indeterminant Data Tables created in the Example.gdb that was created when comparing against the CIP geodatabase. Again, be sure that these input tables all derive from the same target geodatabase!
+```{r summIndtparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Setting the parameters for the Summarise Indeterminant Data Tables tool ",fig.align = 'center'}
+knitr::include_graphics("figures/summIndt-toolparams.jpg",auto_pdf = TRUE)
+```
+## Run the Tool and View Results
+While we run the tool, we can see view the messages of the tool  (Fig. \@ref(fig:summIndtmessages)).
+```{r summIndtmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center'}
+knitr::include_graphics("figures/summIndt-messages.jpg",auto_pdf = TRUE)
+```
+After the tool has run, we can open the output Excel Workbook we specified to see the 4 output sheets : Summary_by_FC, Summary_by_Field, Empty Feature Classes, and Indeterminate_Overview (Fig. \@ref(fig:summIndtsheets)). 
+```{r summIndtsheets, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The output Excel Workbook sheets Summary by FC, Summary by Field, Empty Feature Classes, and Indeterminate Overview",fig.align = 'center'}
+knitr::include_graphics("figures/summIndt-sheets.jpg",auto_pdf = TRUE)
+```
+Viewing the Summary_by_FC sheets gives us a comprehensive overview of the counts and percentages of indeterminant Attribute Table cells by indeterminant data type (i.e.: Null, TBD, and Other) (Fig. \@ref(fig:summIndtsheet1)). 
+```{r summIndtsheet1, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The output Summary by Feature Class table",fig.align = 'center',out.width='80%'}
+knitr::include_graphics("figures/summIndt-sheet1.jpg",auto_pdf = TRUE)
+```
+The Summary_by_Field provides provides a breaks down of the Summary_by_FC table by field (Fig. \@ref(fig:summIndtsheet2)). 
+```{r summIndtsheet2, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The output Summary by Field table",fig.align = 'center',out.width='80%'}
+knitr::include_graphics("figures/summIndt-sheet2.jpg",auto_pdf = TRUE)
+```
+The Empty Feature Classes sheet provides a listing of the Feature Classes included in the Example.gdb that are empty, as well as the empty fields from those empty feature classes (Fig. \@ref(fig:summIndtsheet3)). 
+```{r summIndtsheet3, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The output Empty Feature Classes table",fig.align = 'center'}
+knitr::include_graphics("figures/summIndt-sheet3.jpg",auto_pdf = TRUE)
+```
+Lastly, the Indeterminate_Overview sheet provides a general overview of missing and indeterminant data at a geodatabase level (Fig. \@ref(fig:summIndtsheet4)). 
+```{r summIndtsheet4, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The output Indeterminate Overview table",fig.align = 'center'}
+knitr::include_graphics("figures/summIndt-sheet4.jpg",auto_pdf = TRUE)
+```

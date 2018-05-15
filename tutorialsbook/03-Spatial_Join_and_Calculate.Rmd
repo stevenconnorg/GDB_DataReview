@@ -1,0 +1,71 @@
+# Spatial Join and Calculate Field {#spatjoinCalc}
+## Overview
+This tool utilizes spatial joins to update field values in the target Feature Classes field to equal the source Feature Class fields in a source geodatabase. Using 'wildcard' fitlers, this tool allows users to update particular target Feature Datasets, Feature Classes, and Fields. For the purposes of this tool within the scope of the CIP Data Review task, target Fields are, by default, any fields that begin with "realPropertySiteUnique," in order to udpate RPSUID fields called either "realPropertySiteUniqueIdentifier" or "realPropertySiteUniqueID"; however, this tool could be extended to any number of source/target Feature Class/Field values.
+
+## Parameters
+The tool has 8 parameters:  
+
+1. **Update Geodatabase (data type: Workspace/File Geodatabase)** - The path to the input geodatabase to update Feature Classes in.
+
+2. **Source Feature  (data type: Feature Class)** - The path to the source Feature Class, which will be used to update Feature Class fields in target Feature Classes.
+
+3. **Source_Field (data type: Field)** - The field within the source Feature Class used to update values in target Feature Classes.
+
+4. **Target Feature Dataset Wildcard (data type: String)** -  Within the input geodatabase, do you want to update only certain Feature Datasets? Use this wildcard to filter input geodatabase Feature Datasets. The Default is '\*' for 'All Feature Datasets,' but if you only wanted to update the Feature Classes in the 'Auditory' Feature Dataset, set this parameter to 'Auditory.' Similarly, if you only wanted to update Feature Classes within environmental Feature Datasets, set this parameter to 'environmental*', which will loop through all Feature Classes within Feature Datasets that start with 'environmental.'
+
+5. **Target Feature Class Wildcard (data type: String)** - Within the input geodatabase, do you want to update only certain Feature Classes? Use this wildcard to filter input geodatabase Feature Classes to update. The Default is '\*' for 'All Feature Classes,' but if you only wanted to update Feature Classes called "roadCenterline_L", set this parameter to 'roadCenterline_L.' Similarly, if you only wanted to update Feature Classes that begin with "road," set this parameter to 'road*', which will loop through all Feature Classes that start with 'road.'
+
+6. **Target Field Wildcard (data type: String)** - This parameter is used to filter fields within the target Feature Classes that you want to update with the Source Feature Classes source Field. For the purposes of this tool within the scope of the CIP Data Review, this parameter is automatically set to "realPropertySiteUnique*" in order to 'catch' all RPSUID fields within the SDSFIE 3.101 data model, where certain fields are called "realPropertySiteUniqueIdentifier" and others are called "realPropertySiteUniqueID."
+  
+7. **Overlap Type (data type: String)** - How do you want to limit the spatial join? By default, this parameter is set to "within," in order to only update target features that are completely within the source features.  This parameter may be changed to any of the following values, as specified in the [SelectByLocation_management tool documentation](http://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/select-layer-by-location.htm): 
+    + *INTERSECT* —The features in the input layer will be selected if they intersect a selecting feature. This is the default.  
+    + *INTERSECT_3D* —The features in the input layer will be selected if they intersect a selecting feature in three-dimensional space (x, y, and z).  
+    + *WITHIN_A_DISTANCE* —The features in the input layer will be selected if they are within a specified distance of a selecting feature. Specify a distance in the Search Distance parameter.  
+    + *WITHIN_A_DISTANCE_3D* —The features in the input layer will be selected if they are within a specified distance of a selecting feature in three-dimensional space. Specify a distance in the Search Distance parameter.  
+    + *WITHIN_A_DISTANCE_GEODESIC* —The features in the input layer will be selected if they are within a specified distance of a selecting feature. Distance between features will be calculated using a geodesic method which takes into account the curvature of the earth and correctly deals with data near and across the dateline and poles.  
+    + *CONTAINS* —The features in the input layer will be selected if they contain a selecting feature.  
+    + *COMPLETELY_CONTAINS* —The features in the input layer will be selected if they completely contain a selecting feature.  
+    + *CONTAINS_CLEMENTINI* —This spatial relationship yields the same results as COMPLETELY_CONTAINS with the following exception: if the selecting feature is entirely on the boundary of the input feature (no part is properly inside or outside), the feature will not be selected. Clementini defines the boundary polygon as the line separating inside and outside, the boundary of a line is defined as its end points, and the boundary of a point is always empty.  
+    + *WITHIN* —The features in the input layer will be selected if they are within a selecting feature.  
+    + *COMPLETELY_WITHIN* — The features in the input layer will be selected if they are completely within or contained by a selecting feature.  
+    + *WITHIN_CLEMENTINI* — The result will be identical to WITHIN with the exception that if the entirety of the feature in the input layer is on the boundary of the feature in the selecting layer, the feature will not be selected. Clementini defines the boundary polygon as the line separating inside and outside, the boundary of a line is defined as its end points, and the boundary of a point is always empty.  
+    + *ARE_IDENTICAL_TO* — The features in the input layer will be selected if they are identical (in geometry) to a selecting feature.  
+    + *BOUNDARY_TOUCHES* — The features in the input layer will be selected if they have a boundary that touches a selecting feature. When the inputs features are lines or polygons, the boundary of the input feature can only touch the boundary of the selecting feature, and no part of the input feature can cross the boundary of the selecting feature.  
+    + *SHARE_A_LINE_SEGMENT_WITH* — The features in the input layer will be selected if they share a line segment with a selecting feature. The input and selecting features must be line or polygon.  
+    + *CROSSED_BY_THE_OUTLINE_OF* — The features in the input layer will be selected if they are crossed by the outline of a selecting feature. The input and selecting features must be lines or polygons. If polygons are used for the input or selecting layer, the polygon's boundary (line) will be used. Lines that cross at a point will be selected, not lines that share a line segment.  
+    + *HAVE_THEIR_CENTER_IN* — The features in the input layer will be selected if their center falls within a selecting feature. The center of the feature is calculated as follows: for polygon and multipoint, the geometry's centroid is used, and for line input, the geometry's midpoint is used.  
+7. **Search Distance (data type: String)** - You must provide a numeric value for the Search Distance parameter if f the overlap type parameter is equal to:
+"WITHIN_A_DISTANCE_GEODESIC", "WITHIN_A_DISTANCE", "WITHIN_A_DISTANCE_3D", "INTERSECT", "INTERSECT_3D", "HAVE_THEIR_CENTER_IN", "CONTAINS", or "WITHIN". 
+
+## How to Use
+### Begin by opening the toolbox  
+Navigate to the location of the script tool, then right-click the 'Calculate Feature RPSUIDs from Overlapping Polygon' script tool to open (Fig. \@ref(fig:sjcopentool)).
+
+```{r sjcopentool, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the toolbox",fig.align = 'right'}
+knitr::include_graphics("figures/spatjoinCalcopentool.jpg",auto_pdf = TRUE)
+```
+
+
+###  Fill out the parameters 
+For this demostration, we want to update missing RPSUID values for 2 features in the Site_P Feature Class using RPSUID values from Site_A features that contain Site_P features \@ref(fig:sjcbefore)).
+```{r sjcbefore, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Missing RPSUID attributes for Site Point features",fig.align='center'}
+knitr::include_graphics("figures/spatjoinCalc-before.jpg",auto_pdf = TRUE)
+```
+Next, fill out the parameters for the tool. Here, we want to transfer the RPSUID attributes (Source Field) from the Site_A Feature Class in the Cadastre Feature Dataset (Fig. \@ref(fig:sjcparams)).
+```{r sjcparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center'}
+knitr::include_graphics("figures/spatjoinCalc-toolparams.jpg",auto_pdf = TRUE)
+```
+Since we only want to update the Site_P features within the Cadastre Feature Dataset, we change the default value for the Target Feature Dataset Wildcard to "Cadastre," since we know that the Site_P Feature Class is only found within the Cadastre Feature Dataset. Further, we change the default value of the Target Feature Class Wildcard parameters to "Site_P" in order to only update Site_P features within the Cadastre Dataset. Since we know that the RPSUID field names within all Feature Classes in the data model begin with 'realPropertySiteUnique', we can keep the default value for the Target Field Wildcard parameter in order to update the realPropertySiteUniqueID field in Site_P features with with the Source Field in the Source Feature Class. 
+For the purposes of this demostration, we keep the default value for the Overlap Type parameter to "WITHIN," in order to update the fields that begin with "realPropertySiteUnique" for features that are *within* each Source Feature Class feature.
+You may also get more information for the tool and each tool parameter by clicking the 'Tool Help' button at the bottom of the tool dialog box.  
+
+## Run the Tool and View Results
+If running the tool with Background Processessing disabled, we can see which RPSUIDs are being updated (Fig. \@ref(fig:sjcmessages)).
+```{r sjcmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center'}
+knitr::include_graphics("figures/spatjoinCalc-toolmessages.jpg",auto_pdf = TRUE)
+```
+After the tool has run, we see that the 2 Site_P features with missing RPSUID values are updated accordingly \@ref(fig:sjcafter)).
+```{r sjcafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="AFter running the tool, new Site A feaures and new Site P features are created.",fig.align='center'}
+knitr::include_graphics("figures/spatjoinCalc-after.jpg",auto_pdf = TRUE)
+```
+

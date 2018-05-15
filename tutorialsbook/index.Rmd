@@ -26,7 +26,7 @@ options(tinytex.verbose = TRUE)
 options(knitr.graphics.auto_pdf = TRUE)
 knitr::opts_chunk$set(fig.pos = 'H')
 # automatically create a bib database for R packages
-knitr::write_bib((.packages()), 'packages.bib')
+#knitr::write_bib((.packages()), 'packages.bib')
 library(knitr)
 #opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
 opts_chunk$set(fig.retina=2,dpi=96,out.extra='')

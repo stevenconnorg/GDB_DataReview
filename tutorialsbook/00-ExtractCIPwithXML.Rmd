@@ -1,0 +1,35 @@
+# Extract CIP Geodatabase using XML Workspace Schema {#xCIP}
+
+## Overview
+This tool allows users to extract the Common Installation Picture (CIP) data with the proper schema from a source geodatabase. This tool uses an AFCEC GeoBase provided XML document to ensure the correct geodatabase schema is created.
+
+## Parameters
+The tool has 4 parameters:  
+
+1. **Source Geodatabase (data type: Workspace/File Geodatabase)** - The input geodatabase to extract CIP data from.
+2. **Output Geodatabase Name (data type: String)** - The name for the output geodatabase; exclude extension type.
+3. **Output location (data type: Folder)** - The location where the output geodatabase will be created.
+4. **Geodatabase XML Workspace Schema (Template Schema) (data type: File)** - This file is provided by AFCEC GeoBase and is located where the user chooses to save it.
+
+## How to Use
+### Begin by opening the toolbox  
+Navigate to the location of the script toolbox, then right-click the 'Extract CIP with XML' script tool to open (Fig. \@ref(fig:xCIPopen)).
+```{r xCIPopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Extract CIP Geodatabase using XML Workspace Schema tool",fig.align = 'center'}
+knitr::include_graphics("figures/xCIP-open.jpg",auto_pdf = TRUE)
+```
+###  Fill out the parameters 
+Next, fill out the parameters for the tool. Here, we are using a source geodatabase which contains an installations full dataset. Next, we state the name of the output geodatabase containing the CIP data and where we want that geodatabase to be saved.  Lastly, we point to the location where we saved the provided XML document  (Fig. \@ref(fig:xCIPparams)).
+```{r xCIPparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Extract CIP Geodatabase using XML Workspace Schema tool parameters",fig.align = 'center'}
+knitr::include_graphics("figures/xCIP-params.jpg",auto_pdf = TRUE)
+```
+## Run the Tool and View Results
+While the tool runs, we can see which feature dataset and feature classes are being processed, number of features being appended to the corresponding feature class in the new geodatabase, if a feature class is empty, and if the Real Property unique identifier field is properly named in the source data (Fig. \@ref(fig:xCIPmessages)). 
+```{r xCIPmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Extract CIP Geodatabase using XML Workspace Schema tool messages",fig.align = 'center'}
+knitr::include_graphics("figures/xCIP-messages.jpg",auto_pdf = TRUE)
+```
+
+After running the tool, the new CIP geodatabase is available for use in the location where it was saved (i.e.: [Output location] / [Output name]).
+
+```{r xCIPafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Viewing the extracted CIP features in the output geodatabase",fig.align = 'center'}
+# knitr::include_graphics("figures/xCIP-after.jpg",auto_pdf = TRUE)
+```

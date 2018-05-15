@@ -1,5 +1,12 @@
 # Production Information {#prodInfo}
-This report was created using R [@R-base] with the following packages: bookdown [@R-bookdown], knitr [@R-knitr], rmarkdown [@R-rmarkdown], and tinytex [@R-tinytex].   For posterity, package information is listed below:   
+This report was created using R [@R-base] and RStudio [@Rstudio] with the following packages: 
+
+- bookdown [@R-bookdown]
+- knitr [@R-knitr]
+- rmarkdown [@R-rmarkdown]
+- tinytex [@R-tinytex]
+
+For posterity, package information is listed below:   
 ```{r,cache=FALSE,eval=TRUE, echo=FALSE,error=FALSE,warning=FALSE}
 sessionInfo()
 

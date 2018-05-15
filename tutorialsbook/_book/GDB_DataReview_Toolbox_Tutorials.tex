@@ -86,7 +86,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2018-05-14}
+  \date{2018-05-15}
 
 \usepackage{booktabs}
 \usepackage{graphics}
@@ -261,11 +261,98 @@ tools within it (Fig. \ref{fig:opentoolbox}).
 \pagebreak
 \printindex
 
-\chapter{Create Site Data}\label{siteData}
+\chapter{Extract CIP Geodatabase using XML Workspace Schema}\label{xCIP}
 
 \section{Overview}\label{overview}
 
-The Create Site Data tool allows users to use the Cadastre dataset's
+This tool allows users to extract the Common Installation Picture (CIP)
+data with the proper schema from a source geodatabase. This tool uses an
+AFCEC GeoBase provided XML document to ensure the correct geodatabase
+schema is created.
+
+\section{Parameters}\label{parameters}
+
+The tool has 4 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Source Geodatabase (data type: Workspace/File Geodatabase)} -
+  The input geodatabase to extract CIP data from.
+\item
+  \textbf{Output Geodatabase Name (data type: String)} - The name for
+  the output geodatabase; exclude extension type.
+\item
+  \textbf{Output location (data type: Folder)} - The location where the
+  output geodatabase will be created.
+\item
+  \textbf{Geodatabase XML Workspace Schema (Template Schema) (data type:
+  File)} - This file is provided by AFCEC GeoBase and is located where
+  the user chooses to save it.
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox}
+
+Navigate to the location of the script toolbox, then right-click the
+`Extract CIP with XML' script tool to open (Fig. \ref{fig:xCIPopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1.69in,]{figures/xCIP-open} 
+
+}
+
+\caption{Opening the Extract CIP Geodatabase using XML Workspace Schema tool}\label{fig:xCIPopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters}
+
+Next, fill out the parameters for the tool. Here, we are using a source
+geodatabase which contains an installations full dataset. Next, we state
+the name of the output geodatabase containing the CIP data and where we
+want that geodatabase to be saved. Lastly, we point to the location
+where we saved the provided XML document (Fig. \ref{fig:xCIPparams}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=4.19in,]{figures/xCIP-params} 
+
+}
+
+\caption{Extract CIP Geodatabase using XML Workspace Schema tool parameters}\label{fig:xCIPparams}
+\end{figure}
+
+\section{Run the Tool and View
+Results}\label{run-the-tool-and-view-results}
+
+While the tool runs, we can see which feature dataset and feature
+classes are being processed, number of features being appended to the
+corresponding feature class in the new geodatabase, if a feature class
+is empty, and if the Real Property unique identifier field is properly
+named in the source data (Fig. \ref{fig:xCIPmessages}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=5.07in,]{figures/xCIP-messages} 
+
+}
+
+\caption{Extract CIP Geodatabase using XML Workspace Schema tool messages}\label{fig:xCIPmessages}
+\end{figure}
+
+After running the tool, the new CIP geodatabase is available for use in
+the location where it was saved (i.e.: {[}Output location{]} / {[}Output
+name{]}).
+
+\chapter{Create Site Features}\label{siteData}
+
+\section{Overview}\label{overview-1}
+
+The Create Site Features tool allows users to use the Cadastre dataset's
 Installation\_A, Site\_A, and Site\_P feature classes to populate and
 update site data as needed.
 
@@ -279,7 +366,7 @@ Installation\_A and Site\_A. When bypassed, no features are added to
 Site\_A and site points are created using data that already exists in
 Site\_A.
 
-\section{Parameters}\label{parameters}
+\section{Parameters}\label{parameters-1}
 
 The tool has 3 parameters:
 
@@ -366,13 +453,13 @@ The tool has 3 parameters:
   \end{itemize}
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use}
+\section{How to Use}\label{how-to-use-1}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox}
+toolbox}\label{begin-by-opening-the-toolbox-1}
 
 Navigate to the location of the script toolbox, then right-click the
-`Create Site Data' script tool to open (Fig. \ref{fig:csdopen}).
+`Create Site Features' script tool to open (Fig. \ref{fig:csdopen}).
 
 \begin{figure}[H]
 
@@ -380,10 +467,10 @@ Navigate to the location of the script toolbox, then right-click the
 
 }
 
-\caption{Opening the Create Site Data tool}\label{fig:csdopen}
+\caption{Opening the Create Site Features tool}\label{fig:csdopen}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-1}
 
 Next, fill out the parameters for the tool. Here, we want to select the
 Cadastre feature dataset for the geodatabase being processed. (Fig.
@@ -397,11 +484,11 @@ specifically for holding CIP processing results.\\
 
 }
 
-\caption{Create Site Data Tool parameters}\label{fig:csdparams}
+\caption{Create Site Features Tool parameters}\label{fig:csdparams}
 \end{figure}
 
 \subsection{Run the Tool and View
-Results}\label{run-the-tool-and-view-results}
+Results}\label{run-the-tool-and-view-results-1}
 
 While the tool runs (with Background Processing disabled), we can see
 messages and warnings from the tool. Warnings are provided if required
@@ -418,7 +505,7 @@ Then, 8 site points were created for the empty Site\_P feature class.
 
 }
 
-\caption{Create Site Data tool messages}\label{fig:csdmessages}
+\caption{Create Site Features tool messages}\label{fig:csdmessages}
 \end{figure}
 
 After running the tool, we can see the Site\_P and Site\_A features are
@@ -444,7 +531,7 @@ Fig. \ref{fig:csdafter}).
 \hypertarget{joinCalc}{\chapter{Join Fields and
 Calculate}\label{joinCalc}}
 
-\section{Overview}\label{overview-1}
+\section{Overview}\label{overview-2}
 
 The ArcGIS Python Script Tool ``Join Fields and Calculate'' may be used
 to update the destination values in a target feature layer field with
@@ -453,9 +540,9 @@ script will perform similarly as if you joined a table to a feature
 class to calculate a certain field based on another field in the joined
 table.
 
-\section{Parameters}\label{parameters-1}
+\section{Parameters}\label{parameters-2}
 
-The tool has 8 parameters:
+The tool has 11 parameters:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -495,9 +582,13 @@ The tool has 8 parameters:
   values be filtered? Default is ``IS NOT NULL'', otherwise you will
   overwrite the target features will null values.
 \item
-  \textbf{Remove\_Leading\_Zeros (data type: Boolean)} - Do you want to
+  \textbf{Remove\_Leading\_Zeros? (data type: Boolean)} - Do you want to
   remove leading zeros from the Source Join Field prior to `joining' the
   tables?
+\item
+  \textbf{Remove\_Blank\_Spaces? (data type: Boolean)} - Do you want to
+  remove leading blank spaces from the Source Join Field prior to
+  `joining' the tables?
 \item
   \textbf{Source RPSUID Field (data type: Field)} - Which field in the
   source table holds the Real Property Site Unique ID values? This field
@@ -511,10 +602,10 @@ The tool has 8 parameters:
   RPSUID).
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-1}
+\section{How to Use}\label{how-to-use-2}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-1}
+toolbox}\label{begin-by-opening-the-toolbox-2}
 
 Navigate to the location of the script tool, then right-click the `Join
 Fields and Calculate' script tool to open (Fig. \ref{fig:jcopen}).
@@ -528,7 +619,7 @@ Fields and Calculate' script tool to open (Fig. \ref{fig:jcopen}).
 \caption{Opening the Tool}\label{fig:jcopen}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-1}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-2}
 
 Next, fill out the parameters for the tool. Here, we want to transfer
 the RPUID attributes (source field) from the `RPSUID\_and\_RPUID.csv'
@@ -574,7 +665,7 @@ You may also get more information for the tool and each tool parameter
 by clicking the `Tool Help' button at the bottom of the tool dialog box.
 
 \subsection{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-1}
+Results}\label{run-the-tool-and-view-results-2}
 
 Open the destinate Feature Class and view the update destination field
 values (Fig. \ref{fig:jcbefore}, Fig. \ref{fig:jcafter}).
@@ -597,10 +688,10 @@ values (Fig. \ref{fig:jcbefore}, Fig. \ref{fig:jcafter}).
 \caption{Attributes after running the tool, matching against both Building Number and RPSUID to update RPUID values}\label{fig:jcafter}
 \end{figure}
 
-\hypertarget{spatjoinCalc}{\chapter{Spatial Join and
-Calculate}\label{spatjoinCalc}}
+\hypertarget{spatjoinCalc}{\chapter{Spatial Join and Calculate
+Field}\label{spatjoinCalc}}
 
-\section{Overview}\label{overview-2}
+\section{Overview}\label{overview-3}
 
 This tool utilizes spatial joins to update field values in the target
 Feature Classes field to equal the source Feature Class fields in a
@@ -613,7 +704,7 @@ either ``realPropertySiteUniqueIdentifier'' or
 ``realPropertySiteUniqueID''; however, this tool could be extended to
 any number of source/target Feature Class/Field values.
 
-\section{Parameters}\label{parameters-2}
+\section{Parameters}\label{parameters-3}
 
 The tool has 8 parameters:
 
@@ -752,17 +843,18 @@ The tool has 8 parameters:
     geometry's midpoint is used.\\
   \end{itemize}
 \item
-  \textbf{Search Distance (data type: String)} - If the overlap type
-  parameter is equal to ``WITHIN\_A\_DISTANCE\_GEODESIC'',
+  \textbf{Search Distance (data type: String)} - You must provide a
+  numeric value for the Search Distance parameter if f the overlap type
+  parameter is equal to: ``WITHIN\_A\_DISTANCE\_GEODESIC'',
   ``WITHIN\_A\_DISTANCE'', ``WITHIN\_A\_DISTANCE\_3D'', ``INTERSECT'',
   ``INTERSECT\_3D'', ``HAVE\_THEIR\_CENTER\_IN'', ``CONTAINS'', or
-  ``WITHIN'', you must provide a search distance.
+  ``WITHIN''.
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-2}
+\section{How to Use}\label{how-to-use-3}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-2}
+toolbox}\label{begin-by-opening-the-toolbox-3}
 
 Navigate to the location of the script tool, then right-click the
 `Calculate Feature RPSUIDs from Overlapping Polygon' script tool to open
@@ -775,7 +867,7 @@ Navigate to the location of the script tool, then right-click the
 \caption{Opening the toolbox}\label{fig:sjcopentool}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-2}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-3}
 
 For this demostration, we want to update missing RPSUID values for 2
 features in the Site\_P Feature Class using RPSUID values from Site\_A
@@ -822,7 +914,7 @@ tool and each tool parameter by clicking the `Tool Help' button at the
 bottom of the tool dialog box.
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-2}
+Results}\label{run-the-tool-and-view-results-3}
 
 If running the tool with Background Processessing disabled, we can see
 which RPSUIDs are being updated (Fig. \ref{fig:sjcmessages}).
@@ -848,11 +940,12 @@ RPSUID values are updated accordingly \ref{fig:sjcafter}).
 \caption{AFter running the tool, new Site A feaures and new Site P features are created.}\label{fig:sjcafter}
 \end{figure}
 
-\hypertarget{dupGeom}{\chapter{Find Duplicate Geometry}\label{dupGeom}}
+\hypertarget{dupGeom}{\chapter{Find Duplicate
+Geometries}\label{dupGeom}}
 
-\section{Overview}\label{overview-3}
+\section{Overview}\label{overview-4}
 
-The Find Duplicate Geometry tool allows users to search an entire
+The Find Duplicate Geometries tool allows users to search an entire
 geodatabase's Feature Classes within Feature Datasets for features with
 duplicate geometries. This tool loops through each Feature Dataset's
 Feature Class features and searches for duplicate geometries.
@@ -867,7 +960,7 @@ geodatabase directory from a temporary, filtered layer of only duplicate
 features to be evaluated further, instead of arbitrarily deleting
 duplicated features without further consideration.}
 
-\section{Parameters}\label{parameters-3}
+\section{Parameters}\label{parameters-4}
 
 The tool has 5 parameters:
 
@@ -898,13 +991,14 @@ The tool has 5 parameters:
   the directory/folder to store layer files with duplicate geometries.
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-3}
+\section{How to Use}\label{how-to-use-4}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-3}
+toolbox}\label{begin-by-opening-the-toolbox-4}
 
 Navigate to the location of the script toolbox, then right-click the
-`Find Duplicate Geometry' script tool to open (Fig. \ref{fig:dupGopen}).
+`Find Duplicate Geometries' script tool to open (Fig.
+\ref{fig:dupGopen}).
 
 \begin{figure}[H]
 
@@ -915,7 +1009,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening the Find Duplicate Geometries tool}\label{fig:dupGopen}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-3}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-4}
 
 Next, fill out the parameters for the tool. Here, we want to search all
 Feature Classes within Feature Datasets in the Example.gdb for duplicate
@@ -936,7 +1030,7 @@ Feature Class feature layers to be saved to the Output Layers Directory
 \end{figure}
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-3}
+Results}\label{run-the-tool-and-view-results-4}
 
 While the tool runs (with Background Processing disabled), we can see
 the messages from the tool, showing how many duplicate features are
@@ -1006,112 +1100,6 @@ associated Feature Classes in the original geodatabase.
 }
 
 \caption{Examining the attributes of duplicated features from layer files}\label{fig:layAtts}
-\end{figure}
-
-\chapter{Delete Duplicate Features}\label{delFeats}
-
-\section{Overview}\label{overview-4}
-
-The Delete Duplicate Features tool allows users to search an entire
-geodatabase's Feature Classes for duplicated features This tool loops
-through each Feature Dataset's Feature Class features and searches for
-duplicate features, \textbf{not including geometry.} That is, this tool
-searches for features within each feature class that have the same
-attributes across all fields in the attribute table, not including the
-fields listed below in the `Note' section.
-
-\BeginKnitrBlock{warnh1}
-Note
-\EndKnitrBlock{warnh1} \BeginKnitrBlock{warnp}
-
-By default, this tool does not consider compare attributes in across any
-fields that are `OID', `Guid', `GlobalID', `Blob', or `Raster' field
-types. Furthmore, the following fields are ignored in searching for
-duplicate features, by default (not case sensitive):
-`LAST\_EDITED\_DATE', `LAST\_EDITED\_USER', `CREATED\_USER',
-`CREATED\_DATE'. As stated previously, this tool does not include
-geometries in the feature comparisons by default.
-\EndKnitrBlock{warnp}
-
-\section{Parameters}\label{parameters-4}
-
-The tool has 3 parameters:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Input\_Geodatabase (data type: Workspace)} - This parameter
-  must be the path of the input geodatabase to search Feature Datasets'
-  Feature Class features for duplicate features.
-\item
-  \textbf{XY\_Tolerance (data type: String)} - The XY\_Tolerance
-  parameter will be applied to each vertex when evaluating if there is
-  an identical vertex in another entity, and must be input in the same
-  units as the the source geodatabase's coordinate reference system
-  (CRS).
-\item
-  \textbf{Z\_Tolerance (data type: String)} - The Z\_Tolerance parameter
-  will be applied to each vertex when evaluating if there is an
-  identical vertex in another entity with regard to elevation, and must
-  be input in the same units as the the source geodatabase's coordinate
-  reference system (CRS).
-\end{enumerate}
-
-\section{How to Use}\label{how-to-use-4}
-
-\subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-4}
-
-Navigate to the location of the script toolbox, then right-click the
-`Delete Duplicate Features' script tool to open (Fig.
-\ref{fig:delFopen}).
-
-\begin{figure}[H]
-
-{\centering \includegraphics[width=2.09in,]{figures/delF-opentool} 
-
-}
-
-\caption{Opening the Delete Duplicate Features tool}\label{fig:delFopen}
-\end{figure}
-
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-4}
-
-Next, fill out the parameters for the tool. Here, we want to search all
-Feature Classes within Feature Datasets in the Example.gdb for duplicate
-features (Fig. \ref{fig:delFparams}). We specify that we want to keep
-the default XY Tolerance and Z Tolerance parameters to zero, though this
-could be increased to allow duplicate geometry checks to be more
-lenient.
-
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.8\linewidth,]{figures/delF-params} 
-
-}
-
-\caption{Delete Duplicate Features parameters}\label{fig:delFparams}
-\end{figure}
-
-\subsection{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-4}
-
-While the tool runs (with Background Processing disabled), we can see
-the messages from the tool, which displays how many duplicate features
-will be deleted across each feature class, if applicable (Fig.
-\ref{fig:delFmessages}). Here, we see that 102 duplicates were found in
-the MilFlightTrack\_L feature class across 51 unique features,
-indicating that each of the 51 features may have been duplicated once
-(51 x 2 = 102).
-
-\begin{figure}[H]
-
-{\centering \includegraphics[width=3.86in,]{figures/delF-messages} 
-
-}
-
-\caption{Delete Duplicate Features messages}\label{fig:delFmessages}
 \end{figure}
 
 \hypertarget{chkGeom}{\chapter{Check and/or Repair
@@ -1228,10 +1216,116 @@ problems were found (Fig. \ref{fig:chkGafter}).
 \caption{Output table of duplicate geometries found for each Feature Class, with the re-run showing that all geometries have been fixed.}\label{fig:chkGafter}
 \end{figure}
 
+\chapter{Delete Duplicate Features}\label{delFeats}
+
+\section{Overview}\label{overview-6}
+
+The Delete Duplicate Features tool allows users to search an entire
+geodatabase's Feature Classes for duplicated features This tool loops
+through each Feature Dataset's Feature Class features and searches for
+duplicate features, \textbf{not including geometry.} That is, this tool
+searches for features within each feature class that have the same
+attributes across all fields in the attribute table, not including the
+fields listed below in the `Note' section.
+
+\BeginKnitrBlock{warnh1}
+Note
+\EndKnitrBlock{warnh1} \BeginKnitrBlock{warnp}
+
+By default, this tool does not consider compare attributes in across any
+fields that are `OID', `Guid', `GlobalID', `Blob', or `Raster' field
+types. Furthmore, the following fields are ignored in searching for
+duplicate features, by default (not case sensitive):
+`LAST\_EDITED\_DATE', `LAST\_EDITED\_USER', `CREATED\_USER',
+`CREATED\_DATE'. As stated previously, this tool does not include
+geometries in the feature comparisons by default.
+\EndKnitrBlock{warnp}
+
+\section{Parameters}\label{parameters-6}
+
+The tool has 3 parameters:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Input\_Geodatabase (data type: Workspace)} - This parameter
+  must be the path of the input geodatabase to search Feature Datasets'
+  Feature Class features for duplicate features.
+\item
+  \textbf{XY\_Tolerance (data type: String)} - The XY\_Tolerance
+  parameter will be applied to each vertex when evaluating if there is
+  an identical vertex in another entity, and must be input in the same
+  units as the the source geodatabase's coordinate reference system
+  (CRS).
+\item
+  \textbf{Z\_Tolerance (data type: String)} - The Z\_Tolerance parameter
+  will be applied to each vertex when evaluating if there is an
+  identical vertex in another entity with regard to elevation, and must
+  be input in the same units as the the source geodatabase's coordinate
+  reference system (CRS).
+\end{enumerate}
+
+\section{How to Use}\label{how-to-use-6}
+
+\subsection{Begin by opening the
+toolbox}\label{begin-by-opening-the-toolbox-6}
+
+Navigate to the location of the script toolbox, then right-click the
+`Delete Duplicate Features' script tool to open (Fig.
+\ref{fig:delFopen}).
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=2.09in,]{figures/delF-opentool} 
+
+}
+
+\caption{Opening the Delete Duplicate Features tool}\label{fig:delFopen}
+\end{figure}
+
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-6}
+
+Next, fill out the parameters for the tool. Here, we want to search all
+Feature Classes within Feature Datasets in the Example.gdb for duplicate
+features (Fig. \ref{fig:delFparams}). We specify that we want to keep
+the default XY Tolerance and Z Tolerance parameters to zero, though this
+could be increased to allow duplicate geometry checks to be more
+lenient.
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.8\linewidth,]{figures/delF-params} 
+
+}
+
+\caption{Delete Duplicate Features parameters}\label{fig:delFparams}
+\end{figure}
+
+\subsection{Run the Tool and View
+Results}\label{run-the-tool-and-view-results-6}
+
+While the tool runs (with Background Processing disabled), we can see
+the messages from the tool, which displays how many duplicate features
+will be deleted across each feature class, if applicable (Fig.
+\ref{fig:delFmessages}). Here, we see that 102 duplicates were found in
+the MilFlightTrack\_L feature class across 51 unique features,
+indicating that each of the 51 features may have been duplicated once
+(51 x 2 = 102).
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=3.86in,]{figures/delF-messages} 
+
+}
+
+\caption{Delete Duplicate Features messages}\label{fig:delFmessages}
+\end{figure}
+
 \hypertarget{stdAdd1}{\chapter{Standardize 1 Address
 Field}\label{stdAdd1}}
 
-\section{Overview}\label{overview-6}
+\section{Overview}\label{overview-7}
 
 The Standardize Address Field tool allows users to standardize 1 address
 field in a feature class. This tool works by searching the address field
@@ -1242,7 +1336,7 @@ Street) are reformatted to
 \href{https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv}{standard
 USPS suffixes}.
 
-\section{Parameters}\label{parameters-6}
+\section{Parameters}\label{parameters-7}
 
 The tool has 2 parameters:
 
@@ -1257,10 +1351,10 @@ The tool has 2 parameters:
   Class to be standardized.
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-6}
+\section{How to Use}\label{how-to-use-7}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-6}
+toolbox}\label{begin-by-opening-the-toolbox-7}
 
 Navigate to the location of the script toolbox, then right-click the
 `Standardize 1 Address Field' script tool to open (Fig.
@@ -1275,7 +1369,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening the Standardize Address Field tool}\label{fig:std1open}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-6}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-7}
 
 Next, fill out the parameters for the tool. Here, we want to update the
 buildingAddress field in the Building\_A Feature Class in the
@@ -1299,7 +1393,7 @@ standardized addresses in the field (Fig. \ref{fig:std1before}).
 \end{figure}
 
 \subsection{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-6}
+Results}\label{run-the-tool-and-view-results-7}
 
 After the tool has run, we can see that the building address values have
 been appropriately standardized (Fig. \ref{fig:std1after}).
@@ -1313,10 +1407,10 @@ been appropriately standardized (Fig. \ref{fig:std1after}).
 \caption{The standardized address field attributes after running the tool.}\label{fig:std1after}
 \end{figure}
 
-\hypertarget{std3}{\chapter{Standardized Road Prefix, Name, and
-Suffix}\label{std3}}
+\hypertarget{std3}{\chapter{Standardize Road Prefix, Name, and Suffix
+Fields}\label{std3}}
 
-\section{Overview}\label{overview-7}
+\section{Overview}\label{overview-8}
 
 The purpose of this tool is to standardize the 3 field (road prefix,
 road name, and road suffix) values within a feature class. This tool
@@ -1328,7 +1422,7 @@ found, the suffixes are reformatted to
 \href{https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv}{standard
 USPS suffixes}.
 
-\section{Parameters}\label{parameters-7}
+\section{Parameters}\label{parameters-8}
 
 The tool has 4 parameters:
 
@@ -1350,10 +1444,10 @@ The tool has 4 parameters:
   feature class that has or should have road suffixes.
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-7}
+\section{How to Use}\label{how-to-use-8}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-7}
+toolbox}\label{begin-by-opening-the-toolbox-8}
 
 Navigate to the location of the script toolbox, then right-click the
 `Standardize 3 Address Fields' script tool to open (Fig.
@@ -1368,7 +1462,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening Standardize Road Prefix, Name, and Suffix tool}\label{fig:std3open}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-7}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-8}
 
 Next, fill out the parameters for the tool. Here, we want to update the
 road prefix, road name, and road suffix fields in the RoadCenterline\_L
@@ -1385,7 +1479,7 @@ directly from the Feature Class by using the drop-down menu.
 \end{figure}
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-7}
+Results}\label{run-the-tool-and-view-results-8}
 
 Before running the tool, we see that, indeed, the road prefixes and road
 suffixes are incorrectly populated inside the road name field Open the
@@ -1417,7 +1511,7 @@ match USPS standards (Fig. \ref{fig:std3after}).
 \hypertarget{indtSearch}{\chapter{Search for Missing and Indeterminant
 Data}\label{indtSearch}}
 
-\section{Overview}\label{overview-8}
+\section{Overview}\label{overview-9}
 
 Search a `source' geodatabase for indeterminate data from feature
 dataset/feature class combinations in a target geodatabase. First,
@@ -1488,7 +1582,7 @@ CIP\_MissingFields, and CIP\_MissingData). These tables include:
   \end{itemize}
 \end{itemize}
 
-\section{Parameters}\label{parameters-8}
+\section{Parameters}\label{parameters-9}
 
 The tool has 2 parameters:
 
@@ -1512,10 +1606,10 @@ Disclaimer!
 This script tool currently requires an Advanced ArcGIS License!
 \EndKnitrBlock{warnp}
 
-\section{How to Use}\label{how-to-use-8}
+\section{How to Use}\label{how-to-use-9}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-8}
+toolbox}\label{begin-by-opening-the-toolbox-9}
 
 Navigate to the location of the script toolbox, then right-click the
 `Search for Indeterminant Data' script tool to open (Fig.
@@ -1530,7 +1624,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening the Search for Missing and Indeterminant Data tool}\label{fig:indtSearchopen}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-8}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-9}
 
 Next, fill out the parameters for the tool. Here, we want to compare the
 `Example.gdb' against the `CIP.gdb' (Fig. \ref{fig:indtSearchparams}).
@@ -1547,7 +1641,7 @@ drop-down menu.
 \end{figure}
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-8}
+Results}\label{run-the-tool-and-view-results-9}
 
 While we run the tool, we can see view the messages of the tool, giving
 a listing of the fields being searched for indeterminant data with the
@@ -1625,7 +1719,7 @@ MissingData table \ref{fig:indtSearchmissingData}).
 \hypertarget{summIndt}{\chapter{Summarise Indeterminant/Missing Data
 Tables}\label{summIndt}}
 
-\section{Overview}\label{overview-9}
+\section{Overview}\label{overview-10}
 
 This tool takes the 4 tables created with the
 \protect\hyperlink{indtSearch}{Search for Missing and Indeterminant
@@ -1670,7 +1764,7 @@ following sheets:
   \end{itemize}
 \end{enumerate}
 
-\section{Parameters}\label{parameters-9}
+\section{Parameters}\label{parameters-10}
 
 The inputs required for this tool to work are the 4 output tables
 created with the ``Search for Indeterminate Data'' script tool from one
@@ -1736,10 +1830,10 @@ To do this, follow these instructions:
 \end{enumerate}
 \EndKnitrBlock{warnp}
 
-\section{How to Use}\label{how-to-use-9}
+\section{How to Use}\label{how-to-use-10}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-9}
+toolbox}\label{begin-by-opening-the-toolbox-10}
 
 Navigate to the location of the script toolbox, then right-click the
 `Summarise Indeterminant Data Tables' script tool to open (Fig.
@@ -1754,7 +1848,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening the Summarise Indeterminant Data Tables tool}\label{fig:summIndtopen}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-9}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-10}
 
 Next, fill out the parameters for the tool. Here, we want to summarise
 the Indeterminant Data Tables created in the Example.gdb that was
@@ -1771,7 +1865,7 @@ these input tables all derive from the same target geodatabase!
 \end{figure}
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-9}
+Results}\label{run-the-tool-and-view-results-10}
 
 While we run the tool, we can see view the messages of the tool (Fig.
 \ref{fig:summIndtmessages}).
@@ -1806,7 +1900,7 @@ indeterminant data type (i.e.: Null, TBD, and Other) (Fig.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=9.41in,]{figures/summIndt-sheet1} 
+{\centering \includegraphics[width=0.8\linewidth,]{figures/summIndt-sheet1} 
 
 }
 
@@ -1818,7 +1912,7 @@ Summary\_by\_FC table by field (Fig. \ref{fig:summIndtsheet2}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=8.36in,]{figures/summIndt-sheet2} 
+{\centering \includegraphics[width=0.8\linewidth,]{figures/summIndt-sheet2} 
 
 }
 
@@ -1851,9 +1945,10 @@ missing and indeterminant data at a geodatabase level (Fig.
 \caption{The output Indeterminate Overview table}\label{fig:summIndtsheet4}
 \end{figure}
 
-\hypertarget{exMeta}{\chapter{Batch Export Metadata}\label{exMeta}}
+\hypertarget{exMeta}{\chapter{Batch Export XML Metadata
+toDirectory}\label{exMeta}}
 
-\section{Overview}\label{overview-10}
+\section{Overview}\label{overview-11}
 
 This tool provides an automated method to export metadata for each
 Feature Dataset and Feature Class (within Feature Datasets) in the input
@@ -1884,7 +1979,7 @@ Metadata Modifier Tool} developed out of the University of Idaho's
 Interactive Numeric \& Spatial Information Data Engine (INSIDE)
 geospatial data clearinghouse.
 
-\section{Parameters}\label{parameters-10}
+\section{Parameters}\label{parameters-11}
 
 The tool has 3 parameters:
 
@@ -1906,10 +2001,10 @@ The tool has 3 parameters:
   which to write output .xml metadata files.
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-10}
+\section{How to Use}\label{how-to-use-11}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-10}
+toolbox}\label{begin-by-opening-the-toolbox-11}
 
 Navigate to the location of the script toolbox, then right-click the
 `Batch Export Metadata to Directory' script tool to open (Fig.
@@ -1924,7 +2019,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening the Batch Export Metadata tool}\label{fig:exMetaopen}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-10}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-11}
 
 Next, fill out the parameters for the tool. Here, we want to export
 metadata for all Feature Datasets and all Feature Classes (within those
@@ -1942,7 +2037,7 @@ directory called `metadata' (Fig. \ref{fig:exMetaparams}).
 \end{figure}
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-10}
+Results}\label{run-the-tool-and-view-results-11}
 
 After running the tool, we can view the output metadata files inside the
 output directory specified (Fig. \ref{fig:exMetaafter}). For Feature
@@ -1959,15 +2054,16 @@ the name of the Feature Dataset.
 \caption{Batch Export Metadata output .xml files for each Feature Dataset/Feature Class}\label{fig:exMetaafter}
 \end{figure}
 
-\hypertarget{imMeta}{\chapter{Batch Import Metadata}\label{imMeta}}
+\hypertarget{imMeta}{\chapter{Batch Import Metadata to GDB Features from
+XML Metadata Directory}\label{imMeta}}
 
-\section{Overview}\label{overview-11}
+\section{Overview}\label{overview-12}
 
 This tool provides an automated method to import metadata for each
 Feature Dataset and Feature Class (within Feature Datasets) in the input
 geodatabase, following the output .xml file naming convention created
-with the \protect\hyperlink{exMeta}{Batch Export Metadata} tool, and
-potentially updated using the
+with the {[}Batch Export Metadata{]} tool, and potentially updated using
+the
 \href{http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html}{Batch
 Metadata Modifier Tool} developed out of the University of Idaho's
 Interactive Numeric \& Spatial Information Data Engine (INSIDE)
@@ -1981,10 +2077,10 @@ Style for ArcGIS}\footnote{When installing this tool, be sure to install
   version}.
 
 Alternatively, if you wish to import metadata from Feature Classes in a
-Esri geodatabase, you should use the \protect\hyperlink{imMetaGDB}{Batch
-Import Metadata from GDB} tool.
+Esri geodatabase, you should use the {[}Batch Import Metadata from
+GDB{]} tool.
 
-\section{Parameters}\label{parameters-11}
+\section{Parameters}\label{parameters-12}
 
 The tool has 2 parameters\footnote{More information may be found on the
   help page for ArcMap's
@@ -2003,10 +2099,10 @@ The tool has 2 parameters\footnote{More information may be found on the
   with the .xml files to import into the geodatabase features.
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-11}
+\section{How to Use}\label{how-to-use-12}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-11}
+toolbox}\label{begin-by-opening-the-toolbox-12}
 
 Navigate to the location of the script toolbox, then right-click the
 `Batch Import Metadata' script tool to open (Fig. \ref{fig:imMetaopen}).
@@ -2020,7 +2116,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening the Batch Import Metadata tool}\label{fig:imMetaopen}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-11}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-12}
 
 Next, fill out the parameters for the tool. Here, we want to export
 metadata for all Feature Datasets and all Feature Classes (within those
@@ -2038,7 +2134,7 @@ directory called `metadata' (Fig. \ref{fig:imMetaparams}).
 \end{figure}
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-11}
+Results}\label{run-the-tool-and-view-results-12}
 
 While the tool runs, we can see which .xml files are being imported to
 each Feature Dataset's/Feature Class' metadata, as well as which Feature
@@ -2073,19 +2169,18 @@ Desecription Help Page}.
 \caption{Opening the Item Description to view updated Metadata}\label{fig:imMetaafter}
 \end{figure}
 
-\hypertarget{imMetaGDB}{\chapter{Batch Import Metadata from
-GDB}\label{imMetaGDB}}
+\chapter{Batch Import Metadata to GDB Features from
+GDB}\label{imMetaGDB}
 
-\section{Overview}\label{overview-12}
+\section{Overview}\label{overview-13}
 
 This tool provides an automated method to import metadata for each
 Feature Dataset and Feature Class (within Feature Datasets) in the input
 geodatabase from a source geodatabase. This tool different from the
-\protect\hyperlink{imMeta}{Batch Import Metadata} tool because it
-imports metadata from a source geodatabase and not from a directory of
-metadata .xml files.
+{[}Batch Import Metadata{]} tool because it imports metadata from a
+source geodatabase and not from a directory of metadata .xml files.
 
-\section{Parameters}\label{parameters-12}
+\section{Parameters}\label{parameters-13}
 
 The tool has 3 parameters\footnote{More information of the Import Type
   and Auto Update parameters may be found at the help page for ArcMap's
@@ -2140,10 +2235,10 @@ The tool has 3 parameters\footnote{More information of the Import Type
   \end{itemize}
 \end{enumerate}
 
-\section{How to Use}\label{how-to-use-12}
+\section{How to Use}\label{how-to-use-13}
 
 \subsection{Begin by opening the
-toolbox}\label{begin-by-opening-the-toolbox-12}
+toolbox}\label{begin-by-opening-the-toolbox-13}
 
 Navigate to the location of the script toolbox, then right-click the
 `Batch Import Metadata to Geodatabase from GDB' script tool to open
@@ -2158,7 +2253,7 @@ Navigate to the location of the script toolbox, then right-click the
 \caption{Opening the Batch Import Metadata tool}\label{fig:imMetaArcopen}
 \end{figure}
 
-\subsection{Fill out the parameters}\label{fill-out-the-parameters-12}
+\subsection{Fill out the parameters}\label{fill-out-the-parameters-13}
 
 Next, fill out the parameters for the tool. Here, we want to import
 metadata from the geodatabas with metadata to the geodatabase without
@@ -2174,7 +2269,7 @@ metadata.
 \end{figure}
 
 \section{Run the Tool and View
-Results}\label{run-the-tool-and-view-results-12}
+Results}\label{run-the-tool-and-view-results-13}
 
 While the tool runs, we can see which geodatabase Feature
 Datasets/Feature Classes are being imported to each Feature
@@ -2212,7 +2307,7 @@ Desecription Help Page}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=7.86in,]{figures/imMetaArc-after} 
+{\centering \includegraphics[width=0.8\linewidth,]{figures/imMetaArc-after} 
 
 }
 
@@ -2221,10 +2316,22 @@ Desecription Help Page}.
 
 \chapter{Production Information}\label{prodInfo}
 
-This report was created using R \citep{R-base} with the following
-packages: bookdown \citep{R-bookdown}, knitr \citep{R-knitr}, rmarkdown
-\citep{R-rmarkdown}, and tinytex \citep{R-tinytex}. For posterity,
-package information is listed below:
+This report was created using R \citep{R-base} and RStudio
+\citep{Rstudio} with the following packages:
+
+\begin{itemize}
+\tightlist
+\item
+  bookdown \citep{R-bookdown}
+\item
+  knitr \citep{R-knitr}
+\item
+  rmarkdown \citep{R-rmarkdown}
+\item
+  tinytex \citep{R-tinytex}
+\end{itemize}
+
+For posterity, package information is listed below:
 
 \begin{verbatim}
 ## R version 3.4.1 (2017-06-30)

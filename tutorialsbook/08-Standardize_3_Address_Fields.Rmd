@@ -1,0 +1,33 @@
+# Standardize Road Prefix, Name, and Suffix Fields {#std3}
+## Overview
+The purpose of this tool is to standardize the 3 field (road prefix, road name, and road suffix) values within a feature class. This tool works by first searching the ROADNAME field within that feature class, then removes any prefixes or suffixes within the field and moves them to the appropriate field. For all prefixes and suffixes found, the prefixes are reformatted to "N", "S", "E", and "W." For all suffixes found, the suffixes are reformatted to [standard USPS suffixes](https://github.com/allanbreyes/udacity-data-science/blob/master/p2/data/suffixes.csv).
+
+## Parameters
+The tool has 4 parameters:  
+
+1. **Road Feature Class (data type: Feature Class)** - This parameter must be the path to the Feature Class that has the 3 road fields to be standardized.
+2. **Prefix Field  (data type: Field)** - The field within the feature class that has or should have road prefixes.
+3. **Name Field (data type: Field)** - The field within the feature class that has road names.
+4. **Suffix Field (data type: Field)** - The field within the feature class that has or should have road suffixes.
+
+## How to Use
+### Begin by opening the toolbox  
+Navigate to the location of the script toolbox, then right-click the 'Standardize 3 Address Fields' script tool to open (Fig. \@ref(fig:std3open)).
+```{r std3open, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening Standardize Road Prefix, Name, and Suffix tool",fig.align = 'center'}
+knitr::include_graphics("figures/std3-open.jpg",auto_pdf = TRUE)
+```
+###  Fill out the parameters 
+Next, fill out the parameters for the tool. Here, we want to update the road prefix, road name, and road suffix fields in the RoadCenterline_L feature class (Fig. \@ref(fig:std3params)). The fields can be derived directly from the Feature Class by using the drop-down menu.
+```{r std3params, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Standardize Road Prefix, Name, and Suffix tool parameters",fig.align = 'center'}
+knitr::include_graphics("figures/std3-toolparams.jpg",auto_pdf = TRUE)
+```
+## Run the Tool and View Results
+Before running the tool, we see that, indeed, the road prefixes and road suffixes are incorrectly populated inside the road name field 
+Open the destinate Feature Class and view the update destination field values (Fig. \@ref(fig:std3before)).
+```{r std3before, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Unstandardized road prefixes, names, and suffixes before running the tool.",fig.align = 'center'}
+knitr::include_graphics("figures/std3-before.jpg",auto_pdf = TRUE)
+```
+After running the tool, we can see that the prefixes and suffixes have been populated in the correct fields, and have also been standardized to match USPS standards  (Fig. \@ref(fig:std3after)).
+```{r std3after, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Standardized road prefixes, names, and suffixes after running the tool.",fig.align = 'center'}
+knitr::include_graphics("figures/std3-after.jpg",auto_pdf = TRUE)
+```

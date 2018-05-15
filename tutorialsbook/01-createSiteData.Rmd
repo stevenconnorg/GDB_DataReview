@@ -1,0 +1,50 @@
+# Create Site Features {#siteData}
+## Overview
+The Create Site Features tool allows users to use the Cadastre dataset's Installation_A, Site_A, and Site_P feature classes to populate and update site data as needed.  
+
+This tool compares the geometry of Installation_A data (required to be populated) to Site_A data and populates features where needed.  Upon the update of Site_A, points are created in Site_P for each feature in Site_A if they do not exist. 
+
+The user has the option to bypass the geometry compare between Installation_A and Site_A. When bypassed, no features are added to Site_A and site points are created using data that already exists in Site_A. 
+
+## Parameters
+The tool has 3 parameters:  
+
+1. **Input_Geodatabase (data type: Workspace)** - This parameter must be the path of the input geodatabase to search Feature Datasets' Feature Class features for duplicate features.  
+2. **Bypass Installation_A and Site_A Geometry Compare (data type: Boolean)** - This parameter is a check box that is unchecked by default. If the user checks the box, the geometry compare between Installation_A and Site_A will be bypassed.
+3. **Installation_A & Site_A Geometry Compare Type (data type: String Value List)** - How do you want to limit the spatial join? By default, this parameter is set to "HAVE THEIR CENTER IN," in order to only update target features that have their center in the source features.  This parameter may be changed to any of the following values, as specified in the [SelectByLocation_management tool documentation](http://desktop.arcgis.com/en/arcmap/latest/tools/data-management-toolbox/select-layer-by-location.htm): 
+    + *INTERSECT* —The features in the input layer will be selected if they intersect a selecting feature. This is the default.  
+    + *INTERSECT_3D* —The features in the input layer will be selected if they intersect a selecting feature in three-dimensional space (x, y, and z).  
+    + *WITHIN_A_DISTANCE* —The features in the input layer will be selected if they are within a specified distance of a selecting feature. Specify a distance in the Search Distance parameter.  
+    + *WITHIN_A_DISTANCE_3D* —The features in the input layer will be selected if they are within a specified distance of a selecting feature in three-dimensional space. Specify a distance in the Search Distance parameter.  
+    + *WITHIN_A_DISTANCE_GEODESIC* —The features in the input layer will be selected if they are within a specified distance of a selecting feature. Distance between features will be calculated using a geodesic method which takes into account the curvature of the earth and correctly deals with data near and across the dateline and poles.  
+    + *CONTAINS* —The features in the input layer will be selected if they contain a selecting feature.  
+    + *COMPLETELY_CONTAINS* —The features in the input layer will be selected if they completely contain a selecting feature.  
+    + *CONTAINS_CLEMENTINI* —This spatial relationship yields the same results as COMPLETELY_CONTAINS with the following exception: if the selecting feature is entirely on the boundary of the input feature (no part is properly inside or outside), the feature will not be selected. Clementini defines the boundary polygon as the line separating inside and outside, the boundary of a line is defined as its end points, and the boundary of a point is always empty.  
+    + *WITHIN* —The features in the input layer will be selected if they are within a selecting feature.  
+    + *COMPLETELY_WITHIN* — The features in the input layer will be selected if they are completely within or contained by a selecting feature.  
+    + *WITHIN_CLEMENTINI* — The result will be identical to WITHIN with the exception that if the entirety of the feature in the input layer is on the boundary of the feature in the selecting layer, the feature will not be selected. Clementini defines the boundary polygon as the line separating inside and outside, the boundary of a line is defined as its end points, and the boundary of a point is always empty.  
+    + *ARE_IDENTICAL_TO* — The features in the input layer will be selected if they are identical (in geometry) to a selecting feature.
+
+## How to Use
+### Begin by opening the toolbox  
+Navigate to the location of the script toolbox, then right-click the 'Create Site Features' script tool to open (Fig. \@ref(fig:csdopen)).
+```{r csdopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Create Site Features tool",fig.align='center'}
+knitr::include_graphics("figures/csd-open.jpg",auto_pdf = TRUE)
+```
+###  Fill out the parameters 
+Next, fill out the parameters for the tool. Here, we want to select the Cadastre feature dataset for the geodatabase being processed. (Fig. \@ref(fig:csdparams)). Last, we specify where we want to output the resulting tables, prefereably in an Installation Review geodatabase specifically for holding CIP processing results.  
+```{r csdparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Create Site Features Tool parameters",fig.align='center'}
+knitr::include_graphics("figures/csd-params.jpg",auto_pdf = TRUE)
+```
+###  Run the Tool and View Results
+While the tool runs (with Background Processing disabled), we can see messages and warnings from the tool.  Warnings are provided if required feature classes are missing or data verification from the user is suggested.  Messages include the number of features added to Site_A and the number of points added to Site_P (Fig. \@ref(fig:delFmessages)). Here, we see that an Installation_A feature exists beyond the boundaries of the Site_A features so 1 feature is appended to Site_A. Then, 8 site points were created for the empty Site_P feature class.
+```{r csdmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Create Site Features tool messages",fig.align='center'}
+knitr::include_graphics("figures/csd-messages.jpg",auto_pdf = TRUE)
+```
+After running the tool, we can see the Site_P and Site_A features are created properly, where previously missed (Fig. \@ref(fig:csdbefore) & Fig. \@ref(fig:csdafter)).
+```{r csdbefore, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Before running the tool",fig.align='center'}
+knitr::include_graphics("figures/csd-before.jpg",auto_pdf = TRUE)
+```
+```{r csdafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Newly created Site A and Site P features after running the tool",fig.align='center'}
+knitr::include_graphics("figures/csd-after.jpg",auto_pdf = TRUE)
+```

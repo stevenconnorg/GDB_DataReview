@@ -1,0 +1,69 @@
+# Join Fields and Calculate {#joinCalc}
+## Overview
+The ArcGIS Python Script Tool "Join Fields and Calculate" may be used to update the destination values in a target feature layer field with the values in another table's fields using a common key (join). This script will perform similarly as if you joined a table to a feature class to calculate a certain field based on another field in the joined table.
+
+## Parameters
+The tool has 11 parameters:  
+
+1. **Transfer_From (data type: Table View)** - Which table are do you want to transfer data from? This parameter must be the path to a table(e.g.: Comma-separated Values (.csv) file, Excel Workbook (.xlsx) Sheet, Esri geodatabase table, etc.). This table will act as 'source' data.
+
+2. **Using_Join_Field  (data type: Field)** - From the source table, which field should be used to joinwith another feature class' attributes? This will provide the 'key' to transfer data from the source table to the target table.
+
+3. **Source_Field (data type: Field)** - From the source table, which field's data do you want to transfer to the target table? This field's data will be updated in the target feature class that have matching fields.  
+
+4. **Destination_Feature (data type: Feature Layer or Feature Class)** - Which feature class do you want to transfer data to? This parameter must be the path to a Esri Feature Class or Feature Layer. This table will act as 'target' data source.  
+
+5. **Destination_Join_Field (data type: Field)** - From the target table, which field should be used to joinwith another feature class' attributes? This will provide the 'key' to transfer data from the source table to the target table.  
+
+6. **Destination_Field (data type: Field)** - From the target table, which field's data do you want to transfer from the source table? This field's data will be updated from the source table that have matching fields using the join fields provided.  
+  
+7. **Where_Clause (data type: String)** - How should the source values be filtered? Default is "IS NOT NULL", otherwise you will overwrite the target features will null values.  
+
+8. **Remove_Leading_Zeros? (data type: Boolean)** - Do you want to remove leading zeros from the Source Join Field prior to 'joining' the tables?
+
+9. **Remove_Blank_Spaces? (data type: Boolean)** - Do you want to remove leading blank spaces from the Source Join Field prior to 'joining' the tables?
+
+10. **Source RPSUID Field (data type: Field)** - Which field in the source table holds the Real Property Site Unique ID values? This field acts as a second join "key" to ensure that the correct Real Property Unique IDs are joined for each unique Site (i.e.: RPSUID).
+
+11. **Update RPSUID Field (data type: Field)** - Which field in the Destination Feature holds the Real Property Site Unique ID values? This field acts as a second join "key" to ensure that the correct Real Property Unique IDs are joined for each unique Site (i.e.: RPSUID).
+
+## How to Use
+### Begin by opening the toolbox  
+Navigate to the location of the script tool, then right-click the 'Join Fields and Calculate' script tool to open (Fig. \@ref(fig:jcopen)).
+
+```{r jcopen, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Tool",fig.align = 'center'}
+knitr::include_graphics("figures/joinCalcopentool.jpg",auto_pdf = TRUE)
+```
+
+
+###  Fill out the parameters 
+Next, fill out the parameters for the tool. Here, we want to transfer the RPUID attributes (source field) from the 'RPSUID_and_RPUID.csv' table (transfer from) using the 'FacilityNumber' join field (Using_Join_Field) to the Building_A feature layer's (Destination Feature) 'realPropertyUniqueID' field (Destination_Field) using the 'buildingNumber' field (Destination_Join_Field) (Fig. \@ref(fig:jcparams)). 
+
+We also keep the default value in the 'Where Clause' parameter of 'IS NOT NULL,' in order to transfer RPUID from the source table where RPUIDs are not null, **otherwise you may overwrite the target features will null values**  (Fig. \@ref(fig:jcparams)). 
+
+We noticed that the 'buildingNumber' field has some leading zeros that we want to remove the beginning of the values, so we click the "Remove Leading Zeros" toggle (Fig. \@ref(fig:jcparams)). If you noticed that the 'Destination Join Field' values have leading spaces, you can also check the 'Remove_Leading_Zeros' parameter to remove these spaces.
+
+```{r jcparams, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center'}
+knitr::include_graphics("figures/joinCalc-toolparams.jpg",auto_pdf = TRUE)
+```
+
+Alternatively, you may also run this tool in 'batch' for multiple features in a geodatabase or geodatabases (Fig. \@ref(fig:batch)).
+
+```{r batch, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Running a tool in batch",fig.align = 'center'}
+knitr::include_graphics("figures/joinCalc-batch.jpg",auto_pdf = TRUE)
+```
+
+You may also get more information for the tool and each tool parameter by clicking the 'Tool Help' button at the bottom of the tool dialog box.  
+
+###  Run the Tool and View Results
+Open the destinate Feature Class and view the update destination field values (Fig. \@ref(fig:jcbefore), Fig. \@ref(fig:jcafter)).
+
+```{r jcbefore, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attribues before running the Join Fields and Calculate tool",fig.align = 'center'}
+knitr::include_graphics("figures/joinCalc-before.jpg",auto_pdf = TRUE)
+```
+
+
+```{r jcafter, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attributes after running the tool, matching against both Building Number and RPSUID to update RPUID values",fig.align = 'center'}
+knitr::include_graphics("figures/joinCalc-results.jpg",auto_pdf = TRUE)
+```
+

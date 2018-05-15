@@ -1,0 +1,64 @@
+# Search for Missing and Indeterminant Data {#indtSearch}
+## Overview
+Search a 'source' geodatabase for indeterminate data from feature dataset/feature class combinations in a target geodatabase. First, searches for missing feature datasets in target geodatabase not in source geodatabase. Then, searches for feature classes in 'x' feature dataset. Then, for each feature class in the source geodatabase, this tool searches for 'indeterminate' values in each field. Indeterminate values, here, means any null, to be determined (TBD), or 'other' values.
+
+This tool creates 4 output tables, each prepended with the name of the Model_Geodatabase (e.g.: If your 'model' geodatabase called 'CIP', the tables will be called (CIP_MissingFDS, CIP_Missing_FCs, CIP_MissingFields, and CIP_MissingData). These tables include:
+
+* [modelGeodatabaseName]_MissingFDS - Gives a list of Feature Datasets within the target geodatabase that are not included in the source geodatabase.  
+* [modelGeodatabaseName]_MissingFCs - Gives a list of Feature Classes for each Feature Dataset within the target geodatabase that are not included in the source geodatabase.  
+* [modelGeodatabaseName]_MissingFields - Gives a list of Fields for each Feature Dataset/Feature Class combination within the target geodatabase that are not included in the source geodatabase.  
+* [modelGeodatabaseName]_MissingData - For each Feature Dataset/Feature Class combination in both the target and source geodatabase, this table gives an overview of missing attributes for each field in the source geodatabase's Feature Class.  
+    + For Fields in each of the source geodatabase's Feature Classes, this table highlights fields not included in the target geodatabase's Feature Class under the 'FIELD_NONSDS' column (e.g.: 'FIELD_NONSDS' = F when fields are included in both geodatabases, and 'FIELD_NONSDS' = T when the field exists in the source geodatabase for said Feature Class, but not the target geodatabase's Feature Class). 
+    + This table then lists whether or not the feature class is empty (i.e.: EMPTY_FC = T or F). 
+    + Then, for each field, the MissingData table gives a count of Null^[Null values include :None, "None", "none", "NONE", "","-99999","77777",77777, " ", "NA", "na", "N/A", "n/a","NULL","Null","<NULL>","null","<null>""<Null>","  ","   ","    ","     "], 'TBD'^[TBD values include : "tbd","TBD","To be determined","Tbd",99999,"99999"], and 'Other'^[Other values include : "Other", "other", "OTHER","88888",88888] features, further giving the counts of each value in 'NULL_VALUE_COUNTS', 'TBD_VALUE_COUNTS', and 'OTHER_VALUE_COUNTS' fields. 
+    + The sum of the Null, TBD, and Other features are populated in the 'TOTAL_INDT_COUNT' (i.e.: Total indeterminant feature count), with the 'TOTAL_DET_COUNT' column giving the total number of features with 'determinated' values (i.e.: not indeterminant values). 
+    + The POP_VALS column lists the count of all unique populated values for each field, while the INC_POP_VALS column lists any field values that are not included in the field's domain.
+
+## Parameters
+The tool has 2 parameters:  
+
+1. **Source Geodatabase (data type: Workspace/File Geodatabase)** - The path to the file geodatabase to be searched for indeterminant/missing data.
+2. **Target Geodatabase  (data type: Workspace/File Geodatabase)** - The path to the file geodatabase with which the source geodatabase will be compared against.
+
+```{block2, type='warnh1'}
+Disclaimer!
+```
+```{block2, type='warnp'}
+This script tool currently requires an Advanced ArcGIS License!
+```
+
+## How to Use
+### Begin by opening the toolbox  
+Navigate to the location of the script toolbox, then right-click the 'Search for Indeterminant Data' script tool to open (Fig. \@ref(fig:indtSearchopen)).
+```{r indtSearchopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Search for Missing and Indeterminant Data tool",fig.align = 'center'}
+knitr::include_graphics("figures/indtSearch-open.jpg",auto_pdf = TRUE)
+```
+###  Fill out the parameters 
+Next, fill out the parameters for the tool. Here, we want to compare the 'Example.gdb' against the 'CIP.gdb' (Fig. \@ref(fig:indtSearchparams)). The fields can be derived directly from the Feature Class by using the drop-down menu.
+```{r indtSearchparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Search for Missing and Indeterminant Data tool",fig.align = 'center'}
+knitr::include_graphics("figures/indtSearch-params.jpg",auto_pdf = TRUE)
+```
+## Run the Tool and View Results
+While we run the tool, we can see view the messages of the tool, giving a listing of the fields being searched for indeterminant data with the counts of indeterminant values  (Fig. \@ref(fig:indtSearchmessages)).
+```{r indtSearchmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Search for Missing and Indeterminant Data tool messages",fig.align = 'center'}
+knitr::include_graphics("figures/indtSearch-messages.jpg",auto_pdf = TRUE)
+```
+After the tool has run, we can inspect the output tables within the 'Example.gdb' geodatabase (Fig. \@ref(fig:indtSearchtables)). Opening the CIP_MissingFDS table, we see that the Example geodatabase have no missing Feature Datasets \@ref(fig:indtSearchmissingFDS)).
+```{r indtSearchtables, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Search for Missing and Indeterminant Data output tables",fig.align = 'center'}
+knitr::include_graphics("figures/indtSearch-tables.jpg",auto_pdf = TRUE)
+```
+```{r indtSearchmissingFDS, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The output Missing Feature Datasets table",fig.align = 'center'}
+knitr::include_graphics("figures/indtSearch-missingFDS.jpg",auto_pdf = TRUE)
+```
+Examining the MissingFCs table, we see that the Example geodatabase has one Feature Class, RoadSeg_L from the Transportation Feature Dataset, missing when compared with the CIP geodatabase \@ref(fig:indtSearchmissingFCs)).
+```{r indtSearchmissingFCs, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The output Missing Feature Classes table",fig.align = 'center'}
+knitr::include_graphics("figures/indtSearch-missingFCs.jpg",auto_pdf = TRUE)
+```
+We can look at the MissingFLD table to see which fields are missing from each Feature Class from the target geodatabase that are included in the source geodatabase  \@ref(fig:indtSearchmissingFLDs)).
+```{r indtSearchmissingFLDs, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The output Missing Feature Fields table",fig.align = 'center'}
+knitr::include_graphics("figures/indtSearch-missingFLDs.jpg",auto_pdf = TRUE)
+```
+To examine indeterminant field attribution, we can examine the MissingData table \@ref(fig:indtSearchmissingData)).
+```{r indtSearchmissingData, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The output Missing Data table",fig.align = 'center'}
+knitr::include_graphics("figures/indtSearch-missingData.jpg",auto_pdf = TRUE)
+```

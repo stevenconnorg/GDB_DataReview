@@ -1,4 +1,4 @@
-# Batch Import Metadata from GDB {#imMetaGDB}
+# Batch Import Metadata to GDB Features from GDB {#imMetaGDB}
 
 ## Overview
 This tool provides an automated method to import metadata for each Feature Dataset and Feature Class (within Feature Datasets) in the input geodatabase from a source geodatabase. This tool different from the [Batch Import Metadata] tool because it imports metadata from a source geodatabase and not from a directory of metadata .xml files.
@@ -38,6 +38,6 @@ After running the tool, we can view the update Item Descriptions for the Feature
 
 You can find more information on Item Descriptions on Esri's [Item Desecription Help Page](http://desktop.arcgis.com/en/arcmap/latest/map/working-with-arcmap/documenting-items-in-the-catalog-window.htm).
 
-```{r imMetaArcafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Item Description to view updated Metadata",fig.align = 'center'}
+```{r imMetaArcafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Item Description to view updated Metadata",fig.align = 'center',out.width='80%'}
 knitr::include_graphics("figures/imMetaArc-after.jpg",auto_pdf = TRUE)
 ```

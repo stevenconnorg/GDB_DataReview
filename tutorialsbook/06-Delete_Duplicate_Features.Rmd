@@ -1,0 +1,35 @@
+# Delete Duplicate Features {#delFeats}
+## Overview
+The Delete Duplicate Features tool allows users to search an entire geodatabase's Feature Classes for duplicated features This tool loops through each Feature Dataset's Feature Class features and searches for duplicate features, **not including geometry.** That is, this tool searches for features within each feature class that have the same attributes across all fields in the attribute table, not including the fields listed below in the 'Note' section.
+
+```{block2, type='warnh1'}
+Note
+```
+```{block2, type='warnp'}
+By default, this tool does not consider compare attributes in across any fields that are 'OID', 'Guid', 'GlobalID', 'Blob', or 'Raster' field types. Furthmore, the following fields are ignored in searching for duplicate features, by default (not case sensitive): 'LAST_EDITED_DATE', 'LAST_EDITED_USER', 'CREATED_USER', 'CREATED_DATE'. As stated previously, this tool does not include geometries in the feature comparisons by default.
+
+```
+
+## Parameters
+The tool has 3 parameters:  
+
+1. **Input_Geodatabase (data type: Workspace)** - This parameter must be the path of the input geodatabase to search Feature Datasets' Feature Class features for duplicate features.
+2. **XY_Tolerance  (data type: String)** - The XY_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity, and must be input in the same units as the the source geodatabase's coordinate reference system (CRS).
+3. **Z_Tolerance (data type: String)** - The Z_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity with regard to elevation, and must be input in the same units as the the source geodatabase's coordinate reference system (CRS).
+
+## How to Use
+### Begin by opening the toolbox  
+Navigate to the location of the script toolbox, then right-click the 'Delete Duplicate Features' script tool to open (Fig. \@ref(fig:delFopen)).
+```{r delFopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Delete Duplicate Features tool",fig.align = 'center'}
+knitr::include_graphics("figures/delF-opentool.jpg",auto_pdf = TRUE)
+```
+###  Fill out the parameters 
+Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate features  (Fig. \@ref(fig:delFparams)). We specify that we want to keep the default XY Tolerance and Z Tolerance parameters to zero, though this could be increased to allow duplicate geometry checks to be more lenient. 
+```{r delFparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Delete Duplicate Features parameters",fig.align = 'center',  out.width = '80%'}
+knitr::include_graphics("figures/delF-params.jpg",auto_pdf = TRUE)
+```
+###  Run the Tool and View Results
+While the tool runs (with Background Processing disabled), we can see the messages from the tool, which displays how many duplicate features will be deleted across each feature class, if applicable (Fig. \@ref(fig:delFmessages)). Here, we see that 102 duplicates were found in the MilFlightTrack_L feature class across 51 unique features, indicating that each of the 51 features may have been duplicated once (51 x 2 = 102).
+```{r delFmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Delete Duplicate Features messages",fig.align = 'center'}
+knitr::include_graphics("figures/delF-messages.jpg",auto_pdf = TRUE)
+```

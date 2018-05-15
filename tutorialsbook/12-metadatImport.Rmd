@@ -1,4 +1,4 @@
-# Batch Import Metadata {#imMeta}
+# Batch Import Metadata to GDB Features from XML Metadata Directory {#imMeta}
 
 ## Overview
 This tool provides an automated method to import metadata for each Feature Dataset and Feature Class (within Feature Datasets) in the input geodatabase, following the output .xml file naming convention created with the [Batch Export Metadata] tool, and potentially updated using the [Batch Metadata Modifier Tool](http://insideidaho.org/helpdocs/batch_metadata_modifier_tool.html) developed out of the University of Idaho's Interactive Numeric & Spatial Information Data Engine (INSIDE) geospatial data clearinghouse.

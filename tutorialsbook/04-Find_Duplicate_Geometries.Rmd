@@ -1,0 +1,47 @@
+# Find Duplicate Geometries {#dupGeom}
+## Overview
+The Find Duplicate Geometries tool allows users to search an entire geodatabase's Feature Classes within Feature Datasets for features with duplicate geometries. This tool loops through each Feature Dataset's Feature Class features and searches for duplicate geometries. 
+
+All features with duplicate geometries are written to the output .csv file, as specified, and describes the Feature Dataset and Feature Class with duplicate geometries, the OBJECTIDs of the duplicate geometries, and a summary, which gives the count of duplicate geometries spread over unique geometries. Further, this tool creates layer files for each Feature Class' duplicate features, *allowing users to edit their geodatabase directory from a temporary, filtered layer of only duplicate features to be evaluated further, instead of arbitrarily deleting duplicated features without further consideration.*
+
+## Parameters
+The tool has 5 parameters:  
+
+1. **Input_Geodatabase (data type: Workspace)** - This parameter must be the path of the input geodatabase to search Feature Datasets' Feature Class features for duplicate geometries.  
+2. **XY_Tolerance  (data type: String)** - The XY_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity, and must be input in the same units as the the source geodatabase's coordinate reference system (CRS).
+3. **Z_Tolerance (data type: String)** - The Z_Tolerance parameter will be applied to each vertex when evaluating if there is an identical vertex in another entity with regard to elevation, and must be input in the same units as the the source geodatabase's coordinate reference system (CRS).
+4. **Output_CSV (data type: File)** - The path to the output Duplicate_Geometry_Summary .xlsx/.csv file.
+5. **Output_Layers_Directory (data type: Folder)** - The path to the directory/folder to store layer files with duplicate geometries. 
+
+## How to Use
+### Begin by opening the toolbox  
+Navigate to the location of the script toolbox, then right-click the 'Find Duplicate Geometries' script tool to open (Fig. \@ref(fig:dupGopen)).
+```{r dupGopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Find Duplicate Geometries tool",fig.align = 'center'}
+knitr::include_graphics("figures/dupG-opentool.jpg",auto_pdf = TRUE)
+```
+###  Fill out the parameters 
+Next, fill out the parameters for the tool. Here, we want to search all Feature Classes within Feature Datasets in the Example.gdb for duplicate geometries using the default XY Tolerance and Z Tolerance values of '0' (Fig. \@ref(fig:dupGparams)). We specify that we want the Duplicate Geometry Summary to be written to a Comma-separated Values (.csv) file called 'test.csv.' Further, we specify that we want all the duplicate Feature Class feature layers to be saved to the Output Layers Directory 'layer.'
+```{r dupGparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center'}
+knitr::include_graphics("figures/dupG-params.jpg",auto_pdf = TRUE)
+```
+## Run the Tool and View Results
+While the tool runs (with Background Processing disabled), we can see the messages from the tool, showing how many duplicate features are found for each Feature Class (Fig. \@ref(fig:dupGmessages)).
+```{r dupGmessages, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Messages from the Find Duplicate Geometries tool",fig.align = 'center'}
+knitr::include_graphics("figures/dupG-messages.jpg",auto_pdf = TRUE)
+```
+After the tool has run, we can open the output .csv we specified in the tool parameters to examine which Feature Classes have duplicated geometries . For example, we find that the EnvRestorSampLoc_P Feature Class within the environmentalRestoration Feature Dataset has 17 total duplicates spread across 7 unique geometries (Fig. \@ref(fig:dupGcsv)).
+```{r dupGcsv, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center'}
+knitr::include_graphics("figures/dupG-csv.jpg",auto_pdf = TRUE)
+```
+Navigating to the output layer directory we specified in the tool, we find layer files with duplicate features for each Feature Class (Fig. \@ref(fig:dupGlays)).
+```{r dupGlays, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Find Duplicate Geometries parameters",fig.align = 'center'}
+knitr::include_graphics("figures/dupG-lays.jpg",auto_pdf = TRUE)
+```
+After pulling in the _dupeGeom_EnvRestorSampLoc_P layer file, we can zoom to a feature and select the features at that location to examine the duplicate features at that location (Fig. \@ref(fig:layFeats)).
+```{r layFeats, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="The features with duplicated geometries",fig.align = 'center'}
+knitr::include_graphics("figures/dupG-layFeats.jpg",auto_pdf = TRUE)
+```
+Then, we can view the Attribute Table for the selected features to examine which feature we should amend or delete (Fig. \@ref(fig:layAtts)). Here, we find that the attributes are exactly the same for the first duplicated geometry, and so we should probably delete one of these features. Editing the layer files directly will update the associated Feature Classes in the original geodatabase. 
+```{r layAtts, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Examining the attributes of duplicated features from layer files",fig.align = 'center'}
+knitr::include_graphics("figures/dupG-layAtts.jpg",auto_pdf = TRUE)
+```

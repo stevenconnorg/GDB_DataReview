@@ -1,4 +1,4 @@
-# Batch Export Metadata {#exMeta}
+# Batch Export XML Metadata toDirectory {#exMeta}
 
 
 ## Overview
