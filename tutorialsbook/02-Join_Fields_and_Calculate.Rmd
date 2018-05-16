@@ -31,7 +31,7 @@ The tool has 11 parameters:
 ### Begin by opening the toolbox  
 Navigate to the location of the script tool, then right-click the 'Join Fields and Calculate' script tool to open (Fig. \@ref(fig:jcopen)).
 
-```{r jcopen, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Tool",fig.align = 'center'}
+```{r jcopen, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Opening the Tool",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalcopentool.jpg",auto_pdf = TRUE)
 ```
 
@@ -43,13 +43,13 @@ We also keep the default value in the 'Where Clause' parameter of 'IS NOT NULL,'
 
 We noticed that the 'buildingNumber' field has some leading zeros that we want to remove the beginning of the values, so we click the "Remove Leading Zeros" toggle (Fig. \@ref(fig:jcparams)). If you noticed that the 'Destination Join Field' values have leading spaces, you can also check the 'Remove_Leading_Zeros' parameter to remove these spaces.
 
-```{r jcparams, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center'}
+```{r jcparams, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Tool parameters",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalc-toolparams.jpg",auto_pdf = TRUE)
 ```
 
 Alternatively, you may also run this tool in 'batch' for multiple features in a geodatabase or geodatabases (Fig. \@ref(fig:batch)).
 
-```{r batch, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Running a tool in batch",fig.align = 'center'}
+```{r batch, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Running a tool in batch",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalc-batch.jpg",auto_pdf = TRUE)
 ```
 
