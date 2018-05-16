@@ -58,12 +58,12 @@ You may also get more information for the tool and each tool parameter by clicki
 ###  Run the Tool and View Results
 Open the destinate Feature Class and view the update destination field values (Fig. \@ref(fig:jcbefore), Fig. \@ref(fig:jcafter)).
 
-```{r jcbefore, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attribues before running the Join Fields and Calculate tool",fig.align = 'center'}
+```{r jcbefore, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attribues before running the Join Fields and Calculate tool",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalc-before.jpg",auto_pdf = TRUE)
 ```
 
 
-```{r jcafter, cache=TRUE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attributes after running the tool, matching against both Building Number and RPSUID to update RPUID values",fig.align = 'center'}
+```{r jcafter, cache=FALSE,echo=FALSE,message=FALSE,error=FALSE,warning=FALSE,fig.cap="Attributes after running the tool, matching against both Building Number and RPSUID to update RPUID values",fig.align = 'center'}
 knitr::include_graphics("figures/joinCalc-results.jpg",auto_pdf = TRUE)
 ```
 
