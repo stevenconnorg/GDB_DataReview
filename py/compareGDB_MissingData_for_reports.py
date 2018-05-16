@@ -1,16 +1,9 @@
-#-------------------------------------------------------------------------------
-# Name:        GIS Viewer Attribution Evaluation
-# Version:     V_2.0
-# Purpose:     Produce report for installation geodatabase detailing data attribution
-#
-# Author:      Marie Cline Delgado & Steven Connor Gonzalez
-#
-# Created:     2018/01/26
-# Last Update: 2018/03/22
-# Description: Evaluate installation geodatabases for minimum attribution required
-#              by AFCEC GIS viewer for best display of data.
-#-------------------------------------------------------------------------------
+# -*- #################
+"""
+Created on Thu Apr 26 11:15:52 2018
 
+@author: stevenconnorg
+"""
 # Import modules
 
 import arcpy, os, collections, numpy, pandas, time

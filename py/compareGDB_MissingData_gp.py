@@ -1,14 +1,9 @@
-#-------------------------------------------------------------------------------
-# Name:        GIS Viewer Attribution Evaluation
-# Version:     V_2.0
-# Purpose:     Produce report for installation geodatabase detailing data attribution
-#
-# Author:      Steven Connor Gonzalez
-#
-# Created:     2018/01/26
-# Last Update: 2018/04/30
-#-------------------------------------------------------------------------------
+# -*- #################
+"""
+Created on Thu Apr 26 11:15:52 2018
 
+@author: stevenconnorg
+"""
 # Import modules
 import arcpy, os, collections, time
 from datetime import datetime
