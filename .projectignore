@@ -12,3 +12,10 @@ __pycache__/
 
 # Spyder stuff
 /.spyderproject
+
+
+packrat/lib*/
+packrat/bundles*/
+.Rproj.user
+dat/*
+out/*
