@@ -14,8 +14,7 @@ from datetime import date
 timenow = datetime.now()
 arcpy.AddMessage(timenow)
 
-
-# within the main directory, create a directory called "gdbs" that houses all the geodatabase you want to compare.
+# get input and comparison geodatabase paths
 installGDB = arcpy.GetParameterAsText(0)
 compGDB = arcpy.GetParameterAsText(1)
 
@@ -527,7 +526,8 @@ def compareGDBs(installGDB,compGDB):
     arcpy.AddMessage('Comparisons between ' + installationName + " & " + compName + ' Completed!')
     time_elapsed = datetime.now() - start_time  
     arcpy.AddMessage('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))
-            
+
+# apply main function to input geodatabase in comparison with comparison gdb
 compareGDBs(installGDB,compGDB)
     
 # =============================================================================
